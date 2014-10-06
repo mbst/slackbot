@@ -1,0 +1,15 @@
+{
+  "name": "jira-slackbot",
+  "version": "0.0.0",
+  "description": "A bot for sending stuff from Jira to slack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.9.5",
+    "node-slack": "0.0.5"
+  }
+}
