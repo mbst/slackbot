@@ -3,14 +3,14 @@
 var express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
-    jiraHook = require('./webhooks/jira'),
+    jiraBot = require('./bots/jira'),
     dispatcher = require('./lib/dispatcher');
 
 // tell express to parse requests as JSON
 app.use(bodyParser.json());
 
-// used for listening to webhook requests from jira
-app.use('/webhooks/jira', jiraHook);
+// init jira bot
+app.use('/webhooks/jira', jiraBot);
 
 // a test endpoint, just because its fun ;)
 app.get('/test', function(req, res) {
