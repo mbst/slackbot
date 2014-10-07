@@ -1,32 +1,22 @@
+'use strict';
+
 var express = require('express'),
-    NodeSlack = require('node-slack'),
-    slack = new NodeSlack('metabroadcast', 'HZXBrDqVBF18oo2A3yQAVDU6'),
-    app = express();
-    //jira = require('./webhooks/jira');
+    bodyParser = require('body-parser'),
+    app = express(),
+    jiraHook = require('./webhooks/jira'),
+    dispatcher = require('./lib/dispatcher');
 
-// used for assigning jira webhooks to listen on specific uri
-//app.use('/webhooks/jira', jira);
+// tell express to parse requests as JSON
+app.use(bodyParser.json());
 
-// app.use(function(req, res, next) {
-//     console.log(req);
-//     next();
-// })
+// used for listening to webhook requests from jira
+app.use('/webhooks/jira', jiraHook);
 
+// a test endpoint, just because its fun ;)
 app.get('/test', function(req, res) {
-    slack.send({
-        channel: '#anything-else',
-        username: "JiraBot",
-        icon_emoji: "pineapple",
-        attachments: [{
-            "title": "Jira notification",
-            "color": "#aa17ff",
-            "fallback": "Oli Hall resolved Adapt Endpoint generation - class per endpoint in the feature Initial MetaEndpoint",
-            "text": "Oli Hall resolved [Adapt Endpoint generation](http://metabroadcast.com) - class per endpoint in the feature [Initial MetaEndpoint](http://metabroadcast.com)"
-        }]
-    });
-
+    //dispatcher.send();
     res.end();
 });
 
-console.log('Bot ready @ http://dev.mbst.tv:1234');
-app.listen('1234');
+console.log('Bot ready @ http://dev.mbst.tv:8080');
+app.listen('8080');
