@@ -1,5 +1,4 @@
 'use strict';
-
 var express = require('express'),
     router = express.Router(),
     dispatcher = require('../lib/dispatcher');
@@ -32,9 +31,8 @@ function formatter(body) {
             output.push('has resolved issue');
         }
     }
-    output.push(issue.fields.summary)
+    output.push('['+issue.fields.summary+'](http://metabroadcast.com)');
     output.push('in the feature ...')
-
     return output.join(' ');
 }
 
