@@ -22,10 +22,8 @@ app.get('/test', function(req, res) {
     output.push('has updated issue');
     output.push('<http://metabroadcast.com|An issue>');
     output.push('in the feature <http://google.com|Something else>');
-
     options.username = 'RevolverBot';
     options.icon_url = 'http://4.bp.blogspot.com/-WUaQ2KqGsDQ/U16s6Lyfa8I/AAAAAAAAAm0/S0QEvchffd8/s1600/khvQssw.png';
-
     dispatcher.send('#anything-else', output.join(' '), options);
     res.end();
 });

@@ -31,8 +31,8 @@ function formatter(body) {
             output.push('has resolved issue');
         }
     }
-    output.push('['+issue.fields.summary+'](http://metabroadcast.com)');
-    output.push('in the feature ...')
+    output.push('<http://metabroadcast.com|'+issue.fields.summary+'>');
+    output.push('in the feature <http://metabroadcast.com|...>')
     return output.join(' ');
 }
 
