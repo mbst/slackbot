@@ -15,6 +15,7 @@ function formatter(body) {
         logger.error('formatter(): body argument must be object'); 
         return;
     }
+
     var output = [],
         ev          = body.webhookEvent,
         user        = body.user,
@@ -23,7 +24,9 @@ function formatter(body) {
         resolution  = issue.fields.resolution || null;
 
     // get info about the parent issue
-    getIssue(body.key);
+    var issueId = body.fields.customfield_10400;
+    console.log(issueId)
+    getIssue(issueId);
 
     // construct the response 
     output.push(user.displayName);
