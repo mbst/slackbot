@@ -40,7 +40,7 @@ function formatter(body) {
 // listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var body = req.body || null;
-    logger.info(body)
+    logger.log(body)
     var response = formatter(body);
     dispatcher.send('#anything-else', response, {
         username: 'Jira',
