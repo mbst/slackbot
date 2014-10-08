@@ -1,5 +1,6 @@
 'use strict';
 var express = require('express'),
+    logger = require('../lib/logger').jirabot,
     router = express.Router(),
     dispatcher = require('../lib/dispatcher');
 
@@ -39,6 +40,7 @@ function formatter(body) {
 // listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var body = req.body || null;
+    logger.info(body)
     var response = formatter(body);
     dispatcher.send('#anything-else', response, {
         username: 'Jira',
