@@ -15,8 +15,6 @@ app.use('/webhooks/jira', jiraBot);
 
 // a test endpoint, just because its fun ;)
 app.get('/test', function(req, res) {
-    logger.log('Hello world');
-
     var output = [], options = {};
     // construct the response
     output.push('Revolver Ocelot');    

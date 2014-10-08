@@ -13,6 +13,7 @@
     "express": "^4.9.5",
     "lodash": "^2.4.1",
     "node-slack": "0.0.5",
+    "q": "^1.0.1",
     "winston": "^0.8.1"
   },
   "devDependencies": {
