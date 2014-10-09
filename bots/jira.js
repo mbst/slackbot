@@ -18,7 +18,6 @@ function formatter(taskdata, featuredata) {
         logger.error('formatter(): taskdata and featuredata arguments must be objects'); 
         return;
     }
-
     var output      = [],
         ev          = taskdata.webhookEvent,
         user        = taskdata.user,
@@ -54,7 +53,6 @@ function jiraRequestWithAuth(path, type) {
         logger.error('jiraRequestWithAuth(): path argument must be string'); 
         return;
     }
-
     var _type = type || 'GET',
         _host = common.jira.host,
         _auth = common.jira.auth.user+':'+common.jira.auth.password,
