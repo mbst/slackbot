@@ -39,7 +39,7 @@ function formatter(taskdata, featuredata) {
         output.push('has deleted');
     } else
     if ( ev === 'jira:issue_updated' ) {
-        if ( resolution === null ) {
+        if ( _.isNull(resolution) ) {
             output.push('has updated');
         }else{
             output.push('has resolved');
@@ -47,7 +47,7 @@ function formatter(taskdata, featuredata) {
     }
     output.push(wording.type);
     output.push('<'+browseURL+issue.key+'|'+issue.fields.summary+'>');
-    if (isFeature) {
+    if (!isFeature) {
         output.push('in the feature');
         output.push('<'+browseURL+featuredata.key+'|'+featuredata.fields.summary+'>');
     }
