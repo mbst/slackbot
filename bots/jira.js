@@ -151,6 +151,8 @@ function whichChat(components) {
 //  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
+    console.log(req.body.issue.fields.components)
+    console.log(req.body.issue.fields.components.length)
     var chatname = (req.body.issue.fields.components.length)? whichChat(req.body.issue.fields.components) : '#anything-else';
 
     console.log(chatname);
