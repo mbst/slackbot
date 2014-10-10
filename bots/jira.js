@@ -129,7 +129,7 @@ function whichChat(components) {
         chatname = '#coyote';
     }else if (name === 'Engage') {
         chatname = '#engage';
-    }else if (name === 'Helios')
+    }else if (name === 'Helios') {
         chatname = '#helios';
     }else if (name === 'Infra') {
         chatname = '#infra';
