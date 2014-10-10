@@ -34,11 +34,9 @@ function formatter(taskdata, featuredata) {
     output.push(user.displayName);
     if ( ev === 'jira:issue_created' ) {
         output.push('has created');
-    } else
-    if ( ev === 'jira:issue_deleted' ) {
+    } else if ( ev === 'jira:issue_deleted' ) {
         output.push('has deleted');
-    } else
-    if ( ev === 'jira:issue_updated' ) {
+    } else if ( ev === 'jira:issue_updated' ) {
         if ( _.isNull(resolution) ) {
             output.push('has updated');
         }else{
@@ -116,9 +114,37 @@ function whichChat(components) {
     if (!_.isArray(components)) {
         return '#anything-else';
     }
-    console.log(components);
+    var chatname,
+        name = components[0].name;
 
-    return '#anything-else';
+    // determine the chatname based on component name,
+    // maybe a switch might be better for this... oh well
+    if (name === 'Atlas') {
+        chatname = '#atlas';
+    }else if (name === 'Atlas Admin') {
+        chatname = '#atlas-admin';
+    }else if (name === 'Canary') {
+        chatname = '#canary';
+    }else if (name === 'Coyote') {
+        chatname = '#coyote';
+    }else if (name === 'Engage') {
+        chatname = '#engage';
+    }else if (name === 'Helios')
+        chatname = '#helios';
+    }else if (name === 'Infra') {
+        chatname = '#infra';
+    }else if (name === 'Office') {
+        chatname = '#office';
+    }else if (name === 'metabroadcast.com') {
+        chatname = '#metabroadcast-com';
+    }else if (name === 'Voila') {
+        chatname = '#voila';
+    }else{
+        // the default
+        chatname = '#anything-else'
+    }
+
+    return chatname;
 }
 
 
