@@ -60,14 +60,15 @@ function formatter(taskdata, featuredata) {
 //  @param path {string}
 //  @param type {string} 'GET' by default
 function jiraRequestWithAuth(path, type) {
+    var defer = q.defer();
     if (!_.isString(path)) {
         logger.error('jiraRequestWithAuth(): path argument must be string'); 
+        defer.reject(new Error('path argument must be string'));
         return;
     }
     var _type = type || 'GET',
         _host = common.jira.host,
-        _auth = common.jira.auth.user+':'+common.jira.auth.password,
-        defer = q.defer();
+        _auth = common.jira.auth.user+':'+common.jira.auth.password;
 
     var options = {
         hostname: _host,
@@ -90,16 +91,16 @@ function jiraRequestWithAuth(path, type) {
     return defer.promise;
 }
 
-
 //  Used for requesting the issue and its parent feature from jira
 //
 //  @param issueID {string} the id of the issue. eg: `MBST-9704` or `23927`
 function getIssueInfo(issueID) {
+    var defer = q.defer();
     if (!_.isString(issueID)) {
         logger.error('getIssueInfo(): issueID argument must be a string'); 
+        defer.reject(new Error('issueID arg must be a string'));
         return;
     }
-    var defer = q.defer();
     var _endpoint = '/rest/api/2/issue/';
     jiraRequestWithAuth(_endpoint+issueID)
         .then(function(featuredata) {
@@ -126,7 +127,7 @@ router.route('/').post( function(req, res) {
                 icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
             })
             res.end();
-        });
+        }, function(err) { if (err) throw err; });
     }else{ 
         // send as feature
         var response = formatter(taskdata);
