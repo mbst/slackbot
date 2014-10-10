@@ -101,6 +101,7 @@ function getIssueInfo(issueID) {
 // listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;
+    console.log(taskdata);
     getIssueInfo(taskdata.issue.fields.customfield_10400).then(function(featuredata) {
         var response = formatter(taskdata, featuredata);
         dispatcher.send('#anything-else', response, {
