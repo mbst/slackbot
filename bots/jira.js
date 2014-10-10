@@ -109,11 +109,26 @@ function getIssueInfo(issueID) {
     return defer.promise;
 }
 
+//  Determine the chat to post to based on the component(s)
+//
+//
+function whichChat(components) {
+    if (!_.isArray(components)) {
+        return '#anything-else';
+    }
+    console.log(components);
 
-// listen for incoming hooks from jira
+    return '#anything-else';
+}
+
+
+//  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
-    
+    var chatname = (req.body.issue.fields.components.length)? whichChat(req.body.issue.fields.components) : '#anything-else';
+
+    console.log(chatname);
+
     // determine if this request is for a top level
     // feature or a child issue
     if (_.isString(taskdata.issue.fields.customfield_10400)) {
@@ -121,7 +136,7 @@ router.route('/').post( function(req, res) {
         var parent_issue = taskdata.issue.fields.customfield_10400;
         getIssueInfo(parent_issue).then(function(featuredata) {
             var response = formatter(taskdata, featuredata);
-            dispatcher.send('#anything-else', response, {
+            dispatcher.send(chatname, response, {
                 username: 'Jira',
                 color: '#053663',
                 icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
