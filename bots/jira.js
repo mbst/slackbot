@@ -109,7 +109,7 @@ function getIssueInfo(issueID) {
 
 //  Determine the chat to post to based on the component(s)
 //
-//
+//  @param components {array}
 function whichChat(components) {
     if (!_.isArray(components)) {
         return '#anything-else';
@@ -140,10 +140,8 @@ function whichChat(components) {
     }else if (name === 'Voila') {
         chatname = '#voila';
     }else{
-        // the default
-        chatname = '#anything-else'
+        chatname = '#anything-else'; // the default
     }
-
     return chatname;
 }
 
@@ -151,11 +149,7 @@ function whichChat(components) {
 //  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
-    console.log(req.body.issue.fields.components)
-    console.log(req.body.issue.fields.components.length)
     var chatname = (req.body.issue.fields.components.length)? whichChat(req.body.issue.fields.components) : '#anything-else';
-
-    console.log(chatname);
 
     // determine if this request is for a top level
     // feature or a child issue
@@ -174,7 +168,7 @@ router.route('/').post( function(req, res) {
     }else{ 
         // send as feature
         var response = formatter(taskdata);
-        dispatcher.send('#anything-else', response, {
+        dispatcher.send(chatname, response, {
             username: 'Jira',
             color: '#053663',
             icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
