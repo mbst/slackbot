@@ -113,6 +113,8 @@ function getIssueInfo(issueID) {
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
 
+    console.log(taskdata);
+
     // determine if this request is for a top level
     // feature or a child issue
     if (_.isString(taskdata.issue.fields.customfield_10400)) {
