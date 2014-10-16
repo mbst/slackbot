@@ -159,7 +159,7 @@ router.route('/').post( function(req, res) {
         // send as issue
         var parent_issue = taskdata.issue.fields.customfield_10400;
         getIssueInfo(parent_issue).then(function(featuredata) {
-            console.log(featuredata); return;
+            console.log(featuredata.fields.components); return;
             //var chatname = whichChat(taskdata.issue.fields.components);
             var response = formatter(taskdata, featuredata);
             dispatcher.send(chatname, response, {
