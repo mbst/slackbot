@@ -151,6 +151,8 @@ router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
     var chatname = (req.body.issue.fields.components.length)? whichChat(req.body.issue.fields.components) : '#anything-else';
 
+    console.log(chatname);
+
     // this is bad, but it'll stop overflow into anything else for now
     if (chatname == '#anything-else') return;
 
