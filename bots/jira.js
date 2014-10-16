@@ -150,11 +150,8 @@ function whichChat(components) {
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
 
-    console.log(req.body.issue.fields); return;
-    var chatname = whichChat(req.body.issue.fields.components);
-
     // this is bad, but it'll stop overflow into anything else for now
-    if (chatname == '#anything-else') return;
+    // if (chatname == '#anything-else') return;
 
     // determine if this request is for a top level
     // feature or a child issue
@@ -162,6 +159,8 @@ router.route('/').post( function(req, res) {
         // send as issue
         var parent_issue = taskdata.issue.fields.customfield_10400;
         getIssueInfo(parent_issue).then(function(featuredata) {
+            console.log(featuredata); return;
+            //var chatname = whichChat(taskdata.issue.fields.components);
             var response = formatter(taskdata, featuredata);
             dispatcher.send(chatname, response, {
                 username: 'Jira',
@@ -172,6 +171,7 @@ router.route('/').post( function(req, res) {
         }, function(err) { if (err) throw err; });
     }else{ 
         // send as feature
+        var chatname = whichChat(taskdata.issue.fields.components); return;
         var response = formatter(taskdata);
         dispatcher.send(chatname, response, {
             username: 'Jira',
