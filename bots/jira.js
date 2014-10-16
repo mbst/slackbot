@@ -112,7 +112,7 @@ function getIssueInfo(issueID) {
 //  @param components {array}
 function whichChat(components) {
     if (!_.isArray(components)) {
-        return '#anything-else';
+        return false;
     }
     var chatname,
         name = components[0].name;
@@ -140,7 +140,7 @@ function whichChat(components) {
     }else if (name === 'Voila') {
         chatname = '#voila';
     }else{
-        chatname = '#anything-else'; // the default
+        //chatname = '#anything-else'; // the default
     }
     return chatname;
 }
