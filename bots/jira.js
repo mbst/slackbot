@@ -112,7 +112,7 @@ function getIssueInfo(issueID) {
 //  @param components {array}
 function whichChat(components) {
     if (!_.isArray(components)) {
-        return false;
+        return '#anything-else';
     }
     var chatname,
         name = components[0].name;
@@ -140,7 +140,7 @@ function whichChat(components) {
     }else if (name === 'Voila') {
         chatname = '#voila';
     }else{
-        //chatname = '#anything-else'; // the default
+        chatname = '#anything-else'; // the default
     }
     return chatname;
 }
@@ -149,14 +149,10 @@ function whichChat(components) {
 //  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
-    var chatname = whichChat(req.body.issue.fields.components)
-    
-    if (!_.isString(chatname)) {
-        res.end();
-        return;
-    }
-    
-        
+    var chatname = (req.body.issue.fields.components.length)? whichChat(req.body.issue.fields.components) : '#anything-else';
+
+    // this is bad, but it'll stop overflow into anything else for now
+    if (chatname == '#anything-else') return;
 
     // determine if this request is for a top level
     // feature or a child issue
