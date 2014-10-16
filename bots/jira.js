@@ -150,7 +150,7 @@ function whichChat(components) {
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
 
-    console.log(req.body.issue.fields.components); return;
+    console.log(req.body.issue.fields); return;
     var chatname = whichChat(req.body.issue.fields.components);
 
     // this is bad, but it'll stop overflow into anything else for now
