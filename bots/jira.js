@@ -149,9 +149,9 @@ function whichChat(components) {
 //  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
-    var chatname = (req.body.issue.fields.components.length)? whichChat(req.body.issue.fields.components) : '#anything-else';
 
-    console.log(chatname);
+    console.log(req.body.issue.fields.components); return;
+    var chatname = whichChat(req.body.issue.fields.components);
 
     // this is bad, but it'll stop overflow into anything else for now
     if (chatname == '#anything-else') return;
