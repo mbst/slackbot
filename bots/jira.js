@@ -149,7 +149,13 @@ function whichChat(components) {
 //  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
-    var chatname = (req.body.issue.fields.components.length)? whichChat(req.body.issue.fields.components) : '#anything-else';
+    if (req.body.issue.fields.components.length) {
+        var chatname = whichChat(req.body.issue.fields.components)
+    }else{ 
+        res.end();
+        return;
+    }
+        
 
     // determine if this request is for a top level
     // feature or a child issue
