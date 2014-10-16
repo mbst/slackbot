@@ -159,8 +159,8 @@ router.route('/').post( function(req, res) {
         // send as issue
         var parent_issue = taskdata.issue.fields.customfield_10400;
         getIssueInfo(parent_issue).then(function(featuredata) {
-            console.log(featuredata.fields.components); return;
-            //var chatname = whichChat(taskdata.issue.fields.components);
+            console.log(featuredata.fields.components);
+            var chatname = whichChat(taskdata.issue.fields.components);
             var response = formatter(taskdata, featuredata);
             dispatcher.send(chatname, response, {
                 username: 'Jira',
@@ -171,7 +171,7 @@ router.route('/').post( function(req, res) {
         }, function(err) { if (err) throw err; });
     }else{ 
         // send as feature
-        var chatname = whichChat(taskdata.issue.fields.components); return;
+        var chatname = whichChat(taskdata.issue.fields.components);
         var response = formatter(taskdata);
         dispatcher.send(chatname, response, {
             username: 'Jira',
