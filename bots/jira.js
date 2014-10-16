@@ -149,12 +149,13 @@ function whichChat(components) {
 //  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
-    if (req.body.issue.fields.components.length) {
-        var chatname = whichChat(req.body.issue.fields.components)
-    }else{ 
+    var chatname = whichChat(req.body.issue.fields.components)
+    
+    if (!_.isString(chatname)) {
         res.end();
         return;
     }
+    
         
 
     // determine if this request is for a top level
