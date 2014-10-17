@@ -150,6 +150,12 @@ function whichChat(components) {
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
 
+    var message_options = {
+        username: 'Jira',
+        color: '#053663',
+        icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
+    };
+
     // this is bad, but it'll stop overflow into anything else for now
     // if (chatname == '#anything-else') return;
 
@@ -159,25 +165,17 @@ router.route('/').post( function(req, res) {
         // send as issue
         var parent_issue = taskdata.issue.fields.customfield_10400;
         getIssueInfo(parent_issue).then(function(featuredata) {
-            console.log(featuredata.fields.components);
-            var chatname = whichChat(taskdata.issue.fields.components);
+            var chatname = whichChat(featuredata.fields.components);
+            console.log(chatname);
             var response = formatter(taskdata, featuredata);
-            dispatcher.send(chatname, response, {
-                username: 'Jira',
-                color: '#053663',
-                icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
-            })
+            dispatcher.send(chatname, response, message_options);
             res.end();
         }, function(err) { if (err) throw err; });
     }else{ 
         // send as feature
         var chatname = whichChat(taskdata.issue.fields.components);
-        var response = formatter(taskdata);
-        dispatcher.send(chatname, response, {
-            username: 'Jira',
-            color: '#053663',
-            icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
-        })
+        console.log(chatname);
+        dispatcher.send(chatname, response, message_options);
         res.end();
     }
 });
