@@ -15,6 +15,7 @@ var express     = require('express'),
 //  @param featuredata {object} omitting this causes the data 
 //         to be treated as a parent feature, not an issue
 //  @returns {string} slack message or null
+//
 function formatter(taskdata, featuredata) {
     if (!_.isObject(taskdata)) {
         logger.error('formatter(): taskdata argument must be a object'); 
@@ -57,6 +58,7 @@ function formatter(taskdata, featuredata) {
 //
 //  @param path {string}
 //  @param type {string} 'GET' by default
+//
 function jiraRequestWithAuth(path, type) {
     var defer = q.defer();
     if (!_.isString(path)) {
@@ -92,6 +94,7 @@ function jiraRequestWithAuth(path, type) {
 //  Used for requesting the issue and its parent feature from jira
 //
 //  @param issueID {string} the id of the issue. eg: `MBST-9704` or `23927`
+//
 function getIssueInfo(issueID) {
     var defer = q.defer();
     if (!_.isString(issueID)) {
@@ -110,6 +113,7 @@ function getIssueInfo(issueID) {
 //  Determine the chat to post to based on the component(s)
 //
 //  @param components {array}
+//
 function whichChat(components) {
     if (!_.isArray(components)) {
         return '#anything-else';
