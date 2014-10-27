@@ -28,23 +28,19 @@ function handle_pull_request(body) {
     }
 }
 
-router.route('/').post(function(req, res, next) {
+router.route('/').post(function(req, res) {
     var _body = req.body || null;
     var _event = req.headers['x-github-event'] || null;
 
     // end the response here if any of the request data is missing
     if (!_body || !_event) {
         res.end('not enough data to continue');
-        next();
         return;
     }
-
     if (_event === 'pull_request') {
         handle_pull_request(_body);
     }
-
     res.end('YaY');
-    next();
 });
 
 module.exports = router;
