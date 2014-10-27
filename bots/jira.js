@@ -159,27 +159,26 @@ router.route('/').post( function(req, res) {
         color: '#053663',
         icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
     };
+    var message = new dispatcher('#anything-else', message_options);
 
-    // this is bad, but it'll stop overflow into anything else for now
-    // if (chatname == '#anything-else') return;
-
-    // determine if this request is for a top level
-    // feature or a child issue
+    // determine if this request is for a top level feature or a child issue
     if (_.isString(taskdata.issue.fields.customfield_10400)) {
         // send as issue
         var parent_issue = taskdata.issue.fields.customfield_10400;
         getIssueInfo(parent_issue).then(function(featuredata) {
             var chatname = whichChat(featuredata.fields.components);
-            console.log(chatname);
             var response = formatter(taskdata, featuredata);
-            dispatcher.send(chatname, response, message_options);
+            message.chatname = chatname;
+            message.write(response)
+            message.send();
             res.end();
         }, function(err) { if (err) throw err; });
     }else{ 
         // send as feature
         var chatname = whichChat(taskdata.issue.fields.components);
-        console.log(chatname);
-        dispatcher.send(chatname, response, message_options);
+        var response = formatter(taskdata);
+        message.chatname = chatname;
+        message.write(response).send();
         res.end();
     }
 });
