@@ -1,6 +1,5 @@
 'use strict';
 var common      = require('./lib/common'),
-    logger      = require('./lib/logger').global,
     express     = require('express'),
     bodyParser  = require('body-parser'),
     app         = express(),
