@@ -54,46 +54,6 @@ function formatter(taskdata, featuredata) {
     return output.join(' ');
 }
 
-//  Determine the chat to post to based on the component(s)
-//
-//  @param components {array}
-//
-function whichChat(components) {
-    var _default = '#anything-else';
-    if (!_.isArray(components)) {
-        return _default;
-    }
-    var chatname,
-        name = (components.length)? components[0].name : _default;
-
-    // determine the chatname based on component name,
-    // maybe a switch might be better for this... oh well
-    if (name === 'Atlas') {
-        chatname = '#atlas';
-    }else if (name === 'Atlas Admin') {
-        chatname = '#atlas-admin';
-    }else if (name === 'Canary') {
-        chatname = '#canary';
-    }else if (name === 'Coyote') {
-        chatname = '#coyote';
-    }else if (name === 'Engage') {
-        chatname = '#engage';
-    }else if (name === 'Helios') {
-        chatname = '#helios';
-    }else if (name === 'Infra') {
-        chatname = '#infra';
-    }else if (name === 'Office') {
-        chatname = '#office';
-    }else if (name === 'metabroadcast.com') {
-        chatname = '#metabroadcast-com';
-    }else if (name === 'Voila') {
-        chatname = '#voila';
-    }else{
-        chatname = _default; // the default
-    }
-    return chatname;
-}
-
 
 //  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
@@ -118,9 +78,8 @@ router.route('/').post( function(req, res) {
         }, function(err) { if (err) throw err; });
     }else{ 
         // send as feature
-        var chatname = whichChat(taskdata.issue.fields.components);
+        message.chatname = jira.getChatFromComponent(featuredata.fields.components);
         var response = formatter(taskdata);
-        message.chatname = chatname;
         message.write(response).send();
         res.end();
     }
