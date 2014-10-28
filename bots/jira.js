@@ -108,6 +108,7 @@ router.route('/').post( function(req, res) {
     // determine if this request is for a top level feature or a child issue
     if (_.isString(taskdata.issue.fields.customfield_10400)) {
         // send as issue
+        console.log('issue');
         var parent_issue = taskdata.issue.fields.customfield_10400;
         jira.getFeature(parent_issue).then(function(featuredata) {
             var chatname = whichChat(featuredata.fields.components);
@@ -120,6 +121,7 @@ router.route('/').post( function(req, res) {
         }, function(err) { if (err) throw err; });
     }else{ 
         // send as feature
+        console.log('feature');
         var chatname = whichChat(taskdata.issue.fields.components);
         var response = formatter(taskdata);
         message.chatname = chatname;
