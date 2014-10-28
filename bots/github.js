@@ -5,7 +5,6 @@ var express     = require('express'),
     router      = express.Router(),
     dispatcher  = require('../lib/dispatcher'),
     _           = require('lodash'),
-    Jira        = require('../lib/jiraProvider'),
     q           = require('q');
 
 //  For dealing with a pull request and dispatching to the correct chat
@@ -19,15 +18,17 @@ function handle_pull_request(body) {
         icon_url: 'https://octodex.github.com/images/bouncercat.png'
     }
 
-    console.log(arguments.callee.toString());
-
     if ("pull_request" in body) {
-        var jira = new Jira();
-        var _pr = body.pull_request;
+        var pullrequest = body.pull_request,
+            branch = pullrequest.head.ref,
+            jiraId = branch.split('-')[1],
+            jiraURL= 'http://jira.metabroadcast.com/browse/MBST-'+jiraId;
+
         var message = new dispatcher('#anything-else', _message_options);
         message.write(_pr.user.login)
                .write('has made a pull request')
-               .link(_pr.title, _pr.html_url)
+               .link(_pr.title+'.', _pr.html_url)
+               .link('See this feature in Jira.', )
                .send();
     }
 }
