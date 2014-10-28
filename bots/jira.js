@@ -64,9 +64,7 @@ function whichChat(components) {
         return _default;
     }
     var chatname,
-        name = (components.length)? components[0].name : '';
-
-    console.log(name);
+        name = (components.length)? components[0].name : _default;
 
     // determine the chatname based on component name,
     // maybe a switch might be better for this... oh well
@@ -91,7 +89,7 @@ function whichChat(components) {
     }else if (name === 'Voila') {
         chatname = '#voila';
     }else{
-        chatname = '#anything-else'; // the default
+        chatname = _default; // the default
     }
     return chatname;
 }
@@ -111,16 +109,12 @@ router.route('/').post( function(req, res) {
     // determine if this request is for a top level feature or a child issue
     if (_.isString(taskdata.issue.fields.customfield_10400)) {
         // send as issue
-        console.log('issue');
         var parent_issue = taskdata.issue.fields.customfield_10400;
         jira.getFeature(parent_issue).then(function(featuredata) {
             var chatname = whichChat(featuredata.fields.components);
-            console.log(chatname);
             var response = formatter(taskdata, featuredata);
-            console.log(response);
             message.chatname = chatname;
             message.write(response).send();
-            console.log(message);
             res.end();
         }, function(err) { if (err) throw err; });
     }else{ 
