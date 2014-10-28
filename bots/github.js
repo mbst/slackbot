@@ -24,7 +24,7 @@ function handle_pull_request(body) {
             jiraId      = branch.split('-')[1],
             jiraURL     = 'http://jira.metabroadcast.com/browse/MBST-'+jiraId,
             jira        = new Jira(),
-            message     = new dispatcher('#anything-else', _message_options);
+            message     = new dispatcher('#pull-requests', _message_options);
 
         message.write(pullrequest.user.login)
                .write('has made a pull request to merge branch')
@@ -35,7 +35,6 @@ function handle_pull_request(body) {
         // find the feature in Jira so we can add the feature info to the message
         jira.getFeature('MBST-'+jiraId).then(function(feature) {
             var feature_title = feature.fields.summary;
-            message.chatname = jira.getChatFromComponent(feature.fields.components);
             message.write('in the feature')
                    .link(feature_title, jiraURL)
                    .send();
