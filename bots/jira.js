@@ -121,7 +121,6 @@ router.route('/').post( function(req, res) {
         }, function(err) { if (err) throw err; });
     }else{ 
         // send as feature
-        console.log('feature');
         var chatname = whichChat(taskdata.issue.fields.components);
         var response = formatter(taskdata);
         message.chatname = chatname;
