@@ -15,10 +15,9 @@ var express     = require('express'),
 function handle_pull_request(body) {
     var _message_options = {
         username: 'Github',
-        color: '#000',
-        icon_url: 'https://octodex.github.com/images/bouncercat.png'
+        color: '#333',
+        icon_url: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'
     }
-
     if ("pull_request" in body) {
         var pullrequest = body.pull_request,
             branch      = pullrequest.head.ref,
