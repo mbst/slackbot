@@ -63,7 +63,7 @@ function whichChat(components) {
         return '#anything-else';
     }
     var chatname,
-        name = components[0].name;
+        name = components[0].name || '';
 
     // determine the chatname based on component name,
     // maybe a switch might be better for this... oh well
@@ -109,7 +109,7 @@ router.route('/').post( function(req, res) {
     if (_.isString(taskdata.issue.fields.customfield_10400)) {
         // send as issue
         var parent_issue = taskdata.issue.fields.customfield_10400;
-        jira.getIssueInfo(parent_issue).then(function(featuredata) {
+        jira.getFeature(parent_issue).then(function(featuredata) {
             var chatname = whichChat(featuredata.fields.components);
             var response = formatter(taskdata, featuredata);
             message.chatname = chatname;
