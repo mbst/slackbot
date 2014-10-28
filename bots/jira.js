@@ -59,11 +59,14 @@ function formatter(taskdata, featuredata) {
 //  @param components {array}
 //
 function whichChat(components) {
+    var _default = '#anything-else';
     if (!_.isArray(components)) {
-        return '#anything-else';
+        return _default;
     }
     var chatname,
-        name = components[0].name || '';
+        name = (components.length)? components[0].name : '';
+
+    console.log(name);
 
     // determine the chatname based on component name,
     // maybe a switch might be better for this... oh well
@@ -111,7 +114,6 @@ router.route('/').post( function(req, res) {
         console.log('issue');
         var parent_issue = taskdata.issue.fields.customfield_10400;
         jira.getFeature(parent_issue).then(function(featuredata) {
-            console.log(featuredata.fields);
             var chatname = whichChat(featuredata.fields.components);
             console.log(chatname);
             var response = formatter(taskdata, featuredata);
