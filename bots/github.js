@@ -25,9 +25,9 @@ function handle_pull_request(body) {
             jiraURL= 'http://jira.metabroadcast.com/browse/MBST-'+jiraId;
 
         var message = new dispatcher('#anything-else', _message_options);
-        message.write(_pr.user.login)
+        message.write(pullrequest.user.login)
                .write('has made a pull request')
-               .link(_pr.title+'.', _pr.html_url)
+               .link(pullrequest.title+'.', pullrequest.html_url)
                .link('See this feature in Jira.', jiraURL)
                .send();
     }
