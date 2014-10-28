@@ -5,6 +5,7 @@ var express     = require('express'),
     router      = express.Router(),
     dispatcher  = require('../lib/dispatcher'),
     _           = require('lodash'),
+    Jira        = require('../lib/jiraProvider'),
     q           = require('q');
 
 //  For dealing with a pull request and dispatching to the correct chat
@@ -18,7 +19,10 @@ function handle_pull_request(body) {
         icon_url: 'https://octodex.github.com/images/bouncercat.png'
     }
 
+    console.log(arguments.callee.toString());
+
     if ("pull_request" in body) {
+        var jira = new Jira();
         var _pr = body.pull_request;
         var message = new dispatcher('#anything-else', _message_options);
         message.write(_pr.user.login)
