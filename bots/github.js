@@ -35,6 +35,7 @@ function handle_pull_request(body) {
         // find the feature in Jira so we can add the feature info to the message
         jira.getFeature('MBST-'+jiraId).then(function(feature) {
             var feature_title = feature.fields.summary;
+            message.chatname = jira.getChatFromComponent(feature.fields.components);
             message.write('in the feature')
                    .link(feature_title, jiraURL)
                    .send();
