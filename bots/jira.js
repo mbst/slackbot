@@ -5,6 +5,7 @@ var express     = require('express'),
     router      = express.Router(),
     dispatcher  = require('../lib/dispatcher'),
     https       = require('https'),
+    Jira        = require('../lib/jiraProvider'),
     _           = require('lodash'),
     q           = require('q');
 
@@ -53,63 +54,6 @@ function formatter(taskdata, featuredata) {
     return output.join(' ');
 }
 
-
-//  Used for making requests to jira
-//
-//  @param path {string}
-//  @param type {string} 'GET' by default
-//
-function jiraRequestWithAuth(path, type) {
-    var defer = q.defer();
-    if (!_.isString(path)) {
-        logger.error('jiraRequestWithAuth(): path argument must be string'); 
-        defer.reject(new Error('path argument must be string'));
-        return;
-    }
-    var _type = type || 'GET',
-        _host = common.jira.host,
-        _auth = common.jira.auth.user+':'+common.jira.auth.password;
-
-    var options = {
-        hostname: _host,
-        path: path,
-        method: _type,
-        auth: _auth
-    }
-
-    https.request(options, function(res) {
-        var _body = '';
-        res.setEncoding('utf8');
-        res.on('data', function(chunk) {
-            _body += chunk;
-        });
-        res.on('end', function() {
-            var data = JSON.parse(_body);
-            defer.resolve(data);
-        })
-    }).end();
-    return defer.promise;
-}
-
-//  Used for requesting the issue and its parent feature from jira
-//
-//  @param issueID {string} the id of the issue. eg: `MBST-9704` or `23927`
-//
-function getIssueInfo(issueID) {
-    var defer = q.defer();
-    if (!_.isString(issueID)) {
-        logger.error('getIssueInfo(): issueID argument must be a string'); 
-        defer.reject(new Error('issueID arg must be a string'));
-        return;
-    }
-    var _endpoint = '/rest/api/2/issue/';
-    jiraRequestWithAuth(_endpoint+issueID)
-        .then(function(featuredata) {
-        defer.resolve(featuredata)
-    })
-    return defer.promise;
-}
-
 //  Determine the chat to post to based on the component(s)
 //
 //  @param components {array}
@@ -153,19 +97,19 @@ function whichChat(components) {
 //  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
-
     var message_options = {
         username: 'Jira',
         color: '#053663',
         icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
     };
+    var jira = new Jira();
     var message = new dispatcher('#anything-else', message_options);
 
     // determine if this request is for a top level feature or a child issue
     if (_.isString(taskdata.issue.fields.customfield_10400)) {
         // send as issue
         var parent_issue = taskdata.issue.fields.customfield_10400;
-        getIssueInfo(parent_issue).then(function(featuredata) {
+        jira.getIssueInfo(parent_issue).then(function(featuredata) {
             var chatname = whichChat(featuredata.fields.components);
             var response = formatter(taskdata, featuredata);
             message.chatname = chatname;

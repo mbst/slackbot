@@ -5,6 +5,7 @@ var express     = require('express'),
     router      = express.Router(),
     dispatcher  = require('../lib/dispatcher'),
     _           = require('lodash'),
+    Jira        = require('../lib/jiraProvider'),
     q           = require('q');
 
 //  For dealing with a pull request and dispatching to the correct chat
@@ -20,16 +21,25 @@ function handle_pull_request(body) {
 
     if ("pull_request" in body) {
         var pullrequest = body.pull_request,
-            branch = pullrequest.head.ref,
-            jiraId = branch.split('-')[1],
-            jiraURL= 'http://jira.metabroadcast.com/browse/MBST-'+jiraId;
+            branch      = pullrequest.head.ref,
+            jiraId      = branch.split('-')[1],
+            jiraURL     = 'http://jira.metabroadcast.com/browse/MBST-'+jiraId,
+            jira        = new Jira(),
+            message     = new dispatcher('#anything-else', _message_options);
 
-        var message = new dispatcher('#anything-else', _message_options);
         message.write(pullrequest.user.login)
-               .write('has made a pull request')
-               .link(pullrequest.title+'.', pullrequest.html_url)
-               .link('See this feature in Jira.', jiraURL)
-               .send();
+               .write('has made a pull request to merge branch')
+               .link(branch, pullrequest.html_url)
+               .write('into master')
+               .write('['+pullrequest.commits+' commits],')
+
+        // find the feature in Jira so we can add the feature info to the message
+        jira.getFeature('MBST-'+jiraId).then(function(feature) {
+            var feature_title = feature.fields.summary;
+            message.write('in the feature')
+                   .link(feature_title, jiraURL)
+                   .send();
+        });
     }
 }
 
@@ -45,7 +55,7 @@ router.route('/').post(function(req, res) {
     if (_event === 'pull_request') {
         handle_pull_request(_body);
     }
-    res.end('YaY');
+    res.end();
 });
 
 module.exports = router;
