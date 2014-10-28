@@ -28,7 +28,7 @@ function handle_pull_request(body) {
         message.write(_pr.user.login)
                .write('has made a pull request')
                .link(_pr.title+'.', _pr.html_url)
-               .link('See this feature in Jira.', )
+               .link('See this feature in Jira.', jiraURL)
                .send();
     }
 }
