@@ -111,10 +111,11 @@ router.route('/').post( function(req, res) {
         console.log('issue');
         var parent_issue = taskdata.issue.fields.customfield_10400;
         jira.getFeature(parent_issue).then(function(featuredata) {
-            console.log('blah');
+            console.log(featuredata.fields);
             var chatname = whichChat(featuredata.fields.components);
-            var response = formatter(taskdata, featuredata);
             console.log(chatname);
+            var response = formatter(taskdata, featuredata);
+            console.log(response);
             message.chatname = chatname;
             message.write(response).send();
             console.log(message);
