@@ -111,11 +111,11 @@ router.route('/').post( function(req, res) {
         var parent_issue = taskdata.issue.fields.customfield_10400;
         console.log('B4: '+parent_issue);
         jira.getFeature(parent_issue).then(function(featuredata) {
-            console.log('AFTA: '+featuredata);
             var chatname = whichChat(featuredata.fields.components);
             var response = formatter(taskdata, featuredata);
             message.chatname = chatname;
             message.write(response).send();
+            console.log(message);
             res.end();
         }, function(err) { if (err) throw err; });
     }else{ 
