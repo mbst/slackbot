@@ -112,6 +112,7 @@ router.route('/').post( function(req, res) {
         jira.getFeature(parent_issue).then(function(featuredata) {
             var chatname = whichChat(featuredata.fields.components);
             var response = formatter(taskdata, featuredata);
+            console.log(chatname);
             message.chatname = chatname;
             message.write(response).send();
             console.log(message);
