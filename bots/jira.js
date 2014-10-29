@@ -1,13 +1,13 @@
 'use strict';
-var express     = require('express'),
-    common      = require('../lib/common'),
-    logger      = require('../lib/logger').jirabot,
-    router      = express.Router(),
-    dispatcher  = require('../lib/dispatcher'),
-    https       = require('https'),
-    Jira        = require('../lib/jiraProvider'),
-    _           = require('lodash'),
-    q           = require('q');
+var express         = require('express'),
+    router          = express.Router(),
+    common          = require('../lib/common'),
+    logger          = require('../lib/logger').jirabot,
+    dispatcher      = require('../lib/dispatcher'),
+    Jira            = require('../lib/jiraProvider'),
+    https           = require('https'),
+    _               = require('lodash'),
+    q               = require('q');
 
 //  Used for taking the request body and filtering it to output a
 //  message string
@@ -19,7 +19,7 @@ var express     = require('express'),
 //
 function formatter(taskdata, featuredata) {
     if (!_.isObject(taskdata)) {
-        logger.error('formatter(): taskdata argument must be a object'); 
+        logger.error('taskdata argument must be a object'); 
         return; 
     }
     var output      = [],
@@ -78,7 +78,7 @@ router.route('/').post( function(req, res) {
         }, function(err) { if (err) logger.error(err); });
     }else{ 
         // send as feature
-        message.chatname = jira.getChatFromComponent(featuredata.fields.components);
+        message.chatname = jira.getChatFromComponent(taskdata.fields.components);
         var response = formatter(taskdata);
         message.write(response).send();
         res.end();
