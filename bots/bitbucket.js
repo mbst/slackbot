@@ -9,12 +9,18 @@ var express         = require('express'),
     q               = require('q');
 
 function handle_pull_request(body) {
+    var _message_options = {
+        username: 'Bitbucket',
+        color: '#205081',
+        icon_url: 'https://www.vectorbase.org/sites/default/files/ftp/Landing_page_icons/Downloads_icons/bitbucket_logo.png'
+    }
+
     var _pr                 = body.pullrequest_created,
         _pr_title           = _pr.title,
         _branch             = _pr.source.branch.name,
         _destination_branch = _pr.destination.branch.name;
 
-    console.log(_pr_title, _branch, _destination_branch);
+    var message = new dispatcher('#pull-requests', _message_options);
 }
 
 router.post('/', function(req, res) {

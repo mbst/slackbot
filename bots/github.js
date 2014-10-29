@@ -33,26 +33,17 @@ function handle_pull_request(body) {
                .write(default_branch)
                .write('['+pullrequest.commits+' commits]');
 
-        // determine if there is a Jira project id in this branchname
-        if (branch.toUpperCase().indexOf('MBST-') >= 0) {
-            var jiraId  = branch.split('-')[1],
-                jiraURL = 'http://jira.metabroadcast.com/browse/MBST-'+jiraId,
-                jira    = new Jira();
-        
-            // find the feature in Jira so we can add the feature info to the message
-            jira.getFeature('MBST-'+jiraId).then(function(feature) {
-                var feature_title = feature.fields.summary;
-                message.write('in the feature')
-                       .link(feature_title, jiraURL)
-                       .send();
-
-            }, function(err) {
-                message.send();
-                logger.error(err);
-            });
-        }else{
+        // find the feature in Jira so we can add the feature info to the 
+        // message, otherwise just send the message without the jira link
+        jira.getFeatureFromString(branch).then(function(feature) {
+            var feature_title = feature.fields.summary;
+            message.write('in the feature')
+                   .link(feature_title, jiraURL)
+                   .send();
+        }, function(err) {
+            if (err) logger.error(err);
             message.send();
-        }
+        });
     }
 }
 
