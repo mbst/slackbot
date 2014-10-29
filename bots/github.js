@@ -14,7 +14,7 @@ var express     = require('express'),
 //
 function handle_pull_request(body) {
     var _message_options = {
-        username: 'Github',
+        username: 'GitHub',
         color: '#333',
         icon_url: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'
     }
@@ -34,8 +34,7 @@ function handle_pull_request(body) {
                .write('['+pullrequest.commits+' commits]');
 
         // determine if there is a Jira project id in this branchname
-        console.log(branch.indexOf('MBST-'));
-        if (branch.indexOf('MBST-') >= 0) {
+        if (branch.toUpperCase().indexOf('MBST-') >= 0) {
             var jiraId  = branch.split('-')[1],
                 jiraURL = 'http://jira.metabroadcast.com/browse/MBST-'+jiraId,
                 jira    = new Jira();
