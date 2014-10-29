@@ -42,7 +42,8 @@ function handle_pull_request(body) {
                    .link(feature_title, jiraURL)
                    .send();
         }, function(err) {
-            if (err[0] === 'Issue Does Not Exist') message.send();
+            logger.log(err);
+            message.send();
         });
     }
 }
