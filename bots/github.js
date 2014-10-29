@@ -34,6 +34,7 @@ function handle_pull_request(body) {
                .write('['+pullrequest.commits+' commits]');
 
         // determine if there is a Jira project id in this branchname
+        console.log(branch.indexOf('MBST-'));
         if (branch.indexOf('MBST-') >= 0) {
             var jiraId  = branch.split('-')[1],
                 jiraURL = 'http://jira.metabroadcast.com/browse/MBST-'+jiraId,
