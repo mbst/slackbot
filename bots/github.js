@@ -35,6 +35,7 @@ function handle_pull_request(body) {
                .write(default_branch)
                .write('['+pullrequest.commits+' commits]')
 
+        console.log('hero');
         // find the feature in Jira so we can add the feature info to the message
         jira.getFeature('MBST-'+jiraId).then(function(feature) {
             var feature_title = feature.fields.summary;
@@ -58,7 +59,6 @@ router.route('/').post(function(req, res) {
         return;
     }
     if (_event === 'pull_request') {
-        console.log('hey');
         handle_pull_request(_body);
     }
     res.end();
