@@ -20,7 +20,28 @@ function handle_pull_request(body) {
         _branch             = _pr.source.branch.name,
         _destination_branch = _pr.destination.branch.name;
 
-    var message = new dispatcher('#pull-requests', _message_options);
+    var message = new dispatcher('#pull-requests', _message_options),
+        jira = new Jira();
+
+    // start constructing the pull request message
+    message.write(_pr.author.display_name)
+           .write('has made a pull request to merge branch')
+           .link(_branch, _pr.links.html)
+           .write('into')
+           .write(_destination_branch);
+
+    // find the feature in jira from the branch name, otherwise just send the message
+    jira.getFeatureFromString(_branch).then(function(feature) {
+        var feature_title = feature.fields.summary,
+            feature_key = feature.key,
+            jiraURL = 'http://jira.metabroadcast.com/browse/'+feature_key;
+        message.write('in the feature')
+               .link(feature_title, jiraURL)
+               .send();
+    }, function(err) {
+        if (err) logger.error(err);
+        message.send();
+    })
 }
 
 router.post('/', function(req, res) {

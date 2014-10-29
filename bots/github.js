@@ -23,7 +23,8 @@ function handle_pull_request(body) {
         var pullrequest     = body.pull_request,
             branch          = pullrequest.head.ref,
             default_branch  = body.repository.default_branch,
-            message         = new dispatcher('#pull-requests', _message_options);
+            message         = new dispatcher('#pull-requests', _message_options),
+            jira            = new Jira();
 
         // start constructing the pull request message
         message.write(pullrequest.user.login)
@@ -36,7 +37,10 @@ function handle_pull_request(body) {
         // find the feature in Jira so we can add the feature info to the 
         // message, otherwise just send the message without the jira link
         jira.getFeatureFromString(branch).then(function(feature) {
-            var feature_title = feature.fields.summary;
+            var feature_title = feature.fields.summary,
+                feature_key = feature.key,
+                jiraURL = 'http://jira.metabroadcast.com/browse/'+feature_key;
+            
             message.write('in the feature')
                    .link(feature_title, jiraURL)
                    .send();
