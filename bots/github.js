@@ -19,17 +19,19 @@ function handle_pull_request(body) {
         icon_url: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'
     }
     if ("pull_request" in body) {
-        var pullrequest = body.pull_request,
-            branch      = pullrequest.head.ref,
-            jiraId      = branch.split('-')[1],
-            jiraURL     = 'http://jira.metabroadcast.com/browse/MBST-'+jiraId,
-            jira        = new Jira(),
-            message     = new dispatcher('#pull-requests', _message_options);
+        var pullrequest     = body.pull_request,
+            branch          = pullrequest.head.ref,
+            default_branch  = body.repository.default_branch,
+            jiraId          = branch.split('-')[1],
+            jiraURL         = 'http://jira.metabroadcast.com/browse/MBST-'+jiraId,
+            jira            = new Jira(),
+            message         = new dispatcher('#pull-requests', _message_options);
 
         message.write(pullrequest.user.login)
                .write('has made a pull request to merge branch')
                .link(branch, pullrequest.html_url)
-               .write('into master')
+               .write('into')
+               .write(default_branch)
                .write('['+pullrequest.commits+' commits],')
 
         // find the feature in Jira so we can add the feature info to the message
