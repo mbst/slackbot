@@ -18,6 +18,7 @@ function handle_pull_request(body) {
         color: '#333',
         icon_url: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'
     }
+
     if ("pull_request" in body) {
         var pullrequest     = body.pull_request,
             branch          = pullrequest.head.ref,
@@ -44,6 +45,7 @@ function handle_pull_request(body) {
                 message.write('in the feature')
                        .link(feature_title, jiraURL)
                        .send();
+
             }, function(err) {
                 message.send();
                 logger.error(err);
@@ -54,6 +56,7 @@ function handle_pull_request(body) {
     }
 }
 
+
 router.route('/').post(function(req, res) {
     var _body = req.body || null;
     var _event = req.headers['x-github-event'] || null;
@@ -63,9 +66,18 @@ router.route('/').post(function(req, res) {
         res.end('not enough data to continue');
         return;
     }
-    if (_event === 'pull_request') {
-        handle_pull_request(_body);
+
+    // based on github event, decide what to do with the request
+    switch (_event) {
+        case 'pull_request':
+            handle_pull_request(_body);
+            break;
+
+        case 'ping':
+            logger.log('Ping');
+            break;
     }
+
     res.end();
 });
 
