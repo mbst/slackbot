@@ -26,7 +26,7 @@ function handle_pull_request(body) {
     // start constructing the pull request message
     message.write(_pr.author.display_name)
            .write('has made a pull request to merge branch')
-           .link(_branch, _pr.links.html)
+           .link(_branch, _pr.links.html.href)
            .write('into')
            .write(_destination_branch);
 
