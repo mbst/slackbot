@@ -57,8 +57,8 @@ router.route('/').post(function(req, res) {
         res.end('not enough data to continue');
         return;
     }
-
     if (_event === 'pull_request') {
+        console.log('hey');
         handle_pull_request(_body);
     }
     res.end();

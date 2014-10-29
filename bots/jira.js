@@ -75,7 +75,7 @@ router.route('/').post( function(req, res) {
             message.chatname = jira.getChatFromComponent(featuredata.fields.components);
             message.write(response).send();
             res.end();
-        }, function(err) { if (err) throw err; });
+        }, function(err) { if (err) logger.error(err); });
     }else{ 
         // send as feature
         message.chatname = jira.getChatFromComponent(featuredata.fields.components);
