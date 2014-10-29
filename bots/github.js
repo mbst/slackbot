@@ -41,10 +41,9 @@ function handle_pull_request(body) {
             message.write('in the feature')
                    .link(feature_title, jiraURL)
                    .send();
-            console.log(message);
         }, function(err) {
-            logger.log(err);
             message.send();
+            logger.error(err);
         });
     }
 }
