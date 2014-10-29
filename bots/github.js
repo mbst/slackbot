@@ -37,13 +37,12 @@ function handle_pull_request(body) {
 
         // find the feature in Jira so we can add the feature info to the message
         jira.getFeature('MBST-'+jiraId).then(function(feature) {
-            console.log('feature')
             var feature_title = feature.fields.summary;
             message.write('in the feature')
                    .link(feature_title, jiraURL)
                    .send();
+            console.log(message);
         }, function(err) {
-            console.log('oops');
             logger.log(err);
             message.send();
         });
