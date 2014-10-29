@@ -8,7 +8,7 @@ var express     = require('express'),
     Jira        = require('../lib/jiraProvider'),
     q           = require('q');
 
-//  For dealing with a pull request and dispatching to the correct chat
+//  For dealing with a pull request and sending to the correct chat
 //
 //  @param body {object} the body of the request
 //
@@ -27,12 +27,13 @@ function handle_pull_request(body) {
             jira            = new Jira(),
             message         = new dispatcher('#pull-requests', _message_options);
 
+        // start constructing the pull request message
         message.write(pullrequest.user.login)
                .write('has made a pull request to merge branch')
                .link(branch, pullrequest.html_url)
                .write('into')
                .write(default_branch)
-               .write('['+pullrequest.commits+' commits],')
+               .write('['+pullrequest.commits+' commits]')
 
         // find the feature in Jira so we can add the feature info to the message
         jira.getFeature('MBST-'+jiraId).then(function(feature) {
@@ -40,6 +41,8 @@ function handle_pull_request(body) {
             message.write('in the feature')
                    .link(feature_title, jiraURL)
                    .send();
+        }, function(err) {
+            if (err[0] === 'Issue Does Not Exist') message.send();
         });
     }
 }
@@ -53,6 +56,7 @@ router.route('/').post(function(req, res) {
         res.end('not enough data to continue');
         return;
     }
+
     if (_event === 'pull_request') {
         handle_pull_request(_body);
     }
