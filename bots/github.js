@@ -22,9 +22,6 @@ function handle_pull_request(body) {
         var pullrequest     = body.pull_request,
             branch          = pullrequest.head.ref,
             default_branch  = body.repository.default_branch,
-            jiraId          = branch.split('-')[1],
-            jiraURL         = 'http://jira.metabroadcast.com/browse/MBST-'+jiraId,
-            jira            = new Jira(),
             message         = new dispatcher('#pull-requests', _message_options);
 
         // start constructing the pull request message
@@ -33,18 +30,27 @@ function handle_pull_request(body) {
                .link(branch, pullrequest.html_url)
                .write('into')
                .write(default_branch)
-               .write('['+pullrequest.commits+' commits]')
+               .write('['+pullrequest.commits+' commits]');
 
-        // find the feature in Jira so we can add the feature info to the message
-        jira.getFeature('MBST-'+jiraId).then(function(feature) {
-            var feature_title = feature.fields.summary;
-            message.write('in the feature')
-                   .link(feature_title, jiraURL)
-                   .send();
-        }, function(err) {
+        // determine if there is a Jira project id in this branchname
+        if (branch.indexOf('MBST-') >= 0) {
+            var jiraId  = branch.split('-')[1],
+                jiraURL = 'http://jira.metabroadcast.com/browse/MBST-'+jiraId,
+                jira    = new Jira();
+        
+            // find the feature in Jira so we can add the feature info to the message
+            jira.getFeature('MBST-'+jiraId).then(function(feature) {
+                var feature_title = feature.fields.summary;
+                message.write('in the feature')
+                       .link(feature_title, jiraURL)
+                       .send();
+            }, function(err) {
+                message.send();
+                logger.error(err);
+            });
+        }else{
             message.send();
-            logger.error(err);
-        });
+        }
     }
 }
 
