@@ -8,7 +8,7 @@ var express         = require('express'),
     _               = require('lodash'),
     q               = require('q');
 
-function handle_pull_request(body) {
+function handle_pull_request (body) {
     var _message_options = {
         username: 'Bitbucket',
         color: '#205081',
@@ -31,20 +31,20 @@ function handle_pull_request(body) {
            .write(_destination_branch);
 
     // find the feature in jira from the branch name, otherwise just send the message
-    jira.getFeatureFromString(_branch).then(function(feature) {
+    jira.getFeatureFromString(_branch).then(function (feature) {
         var feature_title = feature.fields.summary,
             feature_key = feature.key,
             jiraURL = 'http://jira.metabroadcast.com/browse/'+feature_key;
         message.write('in the feature')
                .link(feature_title, jiraURL)
                .send();
-    }, function(err) {
+    }, function (err) {
         if (err) logger.error(err);
         message.send();
     })
 }
 
-router.post('/', function(req, res) {
+router.post('/', function (req, res) {
     var _body = req.body || null;
 
     // decide from the request where to send the data

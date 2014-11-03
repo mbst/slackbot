@@ -19,7 +19,7 @@ var express         = require('express'),
 //
 function formatter(taskdata, featuredata) {
     if (!_.isObject(taskdata)) {
-        logger.error('taskdata argument must be a object'); 
+        logger.error('formatter(taskdata, featuredata): taskdata argument must be a object'); 
         return; 
     }
     var output      = [],
@@ -66,6 +66,8 @@ router.route('/').post( function(req, res) {
     var jira = new Jira();
     var message = new dispatcher('#anything-else', message_options);
 
+    console.log(taskdata);
+
     // determine if this request is for a top level feature or a child issue
     if (_.isString(taskdata.issue.fields.customfield_10400)) {
         // send as issue
@@ -78,7 +80,8 @@ router.route('/').post( function(req, res) {
         }, function(err) { if (err) logger.error(err); });
     }else{ 
         // send as feature
-        message.chatname = jira.getChatFromComponent(taskdata.fields.components);
+        var components = (_.isArray(taskdata.fields.components))? taskdata.fields.components : null;
+        message.chatname = jira.getChatFromComponent(components);
         var response = formatter(taskdata);
         message.write(response).send();
         res.end();
