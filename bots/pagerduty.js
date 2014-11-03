@@ -15,13 +15,13 @@ var express         = require('express'),
 //
 //  @param req {object} request body sent from pagerduty 
 //
-function parseRequest (req, callback) {
+function parseRequest(req, callback) {
     if (!_.isArray(req.messages)) {
         logger.error('parseRequest(req, callback): req.messages isnt an array.')
         callback(null);
     }
     var _messages = req.messages;
-    var callback = callback || function () {};
+    var callback = callback || function() {};
     _.forEach(_messages, callback);
 }
 
@@ -30,7 +30,7 @@ function parseRequest (req, callback) {
 //
 //  @param message_obj {object} a single message object sent from pagerduty
 //
-function sendMessage (message_obj) {
+function sendMessage(message_obj) {
     if (!_.isObject(message_obj)) {
         return null;
     }
@@ -75,7 +75,7 @@ function sendMessage (message_obj) {
     console.log( message.message.join(' ') );
 }
 
-router.post('/', function (req, res) {
+router.post('/', function(req, res) {
     var _body = req.body || null;
     parseRequest(_body, sendMessage);
     res.end();

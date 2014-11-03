@@ -40,7 +40,8 @@ function formatter(taskdata, featuredata) {
         output.push('has deleted');
     } else if ( ev === 'jira:issue_updated' ) {
         if ( _.isNull(resolution) ) {
-            output.push('has updated');
+            //output.push('has updated');
+            return null;
         }else{
             output.push('has resolved');
         }
@@ -66,16 +67,16 @@ router.route('/').post( function(req, res) {
     var jira = new Jira();
     var message = new dispatcher('#anything-else', message_options);
 
-    console.log(taskdata);
-
     // determine if this request is for a top level feature or a child issue
     if (_.isString(taskdata.issue.fields.customfield_10400)) {
         // send as issue
         var parent_issue = taskdata.issue.fields.customfield_10400;
         jira.getFeature(parent_issue).then(function(featuredata) {
             var response = formatter(taskdata, featuredata);
-            message.chatname = jira.getChatFromComponent(featuredata.fields.components);
-            message.write(response).send();
+            if (response) {
+                message.chatname = jira.getChatFromComponent(featuredata.fields.components);
+                message.write(response).send();
+            }
             res.end();
         }, function(err) { if (err) logger.error(err); });
     }else{ 
@@ -83,7 +84,9 @@ router.route('/').post( function(req, res) {
         var components = (_.isArray(taskdata.fields.components))? taskdata.fields.components : null;
         message.chatname = jira.getChatFromComponent(components);
         var response = formatter(taskdata);
-        message.write(response).send();
+        if (response) {
+            message.write(response).send();
+        }
         res.end();
     }
 });

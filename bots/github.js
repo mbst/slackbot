@@ -12,7 +12,7 @@ var express     = require('express'),
 //
 //  @param body {object} the body of the request
 //
-function handle_pull_request (body) {
+function handle_pull_request(body) {
     var _message_options = {
         username: 'GitHub',
         color: '#333',
@@ -36,7 +36,7 @@ function handle_pull_request (body) {
 
         // find the feature in Jira so we can add the feature info to the 
         // message, otherwise just send the message without the jira link
-        jira.getFeatureFromString(branch).then(function (feature) {
+        jira.getFeatureFromString(branch).then(function(feature) {
             var feature_title = feature.fields.summary,
                 feature_key = feature.key,
                 jiraURL = 'http://jira.metabroadcast.com/browse/'+feature_key;
@@ -44,7 +44,7 @@ function handle_pull_request (body) {
             message.write('in the feature')
                    .link(feature_title, jiraURL)
                    .send();
-        }, function (err) {
+        }, function(err) {
             if (err) logger.error(err);
             message.send();
         });
@@ -52,7 +52,7 @@ function handle_pull_request (body) {
 }
 
 
-router.route('/').post(function (req, res) {
+router.route('/').post(function(req, res) {
     var _body = req.body || null;
     var _event = req.headers['x-github-event'] || null;
 
