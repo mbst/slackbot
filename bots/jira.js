@@ -32,6 +32,7 @@ function formatter(taskdata, featuredata) {
         wording     = {};
 
     // construct the response 
+    console.log(taskdata);
     wording.type = (isFeature)? 'feature' : 'issue';
     output.push(user.displayName);
     if ( ev === 'jira:issue_created' ) {
@@ -39,18 +40,17 @@ function formatter(taskdata, featuredata) {
     } else if ( ev === 'jira:issue_deleted' ) {
         output.push('has deleted');
     } else if ( ev === 'jira:issue_updated' ) {
-        if ( _.isNull(resolution) ) {
-            //output.push('has updated');
+        if ( _.isEmpty(resolution) ) {
             return null;
         }else{
             output.push('has resolved');
         }
     }
     output.push(wording.type);
-    output.push('<'+browseURL+issue.key+'|'+issue.fields.summary+'>');
+    output.push('<'+_.escape(browseURL+issue.key)+'|'+_.escape(issue.fields.summary)+'>');
     if (!isFeature) {
         output.push('in the feature');
-        output.push('<'+browseURL+featuredata.key+'|'+featuredata.fields.summary+'>');
+        output.push('<'+_.escape(browseURL+featuredata.key)+'|'+_.escape(featuredata.fields.summary)+'>');
     }
     return output.join(' ');
 }

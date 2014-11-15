@@ -17,6 +17,7 @@
     "winston": "^0.8.1"
   },
   "devDependencies": {
-    "body-parser": "^1.9.0"
+    "body-parser": "^1.9.0",
+    "chai": "^1.10.0"
   }
 }
