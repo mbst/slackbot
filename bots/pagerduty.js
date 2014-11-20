@@ -35,9 +35,6 @@ function sendMessage(message_obj) {
         return null;
     }
 
-    console.log('PD---');
-    console.log(JSON.stringify(message_obj));
-
     var _message_options = {
         username: 'Pagerduty',
         color: '#47BA04',
@@ -81,7 +78,7 @@ function sendMessage(message_obj) {
     }
 
     // link for more details about the incident
-    message.link('Details about this incident', _incident.trigger_details_html_url);
+    message.link('Details about this incident', _incident.html_url);
 
     message.send();
 }
