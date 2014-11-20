@@ -34,6 +34,10 @@ function sendMessage(message_obj) {
     if (!_.isObject(message_obj)) {
         return null;
     }
+
+    console.log('PD---');
+    console.log(JSON.strinify(message_obj));
+
     var _message_options = {
         username: 'Pagerduty',
         color: '#47BA04',

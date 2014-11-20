@@ -64,6 +64,9 @@ router.route('/').post( function(req, res) {
         return;
     }
 
+    console.log('JIRA---')
+    console.log(JSON.stringify(taskdata))
+
     var message_options = {
         username: 'Jira',
         color: '#053663',
@@ -85,7 +88,6 @@ router.route('/').post( function(req, res) {
             res.end();
         }, function(err) { if (err) logger.error(err); });
     }else{ 
-        console.log(JSON.stringify(taskdata))
         // send as feature
         var components = taskdata.fields.components? taskdata.fields.components : null;
         message.chatname = jira.getChatFromComponent(components);
