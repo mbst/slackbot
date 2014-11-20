@@ -64,9 +64,6 @@ router.route('/').post( function(req, res) {
         return;
     }
 
-    console.log('JIRA---')
-    console.log(JSON.stringify(taskdata))
-
     var message_options = {
         username: 'Jira',
         color: '#053663',
@@ -92,6 +89,49 @@ router.route('/').post( function(req, res) {
         var components = taskdata.fields.components? taskdata.fields.components : null;
         message.chatname = jira.getChatFromComponent(components);
         var response = formatter(taskdata);
+        if (response) {
+            message.write(response).send();
+        }
+        res.end();
+    }
+});
+
+
+router.route('/support').post( function(req, res) {
+    var supportdata = req.body || null;
+    if (_.isEmpty(supportdata)) {
+        res.end();
+        return;
+    }
+
+    console.log('JIRASUPPORT---')
+    console.log(JSON.stringify(supportdata))
+
+    var message_options = {
+        username: 'Jira',
+        color: '#053663',
+        icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
+    };
+    var jira = new Jira();
+    var message = new dispatcher('#mb-feeds', message_options);
+    var parent_issue = supportdata.issue.fields.customfield_10400 || undefined;
+
+    // determine if this request is for a top level feature or a child issue
+    if (_.isString(parent_issue)) {
+        // send as issue
+        jira.getFeature(parent_issue).then(function(featuredata) {
+            var response = formatter(supportdata, featuredata);
+            if (response) {
+                message.chatname = jira.getChatFromComponent(featuredata.fields.components);
+                message.write(response).send();
+            }
+            res.end();
+        }, function(err) { if (err) logger.error(err); });
+    }else{ 
+        // send as feature
+        var components = supportdata.fields.components? supportdata.fields.components : null;
+        message.chatname = jira.getChatFromComponent(components);
+        var response = formatter(supportdata);
         if (response) {
             message.write(response).send();
         }
