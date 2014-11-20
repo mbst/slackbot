@@ -55,22 +55,22 @@ function sendMessage(message_obj) {
     if (_type.match(/\.trigger$/i)) {
         message.write('triggered:')
                .write(_name)
-               .write(_incident_number);
+               .write('#'+_incident_number);
     }else if (_type.match(/\.acknowledge/i)) {
         message.write('acknowledged:')
                .write(_name)
-               .write(_incident_number);
+               .write('#'+_incident_number);
     }else if (_type.match(/\.resolve/i)) {
         message.write('resolved:')
                .write(_name)
-               .write(_incident_number);
+               .write('#'+_incident_number);
     }else if (_type.match(/\.unacknowledge/i)) {
         message.write('unacknowledged:')
                .write(_name)
-               .write(_incident_number);
+               .write('#'+_incident_number);
     }else if (_type.match(/\.assign/i)) {
         message.write(_name)
-               .write(_incident_number)
+               .write('#'+_incident_number)
                .write('assigned to')
                .write(_incident.assigned_to_user.name);
     }else if (_type.match(/\.escalate/i)) {
