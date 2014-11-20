@@ -23,7 +23,7 @@ function formatter(taskdata, featuredata) {
         return; 
     }
 
-    console.log(taskdata);
+    console.log(JSON.stringify(taskdata));
 
     var output      = [],
         isFeature   = (_.isObject(featuredata))? false : true,
