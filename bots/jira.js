@@ -23,6 +23,8 @@ function formatter(taskdata, featuredata) {
         return; 
     }
 
+    console.log(taskdata);
+
     var output      = [],
         isFeature   = (_.isObject(featuredata))? false : true,
         ev          = taskdata.webhookEvent,
@@ -60,10 +62,7 @@ function formatter(taskdata, featuredata) {
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
 
-    var fs = require('fs');
-    fs.writeFile("../jira.json", taskdata, function(err) {
-        
-    });
+    console.log(taskdata);
 
     if (!_.has(taskdata, 'user') || !_.has(taskdata, 'issue') || !_.has(taskdata, 'webhookEvent')) {
         logger.error('Webhook request: `user`, `issue`, `webhookEvent` or `fields` are missing from taskdata object');
