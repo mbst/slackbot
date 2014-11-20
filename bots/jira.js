@@ -85,8 +85,9 @@ router.route('/').post( function(req, res) {
             res.end();
         }, function(err) { if (err) logger.error(err); });
     }else{ 
+        console.log(JSON.stringify(taskdata))
         // send as feature
-        var components = (_.isArray(taskdata.fields.components))? taskdata.fields.components : null;
+        var components = taskdata.fields.components? taskdata.fields.components : null;
         message.chatname = jira.getChatFromComponent(components);
         var response = formatter(taskdata);
         if (response) {

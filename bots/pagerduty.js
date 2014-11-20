@@ -72,7 +72,7 @@ function sendMessage(message_obj) {
     // link for more details about the incident
     message.link('Details about this incident', _incident.trigger_details_html_url);
 
-    console.log( message.message.join(' ') );
+    message.send();
 }
 
 router.post('/', function(req, res) {
