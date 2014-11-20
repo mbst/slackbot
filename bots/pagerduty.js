@@ -36,7 +36,7 @@ function sendMessage(message_obj) {
     }
 
     console.log('PD---');
-    console.log(JSON.strinify(message_obj));
+    console.log(JSON.stringify(message_obj));
 
     var _message_options = {
         username: 'Pagerduty',
