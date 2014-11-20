@@ -9,7 +9,6 @@ var express         = require('express'),
     _               = require('lodash'),
     q               = require('q');
 
-
 //  Used for taking the request body and filtering it to output a
 //  message string
 //
@@ -104,6 +103,9 @@ router.route('/support').post( function(req, res) {
         res.end();
         return;
     }
+
+    console.log(supportdata);
+    return;
 
     var message_options = {
         username: 'Jira',
