@@ -45,25 +45,32 @@ function sendMessage(message_obj) {
     };
     var message = new dispatcher('#support', _message_options), 
         _type = message_obj.type,
-        _incident = message_obj.data.incident;
+        _incident = message_obj.data.incident,
+        _name = _incident.trigger_summary_data.subject || _incident.service.name,
+        _incident_number = _incident.incident_number || '';
 
     message.write('Incident')
 
     // determine which type of message to send
     if (_type.match(/\.trigger$/i)) {
         message.write('triggered:')
-               .write(_incident.service.name);
+               .write(_name)
+               .write(_incident_number);
     }else if (_type.match(/\.acknowledge/i)) {
         message.write('acknowledged:')
-               .write(_incident.service.name);
+               .write(_name)
+               .write(_incident_number);
     }else if (_type.match(/\.resolve/i)) {
         message.write('resolved:')
-               .write(_incident.service.name);
+               .write(_name)
+               .write(_incident_number);
     }else if (_type.match(/\.unacknowledge/i)) {
         message.write('unacknowledged:')
-               .write(_incident.service.name);
+               .write(_name)
+               .write(_incident_number);
     }else if (_type.match(/\.assign/i)) {
-        message.write(_incident.service.name)
+        message.write(_name)
+               .write(_incident_number)
                .write('assigned to')
                .write(_incident.assigned_to_user.name);
     }else if (_type.match(/\.escalate/i)) {
