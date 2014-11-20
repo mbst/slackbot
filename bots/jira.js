@@ -103,7 +103,7 @@ router.route('/support').post( function(req, res) {
         res.end();
         return;
     }
-    
+
     var message_options = {
         username: 'Jira',
         color: '#053663',
@@ -127,7 +127,6 @@ router.route('/support').post( function(req, res) {
         }, function(err) { if (err) logger.error(err); });
     }else{ 
         // send as feature
-        var components = supportdata.fields.components? supportdata.fields.components : null;
         var response = formatter(supportdata);
         if (response) {
             message.write(response).send();
