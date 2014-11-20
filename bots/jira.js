@@ -23,8 +23,6 @@ function formatter(taskdata, featuredata) {
         return; 
     }
 
-    console.log(JSON.stringify(taskdata));
-
     var output      = [],
         isFeature   = (_.isObject(featuredata))? false : true,
         ev          = taskdata.webhookEvent,
@@ -60,12 +58,9 @@ function formatter(taskdata, featuredata) {
 
 //  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
-    var taskdata = req.body || null;    
-
-    console.log(taskdata);
-
-    if (!_.has(taskdata, 'user') || !_.has(taskdata, 'issue') || !_.has(taskdata, 'webhookEvent')) {
-        logger.error('Webhook request: `user`, `issue`, `webhookEvent` or `fields` are missing from taskdata object');
+    var taskdata = req.body || null;
+    if (_.isEmpty(taskdata)) {
+        res.end();
         return;
     }
 
@@ -76,11 +71,11 @@ router.route('/').post( function(req, res) {
     };
     var jira = new Jira();
     var message = new dispatcher('#anything-else', message_options);
+    var parent_issue = taskdata.issue.fields.customfield_10400 || undefined;
 
     // determine if this request is for a top level feature or a child issue
-    if (_.isString(taskdata.issue.fields.customfield_10400)) {
+    if (_.isString(parent_issue)) {
         // send as issue
-        var parent_issue = taskdata.issue.fields.customfield_10400;
         jira.getFeature(parent_issue).then(function(featuredata) {
             var response = formatter(taskdata, featuredata);
             if (response) {
