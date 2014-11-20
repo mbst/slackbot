@@ -70,7 +70,7 @@ router.route('/').post( function(req, res) {
         icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
     };
     var jira = new Jira();
-    var message = new dispatcher('#anything-else', message_options);
+    var message = new dispatcher('#mb-feeds', message_options);
     var parent_issue = taskdata.issue.fields.customfield_10400 || undefined;
 
     // determine if this request is for a top level feature or a child issue
