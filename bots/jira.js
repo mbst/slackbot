@@ -104,7 +104,7 @@ router.route('/support').post( function(req, res) {
         return;
     }
 
-    console.log(supportdata);
+    console.log(JSON.stringify(supportdata));
     return;
 
     var message_options = {
