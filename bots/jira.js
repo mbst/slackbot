@@ -65,7 +65,7 @@ router.route('/').post( function(req, res) {
         
     });
 
-    if (!_.has(taskdata, 'user') || !_.has(taskdata, 'issue') || !_.has(taskdata, 'webhookEvent')|| !_.has(taskdata, 'fields')) {
+    if (!_.has(taskdata, 'user') || !_.has(taskdata, 'issue') || !_.has(taskdata, 'webhookEvent')) {
         logger.error('Webhook request: `user`, `issue`, `webhookEvent` or `fields` are missing from taskdata object');
         return;
     }
