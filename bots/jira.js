@@ -22,6 +22,7 @@ function formatter(taskdata, featuredata) {
         logger.error('formatter(taskdata, featuredata): taskdata argument must be a object'); 
         return; 
     }
+
     var output      = [],
         isFeature   = (_.isObject(featuredata))? false : true,
         ev          = taskdata.webhookEvent,
@@ -32,8 +33,6 @@ function formatter(taskdata, featuredata) {
         wording     = {};
 
     // construct the response 
-    console.log(taskdata);
-    wording.type = (isFeature)? 'feature' : 'issue';
     output.push(user.displayName);
     if ( ev === 'jira:issue_created' ) {
         output.push('has created');
@@ -46,6 +45,7 @@ function formatter(taskdata, featuredata) {
             output.push('has resolved');
         }
     }
+    wording.type = (isFeature)? 'feature' : 'issue';
     output.push(wording.type);
     output.push('<'+_.escape(browseURL+issue.key)+'|'+_.escape(issue.fields.summary)+'>');
     if (!isFeature) {
@@ -59,6 +59,17 @@ function formatter(taskdata, featuredata) {
 //  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
     var taskdata = req.body || null;    
+
+    var fs = require('fs');
+    fs.writeFile("../jira.json", taskdata, function(err) {
+        
+    });
+
+    if (!_.has(taskdata, 'user') || !_.has(taskdata, 'issue') || !_.has(taskdata, 'webhookEvent')|| !_.has(taskdata, 'fields')) {
+        logger.error('Webhook request: `user`, `issue`, `webhookEvent` or `fields` are missing from taskdata object');
+        return;
+    }
+
     var message_options = {
         username: 'Jira',
         color: '#053663',
