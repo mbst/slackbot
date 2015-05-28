@@ -70,6 +70,9 @@ function sendMessage(message_obj) {
                .write('#'+_incident_number)
                .write('assigned to')
                .write(_incident.assigned_to_user.name);
+    } else if (_type.match(/\.escalate/i)) {
+        //message.write('escalated');
+        return;
     } else if (_type.match(/\.delegate/i)) {
         message.write('delegated to')
                .write(_incident.assigned_to_user.name+'.');

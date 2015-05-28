@@ -31,24 +31,26 @@ function formatter(taskdata, featuredata) {
 
   // construct the response string
   output.push(user.displayName);
-  if ( ev === 'jira:issue_created' ) {
-    output.push('has created');
-  } else if ( ev === 'jira:issue_deleted' ) {
-    output.push('has deleted');
-  } else if ( ev === 'jira:issue_updated' ) {
+
+  if ( ev === 'jira:issue_updated' ) {
     if ( _.isEmpty(resolution) ) {
-      return null;
+      return;
     }else{
       output.push('has resolved');
     }
+  } else {
+    return;
   }
-  wording.type = (isFeature)? 'feature' : 'issue';
+
+  wording.type = isFeature ? 'feature' : 'issue';
   output.push(wording.type);
   output.push('<'+_.escape(browseURL+issue.key)+'|'+_.escape(issue.fields.summary)+'>');
-  if (!isFeature) {
+
+  if (! isFeature) {
     output.push('in the feature');
-    output.push('<'+_.escape(browseURL+featuredata.key)+'|'+_.escape(featuredata.fields.summary)+'>');
+    output.push('<' + _.escape(browseURL+featuredata.key) + '|' + _.escape(featuredata.fields.summary) + '>');
   }
+
   return output.join(' ');
 }
 
