@@ -17,7 +17,7 @@ var Q          = require('q');
 //
 function parseRequest(req, callback) {
     if (!_.isArray(req.messages)) {
-        logger.error('parseRequest(req, callback): req.messages isnt an array.')
+        logger.error('parseRequest(req, callback): req.messages isnt an array.');
         callback(null);
     }
     var _messages = req.messages;
@@ -46,33 +46,31 @@ function sendMessage(message_obj) {
     var _name               = _incident.trigger_summary_data.subject || _incident.service.name;
     var _incident_number    = _incident.incident_number || '';
 
-    message.write('Incident')
+    message.write('Incident');
 
     // determine which type of message to send
     if (_type.match(/\.trigger$/i)) {
         message.write('triggered:')
                .write(_name)
                .write('#'+_incident_number);
-    }else if (_type.match(/\.acknowledge/i)) {
+    } else if (_type.match(/\.acknowledge/i)) {
         message.write('acknowledged:')
                .write(_name)
                .write('#'+_incident_number);
-    }else if (_type.match(/\.resolve/i)) {
+    } else if (_type.match(/\.resolve/i)) {
         message.write('resolved:')
                .write(_name)
                .write('#'+_incident_number);
-    }else if (_type.match(/\.unacknowledge/i)) {
+    } else if (_type.match(/\.unacknowledge/i)) {
         message.write('unacknowledged:')
                .write(_name)
                .write('#'+_incident_number);
-    }else if (_type.match(/\.assign/i)) {
+    } else if (_type.match(/\.assign/i)) {
         message.write(_name)
                .write('#'+_incident_number)
                .write('assigned to')
                .write(_incident.assigned_to_user.name);
-    }else if (_type.match(/\.escalate/i)) {
-        //message.write('escalated');
-    }else if (_type.match(/\.delegate/i)) {
+    } else if (_type.match(/\.delegate/i)) {
         message.write('delegated to')
                .write(_incident.assigned_to_user.name+'.');
     }
