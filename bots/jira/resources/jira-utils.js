@@ -1,6 +1,6 @@
 'use strict';
 var _          = require('lodash');
-var logger     = require('../../internals/logger').jirabot;
+var logger     = require('../../../internals/logger').jirabot;
 
 //  Used for taking the request body and converting it to output a message string
 //
