@@ -4,56 +4,9 @@ var _          = require('lodash');
 var logger     = require('../../internals/logger').jirabot;
 var dispatcher = require('../../internals/dispatcher');
 var Jira       = require('./resources/jira-service');
+var jiraUtils  = require('./resources/jira-utils');
 
 var router     = express.Router();
-
-//  Used for taking the request body and filtering it to output a
-//  message string
-//
-//  @param taskdata {object}
-//  @param featuredata {object} omitting this causes the data
-//         to be treated as a parent feature, not an issue
-//  @returns {string} slack message or null
-//
-function formatter(taskdata, featuredata) {
-  if (!_.isObject(taskdata)) {
-    logger.error('formatter(taskdata, featuredata): taskdata argument must be a object');
-    return;
-  }
-
-  var output      = [];
-  var isFeature   = (_.isObject(featuredata))? false : true;
-  var ev          = taskdata.webhookEvent;
-  var user        = taskdata.user;
-  var issue       = taskdata.issue;
-  var resolution  = issue.fields.resolution || null;
-  var browseURL   = 'http://jira.metabroadcast.com/browse/';
-  var wording     = {};
-
-  // construct the response string
-  output.push(user.displayName);
-
-  if ( ev === 'jira:issue_updated' ) {
-    if ( _.isEmpty(resolution) ) {
-      return;
-    }else{
-      output.push('has resolved');
-    }
-  } else {
-    return;
-  }
-
-  wording.type = isFeature ? 'feature' : 'issue';
-  output.push(wording.type);
-  output.push('<'+_.escape(browseURL+issue.key)+'|'+_.escape(issue.fields.summary)+'>');
-
-  if (! isFeature) {
-    output.push('in the feature');
-    output.push('<' + _.escape(browseURL+featuredata.key) + '|' + _.escape(featuredata.fields.summary) + '>');
-  }
-
-  return output.join(' ');
-}
 
 
 //  Listen for incoming hooks from jira
@@ -77,7 +30,7 @@ router.route('/').post( function(req, res) {
   if (_.isString(parent_issue)) {
     // send as issue
     jira.getFeature(parent_issue).then(function(featuredata) {
-      var response = formatter(taskdata, featuredata);
+      var response = jiraUtils.formatter(taskdata, featuredata);
       if (response) {
         message.chatname = jira.getChatFromComponent(featuredata.fields.components);
         message.write(response).send();
@@ -97,7 +50,7 @@ router.route('/').post( function(req, res) {
     }
     var components = taskdata.fields.components ? taskdata.fields.components : null;
     message.chatname = jira.getChatFromComponent(components);
-    var response = formatter(taskdata);
+    var response = jiraUtils.formatter(taskdata);
     if (response) {
       message.write(response).send();
     }
@@ -128,7 +81,7 @@ router.route('/support').post( function(req, res) {
   if (_.isString(parent_issue)) {
     // send as issue
     jira.getFeature(parent_issue).then(function(featuredata) {
-      var response = formatter(supportdata, featuredata);
+      var response = jiraUtils.formatter(supportdata, featuredata);
       if (response) {
         message.write(response).send();
       }
@@ -140,7 +93,7 @@ router.route('/support').post( function(req, res) {
     });
   }else{
     // send as feature
-    var response = formatter(supportdata);
+    var response = jiraUtils.formatter(supportdata);
     if (response) {
       message.write(response).send();
     }
