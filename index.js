@@ -1,9 +1,8 @@
 'use strict';
-var common          = require('./lib/common'),
-    express         = require('express'),
-    bodyParser      = require('body-parser'),
-    app             = express(),
-    dispatcher      = require('./lib/dispatcher');
+var common          = require('./lib/common');
+var express         = require('express');
+var bodyParser      = require('body-parser');
+var app             = express();
 
 // tell express to parse requests as JSON
 app.use(bodyParser.json());

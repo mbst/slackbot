@@ -1,11 +1,11 @@
 'use strict';
-var express    = require('express'),
-    common     = require('../lib/common'),
-    logger     = require('../lib/logger').pagerdutybot,
-    router     = express.Router(),
-    dispatcher = require('../lib/dispatcher'),
-    _          = require('lodash'),
-    Q          = require('q');
+var express    = require('express');
+var common     = require('../lib/common');
+var logger     = require('../lib/logger').pagerdutybot;
+var router     = express.Router();
+var dispatcher = require('../lib/dispatcher');
+var _          = require('lodash');
+var Q          = require('q');
 
 
 //  Used for parsing the incoming request
@@ -13,7 +13,7 @@ var express    = require('express'),
 //  Pagerduty sometimes bundles up multiple events into a single request,
 //  so we need to split them and deal with them individually
 //
-//  @param req {object} request body sent from pagerduty 
+//  @param req {object} request body sent from pagerduty
 //
 function parseRequest(req, callback) {
     if (!_.isArray(req.messages)) {
@@ -40,7 +40,7 @@ function sendMessage(message_obj) {
         color: '#47BA04',
         icon_url: 'https://pbs.twimg.com/profile_images/482648331181490177/4X_QI2Vu_400x400.png'
     };
-    var message             = new dispatcher('#support', _message_options); 
+    var message             = new dispatcher('#support', _message_options);
     var _type               = message_obj.type;
     var _incident           = message_obj.data.incident;
     var _name               = _incident.trigger_summary_data.subject || _incident.service.name;

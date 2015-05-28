@@ -29,7 +29,7 @@ function formatter(taskdata, featuredata) {
   var browseURL   = 'http://jira.metabroadcast.com/browse/';
   var wording     = {};
 
-  // construct the response
+  // construct the response string
   output.push(user.displayName);
   if ( ev === 'jira:issue_created' ) {
     output.push('has created');
@@ -87,7 +87,12 @@ router.route('/').post( function(req, res) {
     });
   }else{
     // send as feature
-    var components = taskdata.fields.components? taskdata.fields.components : null;
+    if (! _.has(taskdata.fields, 'components')) {
+      logger.log('No components key in taskdata', taskdata);
+      res.end();
+      return;
+    }
+    var components = taskdata.fields.components ? taskdata.fields.components : null;
     message.chatname = jira.getChatFromComponent(components);
     var response = formatter(taskdata);
     if (response) {
