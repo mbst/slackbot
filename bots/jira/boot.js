@@ -1,10 +1,11 @@
 'use strict';
-var express      = require('express');
-var logger       = require('../../internals/logger').jirabot;
-var dispatcher   = require('../../internals/dispatcher');
-var Jira         = require('../../internals/jiraProvider');
-var _            = require('lodash');
-var router       = express.Router();
+var express    = require('express');
+var logger     = require('../../internals/logger').jirabot;
+var dispatcher = require('../../internals/dispatcher');
+var Jira       = require('../../internals/jiraProvider');
+var _          = require('lodash');
+var router     = express.Router();
+
 
 //  Used for taking the request body and filtering it to output a
 //  message string

@@ -1,10 +1,10 @@
 'use strict';
-var common          = require('./internals/common');
-var Loader          = require('./internals/botLoader');
-var logger          = require('./internals/logger').internals;
-var express         = require('express');
-var bodyParser      = require('body-parser');
-var app             = express();
+var common     = require('./internals/common');
+var Loader     = require('./internals/bot-loader');
+var logger     = require('./internals/logger').internals;
+var express    = require('express');
+var bodyParser = require('body-parser');
+var app        = express();
 
 // Instantiate the Bot Loader
 var load = new Loader();
@@ -13,6 +13,7 @@ var load = new Loader();
 app.use(bodyParser.json());
 
 // Load all the bots
+// TODO: Move express logic into bot loader, and set endpoint as function arg
 app.use('/test',               load.bot('test'));
 app.use('/webhooks/jira',      load.bot('jira'));
 app.use('/webhooks/github',    load.bot('github'));
