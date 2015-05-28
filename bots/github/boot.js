@@ -1,12 +1,12 @@
 'use strict';
-var express     = require('express'),
-    common      = require('../lib/common'),
-    logger      = require('../lib/logger').githubbot,
-    router      = express.Router(),
-    dispatcher  = require('../lib/dispatcher'),
-    _           = require('lodash'),
-    Jira        = require('../lib/jiraProvider'),
-    q           = require('q');
+var express     = require('express');
+var common      = require('../../internals/common');
+var logger      = require('../../internals/logger').githubbot;
+var dispatcher  = require('../../internals/dispatcher');
+var router      = express.Router();
+var _           = require('lodash');
+var Jira        = require('../../internals/jiraProvider');
+var q           = require('q');
 
 //  For dealing with a pull request and sending to the correct chat
 //
@@ -34,7 +34,7 @@ function handle_pull_request(body) {
                .write(default_branch)
                .write('['+pullrequest.commits+' commits]');
 
-        // find the feature in Jira so we can add the feature info to the 
+        // find the feature in Jira so we can add the feature info to the
         // message, otherwise just send the message without the jira link
         jira.getFeatureFromString(branch).then(function(feature) {
             var feature_title = feature.fields.summary,

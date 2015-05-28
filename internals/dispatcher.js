@@ -1,7 +1,8 @@
 'use strict';
 var common    = require('./common');
+var utils     = require('./utils');
 var logger    = require('./logger').global;
-var Slack = require('slack-node');
+var Slack     = require('slack-node');
 var _         = require('lodash');
 
 var slack = new Slack();
@@ -17,7 +18,6 @@ slack.setWebhook('https://hooks.slack.com/services/T0270NQL9/B02N6QREG/RojNtPhjw
 //
 function Dispatcher(chatname, options) {
   options = options || {};
-  this.dev = false;
   this.chatname = chatname;
   this.message = [];
   this.options = _.assign({
@@ -27,15 +27,6 @@ function Dispatcher(chatname, options) {
     iconUrl: ''
   }, options);
 }
-
-
-// Dev mode will tell the Dispatcher to log message objects to the console
-// instead of sending to slack
-//
-// @param mode {Boolean}
-Dispatcher.prototype.devMode = function (mode) {
-  this.dev = mode || false;
-};
 
 
 //  For sending the message to slack
@@ -61,7 +52,7 @@ Dispatcher.prototype.send = function() {
     'attachments': _attachments
   };
 
-  if (this.dev) {
+  if (utils.isDev()) {
     console.log(messageObject);
     this.message = [];
     return;
@@ -89,7 +80,7 @@ Dispatcher.prototype.write = function(message) {
 
 Dispatcher.prototype.link = function(text, link) {
   if (_.isArray(this.message)) {
-    this.message.push('<'+link+'|'+text+'>');
+    this.message.push('<' + link + '|' + text + '>');
   }
   return this;
 };

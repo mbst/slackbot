@@ -1,8 +1,8 @@
 'use strict';
 var express      = require('express');
-var logger       = require('../lib/logger').jirabot;
-var dispatcher   = require('../lib/dispatcher');
-var Jira         = require('../lib/jiraProvider');
+var logger       = require('../../internals/logger').jirabot;
+var dispatcher   = require('../../internals/dispatcher');
+var Jira         = require('../../internals/jiraProvider');
 var _            = require('lodash');
 var router       = express.Router();
 

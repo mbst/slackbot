@@ -1,10 +1,12 @@
 'use strict';
 var winston = require('winston');
+var utils   = require('./utils');
 var _       = require('lodash');
 var fs      = require('fs');
 var Q       = require('q');
 
 var LOG_EXTENTION = '.log';
+var LOGS_PATH = __dirname + '/../logs/';;
 
 //  the logger is for... logging. it keeps track of all
 //  logging processes in a single location, and uses
@@ -13,17 +15,16 @@ var LOG_EXTENTION = '.log';
 //  @param logname {string} name of the log file that will be saved in /logs
 function Logger(logname) {
   var self = this;
-  var _logspath = __dirname + '/../logs/';
   var _logname = logname || "global";
 
-  self._checkLog(_logspath, _logname).then(
+  self._checkLog(LOGS_PATH, _logname).then(
   function () {
     self.logname = _logname;
       self.logger = new (winston.Logger)({
         transports: [
           new (winston.transports.Console)(),
           new (winston.transports.File)(
-            { filename: _logspath + _logname + LOG_EXTENTION }
+            { filename: LOGS_PATH + _logname + LOG_EXTENTION }
           )
         ]
       });
@@ -36,8 +37,11 @@ Logger.prototype._checkLog = function (path, file) {
   var defer = Q.defer();
 
   var completed = function () {
-    console.log('creating log for ' + path + file + LOG_EXTENTION);
-    fs.open(path + '/' + file + LOG_EXTENTION, 'r+', defer.resolve);
+    fs.open(path + '/' + file + LOG_EXTENTION, 'w',
+    function () {
+      self.dev('Creating log file: ' + path + file + LOG_EXTENTION);
+      defer.resolve();
+    });
   };
 
   fs.readdir(path, function (err) {
@@ -75,6 +79,32 @@ Logger.prototype.log = function(content) {
 };
 
 
+//  For writing when in dev mode. Will only output to the console
+//
+//  @param content {string} what you want to be logged
+Logger.prototype.dev = function(content) {
+  if (! _.isString(content) ||
+      ! utils.isDev()) {
+    return;
+  }
+  console.log(content);
+};
+
+
+//  for writing a warning to the log. uses winston.info
+//
+//  @param content {string} what you want to be logged
+Logger.prototype.warn = function(content) {
+  if (!_.isString(content)) {
+    return;
+  }
+  console.warn(content);
+  return;
+
+  this.logger.warn(content);
+};
+
+
 //  for writing errors to the log. uses winston.warn
 //
 //  @param content {string} what you want to be logged
@@ -85,12 +115,12 @@ Logger.prototype.error = function(content) {
   console.error(content);
   return;
 
-  this.logger.warn(content);
+  this.logger.error(content);
 };
 
 
 Logger.prototype.loggers = {
-  global: new Logger('slackbot'),
+  internals: new Logger('internals'),
   jirabot: new Logger('jirabot'),
   testbot: new Logger('testbot'),
   githubbot: new Logger('github'),

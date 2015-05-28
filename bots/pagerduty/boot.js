@@ -1,9 +1,9 @@
 'use strict';
 var express    = require('express');
-var common     = require('../lib/common');
-var logger     = require('../lib/logger').pagerdutybot;
+var common     = require('../../internals/common');
+var logger     = require('../../internals/logger').pagerdutybot;
 var router     = express.Router();
-var dispatcher = require('../lib/dispatcher');
+var dispatcher = require('../../internals/dispatcher');
 var _          = require('lodash');
 var Q          = require('q');
 

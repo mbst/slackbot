@@ -1,12 +1,12 @@
 'use strict';
-var express         = require('express'),
-    common          = require('../lib/common'),
-    logger          = require('../lib/logger').bitbucketbot,
-    router          = express.Router(),
-    dispatcher      = require('../lib/dispatcher'),
-    Jira            = require('../lib/jiraProvider'),
-    _               = require('lodash'),
-    q               = require('q');
+var express    = require('express');
+var common     = require('../../internals/common');
+var logger     = require('../../internals/logger').bitbucketbot;
+var router     = express.Router();
+var dispatcher = require('../../internals/dispatcher');
+var Jira       = require('../../internals/jiraProvider');
+var _          = require('lodash');
+var q          = require('q');
 
 function handle_pull_request(body) {
     var _message_options = {

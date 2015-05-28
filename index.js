@@ -1,19 +1,24 @@
 'use strict';
-var common          = require('./lib/common');
+var common          = require('./internals/common');
+var Loader          = require('./internals/botLoader');
+var logger          = require('./internals/logger').internals;
 var express         = require('express');
 var bodyParser      = require('body-parser');
 var app             = express();
 
-// tell express to parse requests as JSON
+// Instantiate the Bot Loader
+var load = new Loader();
+
+// Tell Express to parse requests as JSON
 app.use(bodyParser.json());
 
-// initialise all the bots
-app.use('/test',                require('./bots/test'));
-app.use('/webhooks/jira',       require('./bots/jira'));
-app.use('/webhooks/github',     require('./bots/github'));
-app.use('/webhooks/bitbucket',  require('./bots/bitbucket'));
-app.use('/webhooks/pagerduty',  require('./bots/pagerduty'));
+// Load all the bots
+app.use('/test',               load.bot('test'));
+app.use('/webhooks/jira',      load.bot('jira'));
+app.use('/webhooks/github',    load.bot('github'));
+app.use('/webhooks/bitbucket', load.bot('bitbucket'));
+app.use('/webhooks/pagerduty', load.bot('pagerduty'));
 
-// boot the server
-console.log('Bot ready @ http://dev.mbst.tv:'+common.port);
+// Boot the app
+logger.dev('Bot ready @ http://dev.mbst.tv:' + common.port);
 app.listen(common.port);
