@@ -1,6 +1,6 @@
 'use strict';
-var common          = require('./common'),
-    logger          = require('./logger').jirabot,
+var common          = require('../../../internals/common'),
+    logger          = require('../../../internals/logger').jirabot,
     _               = require('lodash'),
     https           = require('https'),
     Q               = require('q');

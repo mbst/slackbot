@@ -4,7 +4,7 @@ var common     = require('../../internals/common');
 var logger     = require('../../internals/logger').bitbucketbot;
 var router     = express.Router();
 var dispatcher = require('../../internals/dispatcher');
-var Jira       = require('../../internals/jiraProvider');
+var Jira       = require('../jira/resources/jira-service');
 var _          = require('lodash');
 var q          = require('q');
 

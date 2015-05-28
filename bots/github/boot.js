@@ -5,7 +5,7 @@ var logger      = require('../../internals/logger').githubbot;
 var dispatcher  = require('../../internals/dispatcher');
 var router      = express.Router();
 var _           = require('lodash');
-var Jira        = require('../../internals/jiraProvider');
+var Jira        = require('../jira/resources/jira-service');
 var q           = require('q');
 
 //  For dealing with a pull request and sending to the correct chat

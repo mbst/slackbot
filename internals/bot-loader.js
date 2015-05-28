@@ -30,7 +30,7 @@ BotLoader.prototype.requirePackage = function (packageName) {
 
 BotLoader.prototype.bot = function (botName) {
   var bootableBot = this.requirePackage(botName);
-  logger.dev('Loaded bot ' + botName);
+  logger.dev('☺︎ Loaded bot ' + botName);
   return bootableBot;
 };
 
