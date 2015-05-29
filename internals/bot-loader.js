@@ -31,7 +31,7 @@ BotLoader.prototype.requirePackage = function (packageName) {
 BotLoader.prototype.bot = function (botName) {
   var bootableBot = this.requirePackage(botName);
   // TODO: check bootableBot first before require...
-  logger.dev('☺︎ Loaded bot ' + botName);
+  logger.log('☺︎ Loaded bot ' + botName);
   return bootableBot;
 };
 

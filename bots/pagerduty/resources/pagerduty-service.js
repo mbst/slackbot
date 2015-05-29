@@ -1,9 +1,7 @@
 'use strict';
-var Q          = require('q');
 var _          = require('lodash');
 var Dispatcher = require('../../../internals/dispatcher');
 var logger     = require('../../../internals/logger').pagerdutybot;
-var common     = require('../../../internals/common');
 
 
 //  Used for parsing the incoming request
@@ -14,14 +12,17 @@ var common     = require('../../../internals/common');
 //  @param req {object} request body sent from pagerduty
 //
 module.exports.parseRequest = function parseRequest (req, callback) {
+    callback = callback || function() {};
+
     if (!_.isArray(req.messages)) {
         logger.error('parseRequest(req, callback): req.messages isnt an array.');
         callback(null);
     }
+
     var _messages = req.messages;
-    var callback = callback || function() {};
+
     _.forEach(_messages, callback);
-}
+};
 
 
 //  Used for sending a single message
@@ -80,4 +81,4 @@ module.exports.sendMessage = function sendMessage (message_obj) {
     message.link('Details about this incident', _incident.html_url);
 
     message.send();
-}
+};

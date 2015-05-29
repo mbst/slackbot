@@ -16,7 +16,7 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   }
 
   var output      = [];
-  var isFeature   = (_.isObject(featuredata))? false : true;
+  var isFeature   = _.isObject(featuredata);
   var ev          = taskdata.webhookEvent;
   var user        = taskdata.user;
   var issue       = taskdata.issue;
@@ -47,4 +47,4 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   }
 
   return output.join(' ');
-}
+};

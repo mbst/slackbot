@@ -2,7 +2,7 @@
 var express    = require('express');
 var _          = require('lodash');
 var logger     = require('../../internals/logger').jirabot;
-var dispatcher = require('../../internals/dispatcher');
+var Dispatcher = require('../../internals/dispatcher');
 var Jira       = require('./resources/jira-service');
 var jiraUtils  = require('./resources/jira-utils');
 
@@ -23,8 +23,8 @@ router.route('/').post( function(req, res) {
     icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
   };
   var jira = new Jira();
-  var message = new dispatcher('#mb-feeds', message_options);
-  var parent_issue = taskdata.issue.fields.customfield_10400 || undefined;
+  var message = new Dispatcher('#mb-feeds', message_options);
+  var parent_issue = taskdata.issue.fields.customfield_10400 || undefined; // <- Who do you blame for a key name like that?
 
   // determine if this request is for a top level feature or a child issue
   if (_.isString(parent_issue)) {
@@ -66,13 +66,17 @@ router.route('/support').post( function(req, res) {
     return;
   }
 
+  console.log('Jira');
+  console.log(JSON.stringify(supportdata));
+  console.log('/Jira');
+
   var message_options = {
     username: 'Jira',
     color: '#053663',
     icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
   };
   var jira = new Jira();
-  var message = new dispatcher('#mb-feeds', message_options);
+  var message = new Dispatcher('#mb-feeds', message_options);
   var parent_issue = supportdata.issue.fields.customfield_10400 || undefined;
 
   message.chatname = '#support';
