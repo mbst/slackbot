@@ -1,0 +1,196 @@
+
+{
+  "expand": "renderedFields,names,schema,transitions,operations,editmeta,changelog",
+  "id": "25666",
+  "self": "https://jira.metabroadcast.com/rest/api/2/issue/25666",
+  "key": "MBST-11134",
+  "fields": {
+    "issuetype": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/issuetype/6",
+      "id": "6",
+      "description": "A big user story that needs to be broken down.",
+      "iconUrl": "https://jira.metabroadcast.com/images/icons/issuetypes/epic.png",
+      "name": "Feature",
+      "subtask": false
+    },
+    "timespent": null,
+    "project": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/project/10000",
+      "id": "10000",
+      "key": "MBST",
+      "name": "MetaBroadcast",
+      "avatarUrls": {
+        "48x48": "https://jira.metabroadcast.com/secure/projectavatar?pid=10000&avatarId=10011",
+        "24x24": "https://jira.metabroadcast.com/secure/projectavatar?size=small&pid=10000&avatarId=10011",
+        "16x16": "https://jira.metabroadcast.com/secure/projectavatar?size=xsmall&pid=10000&avatarId=10011",
+        "32x32": "https://jira.metabroadcast.com/secure/projectavatar?size=medium&pid=10000&avatarId=10011"
+      },
+      "projectCategory": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/projectCategory/10000",
+        "id": "10000",
+        "description": "",
+        "name": "Internal"
+      }
+    },
+    "fixVersions": [
+
+    ],
+    "aggregatetimespent": null,
+    "resolution": null,
+    "customfield_10500": "2015-05-27",
+    "customfield_10700": null,
+    "resolutiondate": null,
+    "workratio": -1,
+    "lastViewed": "2015-05-28T22:06:15.156+0000",
+    "watches": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/issue/MBST-11134/watchers",
+      "watchCount": 1,
+      "isWatching": false
+    },
+    "created": "2015-04-10T11:23:37.088+0000",
+    "priority": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/priority/3",
+      "iconUrl": "https://jira.metabroadcast.com/images/icons/priorities/major.png",
+      "name": "Major",
+      "id": "3"
+    },
+    "customfield_10300": null,
+    "labels": [
+
+    ],
+    "timeestimate": null,
+    "aggregatetimeoriginalestimate": null,
+    "versions": [
+
+    ],
+    "issuelinks": [
+
+    ],
+    "assignee": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/user?username=tom",
+      "name": "tom",
+      "emailAddress": "tom@metabroadcast.com",
+      "avatarUrls": {
+        "48x48": "https://jira.metabroadcast.com/secure/useravatar?ownerId=tom&avatarId=11402",
+        "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&ownerId=tom&avatarId=11402",
+        "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&ownerId=tom&avatarId=11402",
+        "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&ownerId=tom&avatarId=11402"
+      },
+      "displayName": "Tom McAdam",
+      "active": true
+    },
+    "updated": "2015-05-29T10:36:47.755+0000",
+    "status": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/status/1",
+      "description": "The issue is open and ready for the assignee to start work on it.",
+      "iconUrl": "https://jira.metabroadcast.com/images/icons/statuses/open.png",
+      "name": "Open",
+      "id": "1",
+      "statusCategory": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/statuscategory/2",
+        "id": 2,
+        "key": "new",
+        "colorName": "blue-gray",
+        "name": "New"
+      }
+    },
+    "components": [
+      {
+        "self": "https://jira.metabroadcast.com/rest/api/2/component/10200",
+        "id": "10200",
+        "name": "Infra"
+      }
+    ],
+    "timeoriginalestimate": null,
+    "description": "1 - Make service more resilient (Fix integrations > jira, bitbucket, github)\r\n2 - Improve outputs TBC\r\n3 - Improve Twitter integration\r\n4 - Currently playing on spotify\r\n5 - Make the commit, PR, and go live process easier",
+    "timetracking": {
+
+    },
+    "customfield_10005": null,
+    "customfield_10401": "Slackbot resilience and integrations",
+    "customfield_10006": null,
+    "customfield_10402": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/customFieldOption/10100",
+      "value": "To Do",
+      "id": "10100"
+    },
+    "customfield_10600": "2015-06-02",
+    "customfield_10403": "ghx-label-3",
+    "customfield_10601": "Jason",
+    "customfield_10602": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/customFieldOption/10203",
+      "value": "Beige",
+      "id": "10203"
+    },
+    "customfield_10800": "1|y00962:",
+    "attachment": [
+
+    ],
+    "aggregatetimeestimate": null,
+    "summary": "Slackbot resilience and integrations",
+    "creator": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/user?username=rita",
+      "name": "rita",
+      "emailAddress": "rita@metabroadcast.com",
+      "avatarUrls": {
+        "48x48": "https://jira.metabroadcast.com/secure/useravatar?ownerId=rita&avatarId=10805",
+        "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&ownerId=rita&avatarId=10805",
+        "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&ownerId=rita&avatarId=10805",
+        "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&ownerId=rita&avatarId=10805"
+      },
+      "displayName": "Rita Lopes",
+      "active": true
+    },
+    "subtasks": [
+
+    ],
+    "reporter": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/user?username=rita",
+      "name": "rita",
+      "emailAddress": "rita@metabroadcast.com",
+      "avatarUrls": {
+        "48x48": "https://jira.metabroadcast.com/secure/useravatar?ownerId=rita&avatarId=10805",
+        "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&ownerId=rita&avatarId=10805",
+        "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&ownerId=rita&avatarId=10805",
+        "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&ownerId=rita&avatarId=10805"
+      },
+      "displayName": "Rita Lopes",
+      "active": true
+    },
+    "customfield_10000": "9223372036854775807",
+    "aggregateprogress": {
+      "progress": 0,
+      "total": 0
+    },
+    "customfield_10001": null,
+    "customfield_10002": null,
+    "customfield_10200": "9223372036854775807",
+    "customfield_10004": null,
+    "customfield_10400": null,
+    "progress": {
+      "progress": 0,
+      "total": 0
+    },
+    "comment": {
+      "startAt": 0,
+      "maxResults": 0,
+      "total": 0,
+      "comments": [
+
+      ]
+    },
+    "votes": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/issue/MBST-11134/votes",
+      "votes": 0,
+      "hasVoted": false
+    },
+    "worklog": {
+      "startAt": 0,
+      "maxResults": 20,
+      "total": 0,
+      "worklogs": [
+
+      ]
+    }
+  }
+}

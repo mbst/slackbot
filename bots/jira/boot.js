@@ -17,11 +17,6 @@ router.route('/').post( function(req, res) {
     return;
   }
 
-  console.log('Jira');
-  console.log(JSON.stringify(taskdata));
-  console.log('/Jira');
-
-
   var message_options = {
     username: 'Jira',
     color: '#053663',

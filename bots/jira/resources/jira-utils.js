@@ -16,7 +16,7 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   }
 
   var output      = [];
-  var isFeature   = _.isObject(featuredata);
+  var hasFeature   = _.isObject(featuredata);
   var ev          = taskdata.webhookEvent;
   var user        = taskdata.user;
   var issue       = taskdata.issue;
@@ -31,17 +31,17 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
     if ( _.isEmpty(resolution) ) {
       return;
     }else{
+      wording.type = 'issue';
       output.push('has resolved');
     }
   } else {
     return;
   }
 
-  wording.type = isFeature ? 'feature' : 'issue';
   output.push(wording.type);
-  output.push('<'+_.escape(browseURL+issue.key)+'|'+_.escape(issue.fields.summary)+'>');
+  output.push('<' + _.escape(browseURL+issue.key) + '|' + _.escape(issue.fields.summary) + '>');
 
-  if (! isFeature) {
+  if (! hasFeature) {
     output.push('in the feature');
     output.push('<' + _.escape(browseURL+featuredata.key) + '|' + _.escape(featuredata.fields.summary) + '>');
   }

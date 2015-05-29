@@ -1,195 +1,210 @@
 {
-  "expand": "renderedFields,names,schema,transitions,operations,editmeta,changelog",
-  "id": "25666",
-  "self": "https://jira.metabroadcast.com/rest/api/2/issue/25666",
-  "key": "MBST-11134",
-  "fields": {
-    "issuetype": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/issuetype/6",
-      "id": "6",
-      "description": "A big user story that needs to be broken down.",
-      "iconUrl": "https://jira.metabroadcast.com/images/icons/issuetypes/epic.png",
-      "name": "Feature",
-      "subtask": false
+  "webhookEvent": "jira:issue_updated",
+  "user": {
+    "self": "https://jira.metabroadcast.com/rest/api/2/user?username=jason",
+    "name": "jason",
+    "emailAddress": "jason@metabroadcast.com",
+    "avatarUrls": {
+      "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+      "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+      "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+      "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
     },
-    "timespent": null,
-    "project": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/project/10000",
-      "id": "10000",
-      "key": "MBST",
-      "name": "MetaBroadcast",
-      "avatarUrls": {
-        "48x48": "https://jira.metabroadcast.com/secure/projectavatar?pid=10000&avatarId=10011",
-        "24x24": "https://jira.metabroadcast.com/secure/projectavatar?size=small&pid=10000&avatarId=10011",
-        "16x16": "https://jira.metabroadcast.com/secure/projectavatar?size=xsmall&pid=10000&avatarId=10011",
-        "32x32": "https://jira.metabroadcast.com/secure/projectavatar?size=medium&pid=10000&avatarId=10011"
+    "displayName": "Jason Howmans",
+    "active": true
+  },
+  "issue": {
+    "id": "26269",
+    "self": "https://jira.metabroadcast.com/rest/api/2/issue/26269",
+    "key": "MBST-11583",
+    "fields": {
+      "issuetype": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/issuetype/3",
+        "id": "3",
+        "description": "A task that needs to be done.",
+        "iconUrl": "https://jira.metabroadcast.com/images/icons/issuetypes/task.png",
+        "name": "Task",
+        "subtask": false
       },
-      "projectCategory": {
-        "self": "https://jira.metabroadcast.com/rest/api/2/projectCategory/10000",
+      "components": [
+
+      ],
+      "timespent": null,
+      "timeoriginalestimate": 14400,
+      "description": "Get all the bots running, then work with team on improving outputs.",
+      "project": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/project/10000",
         "id": "10000",
-        "description": "",
-        "name": "Internal"
-      }
-    },
-    "fixVersions": [
-
-    ],
-    "aggregatetimespent": null,
-    "resolution": null,
-    "customfield_10500": "2015-05-27",
-    "customfield_10700": null,
-    "resolutiondate": null,
-    "workratio": -1,
-    "lastViewed": "2015-05-28T22:06:15.156+0000",
-    "watches": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/issue/MBST-11134/watchers",
-      "watchCount": 1,
-      "isWatching": false
-    },
-    "created": "2015-04-10T11:23:37.088+0000",
-    "priority": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/priority/3",
-      "iconUrl": "https://jira.metabroadcast.com/images/icons/priorities/major.png",
-      "name": "Major",
-      "id": "3"
-    },
-    "customfield_10300": null,
-    "labels": [
-
-    ],
-    "timeestimate": null,
-    "aggregatetimeoriginalestimate": null,
-    "versions": [
-
-    ],
-    "issuelinks": [
-
-    ],
-    "assignee": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/user?username=tom",
-      "name": "tom",
-      "emailAddress": "tom@metabroadcast.com",
-      "avatarUrls": {
-        "48x48": "https://jira.metabroadcast.com/secure/useravatar?ownerId=tom&avatarId=11402",
-        "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&ownerId=tom&avatarId=11402",
-        "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&ownerId=tom&avatarId=11402",
-        "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&ownerId=tom&avatarId=11402"
+        "key": "MBST",
+        "name": "MetaBroadcast",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/projectavatar?pid=10000&avatarId=10011",
+          "24x24": "https://jira.metabroadcast.com/secure/projectavatar?size=small&pid=10000&avatarId=10011",
+          "16x16": "https://jira.metabroadcast.com/secure/projectavatar?size=xsmall&pid=10000&avatarId=10011",
+          "32x32": "https://jira.metabroadcast.com/secure/projectavatar?size=medium&pid=10000&avatarId=10011"
+        },
+        "projectCategory": {
+          "self": "https://jira.metabroadcast.com/rest/api/2/projectCategory/10000",
+          "id": "10000",
+          "description": "",
+          "name": "Internal"
+        }
       },
-      "displayName": "Tom McAdam",
-      "active": true
-    },
-    "updated": "2015-05-29T10:36:47.755+0000",
-    "status": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/status/1",
-      "description": "The issue is open and ready for the assignee to start work on it.",
-      "iconUrl": "https://jira.metabroadcast.com/images/icons/statuses/open.png",
-      "name": "Open",
-      "id": "1",
-      "statusCategory": {
-        "self": "https://jira.metabroadcast.com/rest/api/2/statuscategory/2",
-        "id": 2,
-        "key": "new",
-        "colorName": "blue-gray",
-        "name": "New"
-      }
-    },
-    "components": [
-      {
-        "self": "https://jira.metabroadcast.com/rest/api/2/component/10200",
-        "id": "10200",
-        "name": "Infra"
-      }
-    ],
-    "timeoriginalestimate": null,
-    "description": "1 - Make service more resilient (Fix integrations > jira, bitbucket, github)\r\n2 - Improve outputs TBC\r\n3 - Improve Twitter integration\r\n4 - Currently playing on spotify\r\n5 - Make the commit, PR, and go live process easier",
-    "timetracking": {
+      "fixVersions": [
 
-    },
-    "customfield_10005": null,
-    "customfield_10401": "Slackbot resilience and integrations",
-    "customfield_10006": null,
-    "customfield_10402": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/customFieldOption/10100",
-      "value": "To Do",
-      "id": "10100"
-    },
-    "customfield_10600": "2015-06-02",
-    "customfield_10403": "ghx-label-3",
-    "customfield_10601": "Jason",
-    "customfield_10602": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/customFieldOption/10203",
-      "value": "Beige",
-      "id": "10203"
-    },
-    "customfield_10800": "1|y00962:",
-    "attachment": [
-
-    ],
-    "aggregatetimeestimate": null,
-    "summary": "Slackbot resilience and integrations",
-    "creator": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/user?username=rita",
-      "name": "rita",
-      "emailAddress": "rita@metabroadcast.com",
-      "avatarUrls": {
-        "48x48": "https://jira.metabroadcast.com/secure/useravatar?ownerId=rita&avatarId=10805",
-        "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&ownerId=rita&avatarId=10805",
-        "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&ownerId=rita&avatarId=10805",
-        "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&ownerId=rita&avatarId=10805"
+      ],
+      "aggregatetimespent": null,
+      "resolution": null,
+      "timetracking": {
+        "originalEstimate": "4h",
+        "remainingEstimate": "4h",
+        "originalEstimateSeconds": 14400,
+        "remainingEstimateSeconds": 14400
       },
-      "displayName": "Rita Lopes",
-      "active": true
-    },
-    "subtasks": [
+      "customfield_10006": null,
+      "customfield_10700": null,
+      "customfield_10800": "1|00lhmt:zzzzzzzzyy06xzaovlsbxog",
+      "attachment": [
 
-    ],
-    "reporter": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/user?username=rita",
-      "name": "rita",
-      "emailAddress": "rita@metabroadcast.com",
-      "avatarUrls": {
-        "48x48": "https://jira.metabroadcast.com/secure/useravatar?ownerId=rita&avatarId=10805",
-        "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&ownerId=rita&avatarId=10805",
-        "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&ownerId=rita&avatarId=10805",
-        "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&ownerId=rita&avatarId=10805"
+      ],
+      "aggregatetimeestimate": 14400,
+      "resolutiondate": null,
+      "workratio": 0,
+      "summary": "Work with team on improving ouputs",
+      "lastViewed": "2015-05-29T15:14:57.739+0000",
+      "watches": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/issue/MBST-11583/watchers",
+        "watchCount": 1,
+        "isWatching": true
       },
-      "displayName": "Rita Lopes",
-      "active": true
-    },
-    "customfield_10000": "9223372036854775807",
-    "aggregateprogress": {
-      "progress": 0,
-      "total": 0
-    },
-    "customfield_10001": null,
-    "customfield_10002": null,
-    "customfield_10200": "9223372036854775807",
-    "customfield_10004": null,
-    "customfield_10400": null,
-    "progress": {
-      "progress": 0,
-      "total": 0
-    },
-    "comment": {
-      "startAt": 0,
-      "maxResults": 0,
-      "total": 0,
-      "comments": [
+      "creator": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/user?username=jason",
+        "name": "jason",
+        "emailAddress": "jason@metabroadcast.com",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+          "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+          "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+          "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+        },
+        "displayName": "Jason Howmans",
+        "active": true
+      },
+      "subtasks": [
 
-      ]
-    },
-    "votes": {
-      "self": "https://jira.metabroadcast.com/rest/api/2/issue/MBST-11134/votes",
-      "votes": 0,
-      "hasVoted": false
-    },
-    "worklog": {
-      "startAt": 0,
-      "maxResults": 20,
-      "total": 0,
-      "worklogs": [
+      ],
+      "created": "2015-05-26T17:28:46.961+0000",
+      "reporter": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/user?username=jason",
+        "name": "jason",
+        "emailAddress": "jason@metabroadcast.com",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+          "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+          "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+          "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+        },
+        "displayName": "Jason Howmans",
+        "active": true
+      },
+      "customfield_10000": "9223372036854775807",
+      "aggregateprogress": {
+        "progress": 0,
+        "total": 14400,
+        "percent": 0
+      },
+      "priority": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/priority/3",
+        "iconUrl": "https://jira.metabroadcast.com/images/icons/priorities/major.png",
+        "name": "Major",
+        "id": "3"
+      },
+      "customfield_10001": null,
+      "customfield_10002": null,
+      "customfield_10200": "9223372036854775807",
+      "customfield_10300": [
+        "com.atlassian.greenhopper.service.sprint.Sprint@2232899f[id=90,rapidViewId=13,state=ACTIVE,name=Week to 2nd June,startDate=2015-05-27T00:00:48.001Z,endDate=2015-06-02T22:59:00.000Z,completeDate=<null>,sequence=90]"
+      ],
+      "labels": [
 
-      ]
+      ],
+      "customfield_10400": "MBST-11134",
+      "timeestimate": 14400,
+      "aggregatetimeoriginalestimate": 14400,
+      "versions": [
+
+      ],
+      "progress": {
+        "progress": 0,
+        "total": 14400,
+        "percent": 0
+      },
+      "comment": {
+        "startAt": 0,
+        "maxResults": 0,
+        "total": 0,
+        "comments": [
+
+        ]
+      },
+      "issuelinks": [
+
+      ],
+      "votes": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/issue/MBST-11583/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "worklog": {
+        "startAt": 0,
+        "maxResults": 20,
+        "total": 0,
+        "worklogs": [
+
+        ]
+      },
+      "assignee": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/user?username=jason",
+        "name": "jason",
+        "emailAddress": "jason@metabroadcast.com",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+          "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+          "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+          "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+        },
+        "displayName": "Jason Howmans",
+        "active": true
+      },
+      "updated": "2015-05-29T15:14:57.776+0000",
+      "status": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/status/3",
+        "description": "This issue is being actively worked on at the moment by the assignee.",
+        "iconUrl": "https://jira.metabroadcast.com/images/icons/statuses/inprogress.png",
+        "name": "In Progress",
+        "id": "3",
+        "statusCategory": {
+          "self": "https://jira.metabroadcast.com/rest/api/2/statuscategory/4",
+          "id": 4,
+          "key": "indeterminate",
+          "colorName": "yellow",
+          "name": "In Progress"
+        }
+      }
     }
-  }
+  },
+  "changelog": {
+    "id": "135059",
+    "items": [
+      {
+        "field": "status",
+        "fieldtype": "jira",
+        "from": "4",
+        "fromString": "Reopened",
+        "to": "3",
+        "toString": "In Progress"
+      }
+    ]
+  },
+  "timestamp": 1432912497779
 }
