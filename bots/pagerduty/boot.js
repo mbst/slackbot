@@ -7,6 +7,9 @@ var router     = express.Router();
 
 router.post('/', function(req, res) {
   var _body = req.body || null;
+  console.log('pagerduty');
+  console.log(req.body);
+  console.log('/pagerduty');
   pagerduty.parseRequest(_body, pagerduty.sendMessage);
   res.end();
 })
