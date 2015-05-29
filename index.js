@@ -13,7 +13,7 @@ var load = new Loader();
 app.use(bodyParser.json());
 
 // Load all the bots
-// TODO: Move express logic into bot loader, and set endpoint as function arg
+// TODO: Move express logic into bot loader, and pass endpoint as function arg
 app.use('/test',               load.bot('test'));
 app.use('/webhooks/jira',      load.bot('jira'));
 app.use('/webhooks/github',    load.bot('github'));
