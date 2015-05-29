@@ -21,5 +21,5 @@ app.use('/webhooks/bitbucket', load.bot('bitbucket'));
 app.use('/webhooks/pagerduty', load.bot('pagerduty'));
 
 // Boot the app
-logger.log('Bot ready @ http://dev.mbst.tv:' + common.port);
+logger.log('Bot ready @ port ' + common.port);
 app.listen(common.port);

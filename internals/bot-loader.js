@@ -17,7 +17,7 @@ BotLoader.prototype.requirePackage = function (packageName) {
   // TODO: Checks on whether the to-be-loaded directory / file exists.
   // See: http://stackoverflow.com/questions/10914751/loading-node-js-modules-dynamically-based-on-route
 
-  var botPath = path.join(this.BOTS_DIR, packageName, this.BOOT_FILE)
+  var botPath = path.join(this.BOTS_DIR, packageName, this.BOOT_FILE);
   var loadedBot = require(botPath);
 
   if (! _.isObject(loadedBot)) {
