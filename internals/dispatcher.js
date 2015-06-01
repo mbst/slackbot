@@ -1,5 +1,5 @@
 'use strict';
-var common    = require('./common');
+var util      = require('util');
 var utils     = require('./utils');
 var logger    = require('./logger').global;
 var Slack     = require('slack-node');
@@ -66,6 +66,31 @@ Dispatcher.prototype.send = function() {
 
   // clear message after its been sent
   this.message = [];
+};
+
+
+// Change the color of the output
+Dispatcher.prototype.color = function (cssColor) {
+  this.options.color = cssColor;
+  return this;
+};
+
+
+// For interpolating a string, printf style, then adding with this.write. Give
+// the function a string with %s flags, and it will replace them with the strings
+// supplied as subsequent arguments.
+Dispatcher.prototype.interpolate = function (/* arguments: first param is message str. all after that are %s replacements */) {
+  if (! _.isArguments(arguments)) {
+    console.log('No arguments object');
+    return;
+  }
+  var msg = arguments[0];
+  var args = Array.prototype.slice.call(arguments, 1);
+  _.forEach(args, function (str) {
+    msg = util.format(msg, str);
+  });
+  this.write(msg);
+  return this;
 };
 
 

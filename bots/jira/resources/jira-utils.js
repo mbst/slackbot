@@ -41,9 +41,9 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   output.push(wording.type);
   output.push('<' + _.escape(browseURL+issue.key) + '|' + _.escape(issue.fields.summary) + '>');
 
-  if (! hasFeature) {
+  if (hasFeature) {
     output.push('in the feature');
-    output.push('<' + _.escape(browseURL+featuredata.key) + '|' + _.escape(featuredata.fields.summary) + '>');
+    output.push('<' + _.escape(browseURL + featuredata.key) + '|' + _.escape(featuredata.fields.summary) + '>');
   }
 
   return output.join(' ');

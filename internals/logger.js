@@ -39,7 +39,7 @@ Logger.prototype._checkLog = function (path, file) {
   var completed = function () {
     fs.open(path + '/' + file + LOG_EXTENTION, 'w',
     function () {
-      self.dev('Creating log file: ' + path + file + LOG_EXTENTION);
+      // self.dev('Creating log file: ' + path + file + LOG_EXTENTION);
       defer.resolve();
     });
   };
