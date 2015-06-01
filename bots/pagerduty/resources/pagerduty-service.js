@@ -88,7 +88,9 @@ module.exports.sendMessage = function sendMessage (message_obj) {
     //            .write(_incident.assigned_to_user.name+'.');
     // }
 
-    message.interpolate('assigned to: %s', _assignee.name);
+    if (_.has(_assignee, 'name')) {
+      message.interpolate('assigned to: %s', _assignee.name);
+    }
 
     // link for more details about the incident
     message.link('Details about this incident', _incident.html_url);

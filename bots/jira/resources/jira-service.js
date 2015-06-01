@@ -1,9 +1,9 @@
 'use strict';
-var common          = require('../../../internals/common'),
-    logger          = require('../../../internals/logger').jirabot,
-    _               = require('lodash'),
-    https           = require('https'),
-    Q               = require('q');
+var common  = require('../../../internals/common');
+var logger  = require('../../../internals/logger').jirabot;
+var _       = require('lodash');
+var https   = require('https');
+var Q       = require('q');
 
 
 //  Jira Provider

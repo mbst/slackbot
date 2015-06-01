@@ -8,8 +8,13 @@ var jiraUtils  = require('./resources/jira-utils');
 
 var router     = express.Router();
 
+var message_options = {
+  username: 'Jira',
+  color: '#053663'
+};
+var message = new Dispatcher('#mb-feeds', message_options);
+message.avatar('https://marketplace-cdn.atlassian.com/files/images/f7a34752-e211-4b23-a8f7-e461c7a1f382.png');
 
-//  Listen for incoming hooks from jira
 router.route('/').post( function(req, res) {
   var taskdata = req.body || null;
   if (_.isEmpty(taskdata)) {
@@ -17,13 +22,7 @@ router.route('/').post( function(req, res) {
     return;
   }
 
-  var message_options = {
-    username: 'Jira',
-    color: '#053663',
-    icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
-  };
   var jira = new Jira();
-  var message = new Dispatcher('#mb-feeds', message_options);
   var parent_issue = taskdata.issue.fields.customfield_10400 || undefined; // <- Who do you blame for a key name like that?
 
   // determine if this request is for a top level feature or a child issue
@@ -32,7 +31,7 @@ router.route('/').post( function(req, res) {
     jira.getFeature(parent_issue).then(function(featuredata) {
       var response = jiraUtils.formatter(taskdata, featuredata);
       if (response) {
-        message.chatname = jira.getChatFromComponent(featuredata.fields.components);
+        message.chat(jira.getChatFromComponent(featuredata.fields.components));
         message.write(response).send();
       }
       res.end();
@@ -49,7 +48,7 @@ router.route('/').post( function(req, res) {
       return;
     }
     var components = taskdata.fields.components ? taskdata.fields.components : null;
-    message.chatname = jira.getChatFromComponent(components);
+    message.chat(jira.getChatFromComponent(components));
     var response = jiraUtils.formatter(taskdata);
     if (response) {
       message.write(response).send();
@@ -66,16 +65,10 @@ router.route('/support').post( function(req, res) {
     return;
   }
 
-  var message_options = {
-    username: 'Jira',
-    color: '#053663',
-    icon_url: 'https://confluence.atlassian.com/download/attachments/284366955/JIRA050?version=1&modificationDate=1336700125538&api=v2'
-  };
   var jira = new Jira();
-  var message = new Dispatcher('#mb-feeds', message_options);
   var parent_issue = supportdata.issue.fields.customfield_10400 || undefined;
 
-  message.chatname = '#support';
+  message.chat('#support');
 
   // determine if this request is for a top level feature or a child issue
   if (_.isString(parent_issue)) {

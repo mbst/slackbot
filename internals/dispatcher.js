@@ -1,12 +1,13 @@
 'use strict';
 var util      = require('util');
-var utils     = require('./utils');
-var logger    = require('./logger').global;
-var Slack     = require('slack-node');
 var _         = require('lodash');
+var Q         = require('Q');
+var utils     = require('./utils');
+var logger    = require('./logger').internals;
+var Slack     = require('slack-node');
 
 var slack = new Slack();
-slack.setWebhook('https://hooks.slack.com/services/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');
+slack.setWebhook('https://hooks.slack.com/services/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'); // TODO: moov into config
 
 
 //  The dispatcher constructor
@@ -31,9 +32,11 @@ function Dispatcher(chatname, options) {
 
 //  For sending the message to slack
 Dispatcher.prototype.send = function() {
-  if (!_.isString(this.chatname) || !this.message.length) {
+  var defer = Q.defer();
+  if (! _.isString(this.chatname) || ! this.message.length) {
     logger.error('chatname and message are both required to send a message');
-    return false;
+    defer.reject();
+    return defer.promise;
   }
   var _message = this.message.join(' ');
   var _attachments = [{
@@ -55,23 +58,35 @@ Dispatcher.prototype.send = function() {
   if (utils.isDev()) {
     console.log(messageObject);
     this.message = [];
-    return;
+    defer.resolve();
+    return defer.promise;
   }
 
   slack.webhook(messageObject, function (err, res) {
     if (err) {
       console.error(err, res);
+      defer.reject();
     }
+
+    // clear message after message has been sent
+    this.message = [];
+    defer.resolve();
   });
 
-  // clear message after its been sent
-  this.message = [];
+  return defer.promise;
 };
 
 
 // Change the color of the output
 Dispatcher.prototype.color = function (cssColor) {
   this.options.color = cssColor;
+  return this;
+};
+
+
+// Change the icon assigned to the massage
+Dispatcher.prototype.avatar = function (iconUrl) {
+  this.options.icon_url = iconUrl;
   return this;
 };
 
@@ -100,6 +115,13 @@ Dispatcher.prototype.write = function(message) {
     this.message.push(message);
   }
   return this;
+};
+
+
+Dispatcher.prototype.chat = function (chatName) {
+  if (_.isString(chatName)) {
+    this.chatname = (chatName.indexOf('#') > -1) ? chatName : '#' + chatName;
+  }
 };
 
 
