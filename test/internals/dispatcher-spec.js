@@ -71,6 +71,24 @@ describe('Dispatcher', function () {
   });
 
 
+  describe('#break', function () {
+    it('should push a line break character before message, then into the internal messages array', function () {
+      dispatcher.break('hello there slackbot');
+      assert.strictEqual('\nhello there slackbot', dispatcher.message[0]);
+    });
+
+    it('should work without argument', function () {
+      dispatcher.break();
+      assert.strictEqual('\n', dispatcher.message[0]);
+    });
+
+    it('should be chainable', function () {
+      var check = dispatcher.break('Hello slackbot');
+      assert.instanceOf(check, Dispatcher);
+    });
+  });
+
+
   describe('#bold', function () {
     it('should write the provided string in markdown-formatted bold', function () {
       dispatcher.bold('hello there slackbot');

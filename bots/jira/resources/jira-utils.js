@@ -36,7 +36,7 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   // construct the response string
   if (_.has(fields, 'reporter')) {
     output.push(fields.reporter.displayName);
-    output.push('has closed issue');
+    output.push('closed issue');
   } else {
     output.push('Issue closed');
   }

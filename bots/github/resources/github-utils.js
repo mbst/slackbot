@@ -17,21 +17,17 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
     };
 
 
-
     if ("pull_request" in body) {
         var pullrequest     = body.pull_request;
         var branch          = pullrequest.head.ref;
-        var default_branch  = body.repository.default_branch;
         var message         = new Dispatcher('#pull-requests', _message_options);
         var jira            = new Jira();
 
         // start constructing the pull request message
-        message.write(pullrequest.user.login)
-               .write('has made a pull request to merge branch')
-               .link(branch, pullrequest.html_url)
-               .write('into')
-               .write(default_branch)
-               .write('['+pullrequest.commits+' commits]');
+        message.write(pullrequest.title)
+               .break()
+               .bold('Branch: ')
+               .link(branch, pullrequest.html_url);
 
         // find the feature in Jira so we can add the feature info to the
         // message, otherwise just send the message without the jira link
@@ -41,7 +37,8 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
               feature_key = feature.key,
               jiraURL = 'http://jira.metabroadcast.com/browse/'+feature_key;
 
-          message.write('in the feature')
+          message.break()
+                 .bold('Feature: ')
                  .link(feature_title, jiraURL)
                  .send();
         },

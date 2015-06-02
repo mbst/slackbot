@@ -137,6 +137,19 @@ Dispatcher.prototype.bold = function (message) {
 };
 
 
+//  For writing a break into the messages array
+Dispatcher.prototype.break = function (message) {
+  if (_.isArray(this.message)) {
+    if (_.isString(message)) {
+      this.message.push('\n' + message );
+    } else {
+      this.message.push('\n');
+    }
+  }
+  return this;
+};
+
+
 Dispatcher.prototype.chat = function (chatName) {
   if (_.isString(chatName)) {
     this.chatname = (chatName.indexOf('#') > -1) ? chatName : '#' + chatName;
