@@ -31,7 +31,7 @@ function Logger(logname, options) {
       period: '30d'
     }]
   }, options);
-  
+
   var log = bunyan.createLogger( logConfig );
   self.logger = log;
 }
@@ -39,7 +39,7 @@ function Logger(logname, options) {
 //  for writing normally to the log. uses winston.info
 //
 //  @param content {string} what you want to be logged
-Logger.prototype.log = function(content) {
+Logger.prototype.log = function (content) {
   if (!_.isString(content)) {
     return;
   }
@@ -50,11 +50,16 @@ Logger.prototype.log = function(content) {
 //  For writing when in dev mode. Will only output to the console
 //
 //  @param content {string} what you want to be logged
-Logger.prototype.dev = function(content) {
+Logger.prototype.dev = function (content) {
   if (! _.isString(content) ||
       ! utils.isDev()) {
     return;
   }
+  this.console(content);
+};
+
+
+Logger.prototype.console = function (content) {
   console.log(content);
 };
 
@@ -62,7 +67,7 @@ Logger.prototype.dev = function(content) {
 //  for writing a warning to the log. uses winston.info
 //
 //  @param content {string} what you want to be logged
-Logger.prototype.warn = function(content) {
+Logger.prototype.warn = function (content) {
   if (!_.isString(content)) {
     return;
   }
@@ -73,7 +78,7 @@ Logger.prototype.warn = function(content) {
 //  for writing errors to the log. uses winston.warn
 //
 //  @param content {string} what you want to be logged
-Logger.prototype.error = function(content) {
+Logger.prototype.error = function (content) {
   if (!_.isString(content)) {
     return false;
   }
