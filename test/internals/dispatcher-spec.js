@@ -44,6 +44,14 @@ describe('Dispatcher', function () {
   });
 
 
+  describe('#bold', function () {
+    it('should write the provided string in markdown-formatted bold', function () {
+      dispatcher.bold('hello there slackbot');
+      assert.strictEqual('*hello there slackbot*', dispatcher.message[0]);
+    });
+  });
+
+
   describe('#interpolate', function () {
     it('should write interpolated string to internal message array', function () {
       dispatcher.interpolate('hello %s %s', 'there', 'slackbot');

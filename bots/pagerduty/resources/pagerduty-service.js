@@ -39,7 +39,7 @@ module.exports.sendMessage = function sendMessage (message_obj) {
     };
 
     var _message_options = {
-        username: 'Pagerduty',
+        username: 'Pagerduty Incident',
         color: '#47BA04',
         icon_url: 'https://pbs.twimg.com/profile_images/482648331181490177/4X_QI2Vu_400x400.png'
     };
@@ -51,21 +51,19 @@ module.exports.sendMessage = function sendMessage (message_obj) {
     var _incident_number    = _incident.incident_number || '';
     var _assignee           = message_obj.data.assigned_to_user;
 
-    message.write('Incident');
-
     // determine which type of message to send
     if (_type.match(/\.trigger$/i)) {
-      message.write('triggered:')
+      message.bold('Triggered:')
              .write(_incident_name)
              .write('#'+_incident_number)
              .color(colors.triggered);
     } else if (_type.match(/\.acknowledge/i)) {
-      message.write('acknowledged:')
+      message.bold('Acknowledged:')
              .write(_incident_name)
              .write('#'+_incident_number)
              .color(colors.acknowledged);
     } else if (_type.match(/\.resolve/i)) {
-      message.write('resolved:')
+      message.bold('Resolved:')
              .write(_incident_name)
              .write('#'+_incident_number);
     // } else if (_type.match(/\.unacknowledge/i)) {

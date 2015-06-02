@@ -119,6 +119,15 @@ Dispatcher.prototype.write = function(message) {
 };
 
 
+//  For writing a message to the string in parts
+Dispatcher.prototype.bold = function(message) {
+  if (_.isArray(this.message)) {
+    this.message.push('*' + message + '*');
+  }
+  return this;
+};
+
+
 Dispatcher.prototype.chat = function (chatName) {
   if (_.isString(chatName)) {
     this.chatname = (chatName.indexOf('#') > -1) ? chatName : '#' + chatName;

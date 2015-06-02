@@ -14,7 +14,9 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
         username: 'GitHub',
         color: '#333',
         icon_url: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'
-    }
+    };
+
+
 
     if ("pull_request" in body) {
         var pullrequest     = body.pull_request;
@@ -33,17 +35,21 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
 
         // find the feature in Jira so we can add the feature info to the
         // message, otherwise just send the message without the jira link
-        jira.getFeatureFromString(branch).then(function(feature) {
-            var feature_title = feature.fields.summary,
-                feature_key = feature.key,
-                jiraURL = 'http://jira.metabroadcast.com/browse/'+feature_key;
+        jira.getFeatureFromString(branch).then(
+        function(feature) {
+          var feature_title = feature.fields.summary,
+              feature_key = feature.key,
+              jiraURL = 'http://jira.metabroadcast.com/browse/'+feature_key;
 
-            message.write('in the feature')
-                   .link(feature_title, jiraURL)
-                   .send();
-        }, function(err) {
-            if (err) logger.error(err);
-            message.send();
+          message.write('in the feature')
+                 .link(feature_title, jiraURL)
+                 .send();
+        },
+        function(err) {
+          if (err) {
+            logger.error(err);
+          }
+          message.send();
         });
     }
 }
