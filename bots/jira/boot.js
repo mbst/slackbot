@@ -69,7 +69,7 @@ router.route('/support').post( function(req, res) {
   var parent_issue = supportdata.issue.fields.customfield_10400 || undefined;
 
   message.chat('#support')
-         .botname('Jira - Support');
+         .botname('Support - Jira');
 
   // determine if this request is for a top level feature or a child issue
   if (_.isString(parent_issue)) {

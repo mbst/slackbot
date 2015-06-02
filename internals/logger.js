@@ -1,69 +1,40 @@
 'use strict';
-var winston = require('winston');
+var bunyan = require('bunyan');
 var utils   = require('./utils');
 var _       = require('lodash');
-var fs      = require('fs');
-var Q       = require('q');
+var fs = require('fs');
 
 var LOG_EXTENTION = '.log';
-var LOGS_PATH = __dirname + '/../logs/';;
+var LOGS_PATH = __dirname + '/../logs/';
+
+(function _setupLogsDir () {
+  fs.mkdir(LOGS_PATH, function () {
+    console.log('Logs dir created');
+  });
+})();
 
 //  the logger is for... logging. it keeps track of all
 //  logging processes in a single location, and uses
 //  winston to do most of the hard work
 //
 //  @param logname {string} name of the log file that will be saved in /logs
-function Logger(logname) {
+function Logger(logname, options) {
+  options = _.isObject(options) ? options : {};
   var self = this;
-  var _logname = logname || "global";
+  var _logname = logname || "internals";
 
-  self._checkLog(LOGS_PATH, _logname).then(
-  function () {
-    self.logname = _logname;
-      self.logger = new (winston.Logger)({
-        transports: [
-          new (winston.transports.Console)(),
-          new (winston.transports.File)(
-            { filename: LOGS_PATH + _logname + LOG_EXTENTION }
-          )
-        ]
-      });
-  });
+  var logConfig = _.assign({
+    name: _logname,
+    streams: [{
+      type: 'rotating-file',
+      path: LOGS_PATH + _logname + LOG_EXTENTION,
+      period: '30d'
+    }]
+  }, options);
+  
+  var log = bunyan.createLogger( logConfig );
+  self.logger = log;
 }
-
-
-Logger.prototype._checkLog = function (path, file) {
-  var self = this;
-  var defer = Q.defer();
-
-  var completed = function () {
-    fs.open(path + '/' + file + LOG_EXTENTION, 'w',
-    function () {
-      // self.dev('Creating log file: ' + path + file + LOG_EXTENTION);
-      defer.resolve();
-    });
-  };
-
-  fs.readdir(path, function (err) {
-    if (err) {
-      self._createLogDir(path).then( completed );
-    } else {
-      completed();
-    }
-  });
-
-  return defer.promise;
-};
-
-
-Logger.prototype._createLogDir = function (path) {
-  var defer = Q.defer();
-  fs.mkdir(path, function () {
-    fs.chmod(path, '777', defer.resolve);
-  });
-  return defer.promise;
-};
-
 
 //  for writing normally to the log. uses winston.info
 //
@@ -72,9 +43,6 @@ Logger.prototype.log = function(content) {
   if (!_.isString(content)) {
     return;
   }
-  console.log(content);
-  return;
-
   this.logger.info(content);
 };
 
@@ -98,9 +66,6 @@ Logger.prototype.warn = function(content) {
   if (!_.isString(content)) {
     return;
   }
-  console.warn(content);
-  return;
-
   this.logger.warn(content);
 };
 
@@ -112,14 +77,12 @@ Logger.prototype.error = function(content) {
   if (!_.isString(content)) {
     return false;
   }
-  console.error(content);
-  return;
-
   this.logger.error(content);
 };
 
 
 Logger.prototype.loggers = {
+  messages: new Logger('messages'),
   internals: new Logger('internals'),
   jirabot: new Logger('jirabot'),
   testbot: new Logger('testbot'),

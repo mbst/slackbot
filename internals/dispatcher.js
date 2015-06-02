@@ -1,11 +1,12 @@
 'use strict';
-var Entities  = require('html-entities').AllHtmlEntities;
-var util      = require('util');
-var _         = require('lodash');
-var Q         = require('q');
-var utils     = require('./utils');
-var logger    = require('./logger').internals;
-var Slack     = require('slack-node');
+var Entities       = require('html-entities').AllHtmlEntities;
+var util           = require('util');
+var _              = require('lodash');
+var Q              = require('q');
+var utils          = require('./utils');
+var logger         = require('./logger').internals;
+var messagesLogger = require('./logger').messages;
+var Slack          = require('slack-node');
 
 var slack = new Slack();
 slack.setWebhook('https://hooks.slack.com/services/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'); // TODO: moov into config
@@ -64,7 +65,7 @@ Dispatcher.prototype.send = function () {
   };
 
   if (utils.isDev()) {
-    console.log(messageObject);
+    messagesLogger.log(messageObject);
     this.message = [];
     defer.resolve();
     return defer.promise;
