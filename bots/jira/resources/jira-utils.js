@@ -15,35 +15,32 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
     return '';
   }
 
+  console.log(JSON.stringify(taskdata));
+
   var output      = [];
-  var hasFeature   = _.isObject(featuredata);
+  var hasFeature  = _.isObject(featuredata);
   var ev          = taskdata.webhookEvent;
-  var user        = taskdata.user;
   var issue       = taskdata.issue;
-  var resolution  = issue.fields.resolution || null;
+  var fields      = issue.fields;
+  var resolution  = issue.fields.resolution;
   var browseURL   = 'http://jira.metabroadcast.com/browse/';
 
-  // construct the response string
-  output.push(user.displayName);
-
   if ( ev !== 'jira:issue_updated' ||
-      _.isEmpty(resolution) ||
-      ! _.has(issue, 'fields')) {
+      ! resolution) {
+    // console.log(JSON.stringify(issue));
     return;
   }
 
-  var statusString = issue.fields.status.name;
-
-  if (statusString !== 'Closed' ||
-      statusString !== 'Resolved') {
-    logger.log({ 'Status': statusString, 'notSent': taskdata });
-    return;
-  }
-
-  console.log(statusString.toLowerCase());
   logger.log({'Sending': taskdata });
-  output.push('has ' + statusString.toLowerCase());
-  output.push('issue');
+
+  // construct the response string
+  if (_.has(fields, 'reporter')) {
+    output.push(fields.reporter.displayName);
+    output.push('has closed issue');
+  } else {
+    output.push('Issue closed');
+  }
+
   output.push('<' + _.escape(browseURL+issue.key) + '|' + _.escape(issue.fields.summary) + '>');
 
   if (hasFeature) {

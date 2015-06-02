@@ -1,0 +1,200 @@
+{
+  "webhookEvent": "jira:issue_updated",
+  "user": {
+    "self": "https://jira.metabroadcast.com/rest/api/2/user?username=jason",
+    "name": "jason",
+    "emailAddress": "jason@metabroadcast.com",
+    "avatarUrls": {
+      "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+      "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+      "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+      "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+    },
+    "displayName": "Jason Howmans",
+    "active": true
+  },
+  "issue": {
+    "id": "26271",
+    "self": "https://jira.metabroadcast.com/rest/api/2/issue/26271",
+    "key": "MBST-11585",
+    "fields": {
+      "issuetype": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/issuetype/3",
+        "id": "3",
+        "description": "A task that needs to be done.",
+        "iconUrl": "https://jira.metabroadcast.com/images/icons/issuetypes/task.png",
+        "name": "Task",
+        "subtask": false
+      },
+      "components": [],
+      "timespent": null,
+      "timeoriginalestimate": 7200,
+      "description": "Look at NPM modules",
+      "project": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/project/10000",
+        "id": "10000",
+        "key": "MBST",
+        "name": "MetaBroadcast",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/projectavatar?pid=10000&avatarId=10011",
+          "24x24": "https://jira.metabroadcast.com/secure/projectavatar?size=small&pid=10000&avatarId=10011",
+          "16x16": "https://jira.metabroadcast.com/secure/projectavatar?size=xsmall&pid=10000&avatarId=10011",
+          "32x32": "https://jira.metabroadcast.com/secure/projectavatar?size=medium&pid=10000&avatarId=10011"
+        },
+        "projectCategory": {
+          "self": "https://jira.metabroadcast.com/rest/api/2/projectCategory/10000",
+          "id": "10000",
+          "description": "",
+          "name": "Internal"
+        }
+      },
+      "fixVersions": [],
+      "aggregatetimespent": null,
+      "resolution": null,
+      "timetracking": {
+        "originalEstimate": "2h",
+        "remainingEstimate": "2h",
+        "originalEstimateSeconds": 7200,
+        "remainingEstimateSeconds": 7200
+      },
+      "customfield_10006": null,
+      "customfield_10700": null,
+      "customfield_10800": "1|00lhmt:zzzzzzzzyzi1qhto7wg2zf4",
+      "attachment": [],
+      "aggregatetimeestimate": 7200,
+      "resolutiondate": null,
+      "workratio": 0,
+      "summary": "Twitter module: Integrate with Twitter API",
+      "lastViewed": "2015-06-02T19:44:06.090+0000",
+      "watches": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/issue/MBST-11585/watchers",
+        "watchCount": 1,
+        "isWatching": true
+      },
+      "creator": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/user?username=jason",
+        "name": "jason",
+        "emailAddress": "jason@metabroadcast.com",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+          "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+          "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+          "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+        },
+        "displayName": "Jason Howmans",
+        "active": true
+      },
+      "subtasks": [],
+      "created": "2015-05-26T17:30:04.323+0000",
+      "reporter": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/user?username=jason",
+        "name": "jason",
+        "emailAddress": "jason@metabroadcast.com",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+          "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+          "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+          "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+        },
+        "displayName": "Jason Howmans",
+        "active": true
+      },
+      "customfield_10000": "9223372036854775807",
+      "aggregateprogress": {
+        "progress": 0,
+        "total": 7200,
+        "percent": 0
+      },
+      "priority": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/priority/3",
+        "iconUrl": "https://jira.metabroadcast.com/images/icons/priorities/major.png",
+        "name": "Major",
+        "id": "3"
+      },
+      "customfield_10001": null,
+      "customfield_10002": null,
+      "customfield_10200": "9223372036854775807",
+      "customfield_10300": [
+        "com.atlassian.greenhopper.service.sprint.Sprint@2232899f[id=90,rapidViewId=13,state=ACTIVE,name=Week to 2nd June,startDate=2015-05-27T00:00:48.001Z,endDate=2015-06-02T22:59:00.000Z,completeDate=<null>,sequence=90]"
+      ],
+      "labels": [],
+      "customfield_10400": "MBST-11134",
+      "timeestimate": 7200,
+      "aggregatetimeoriginalestimate": 7200,
+      "versions": [],
+      "progress": {
+        "progress": 0,
+        "total": 7200,
+        "percent": 0
+      },
+      "comment": {
+        "startAt": 0,
+        "maxResults": 0,
+        "total": 0,
+        "comments": []
+      },
+      "issuelinks": [],
+      "votes": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/issue/MBST-11585/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "worklog": {
+        "startAt": 0,
+        "maxResults": 20,
+        "total": 0,
+        "worklogs": []
+      },
+      "assignee": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/user?username=jason",
+        "name": "jason",
+        "emailAddress": "jason@metabroadcast.com",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+          "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+          "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+          "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+        },
+        "displayName": "Jason Howmans",
+        "active": true
+      },
+      "updated": "2015-06-02T19:44:06.142+0000",
+      "status": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/status/4",
+        "description": "This issue was once resolved, but the resolution was deemed incorrect. From here issues are either marked assigned or resolved.",
+        "iconUrl": "https://jira.metabroadcast.com/images/icons/statuses/reopened.png",
+        "name": "Reopened",
+        "id": "4",
+        "statusCategory": {
+          "self": "https://jira.metabroadcast.com/rest/api/2/statuscategory/2",
+          "id": 2,
+          "key": "new",
+          "colorName": "blue-gray",
+          "name": "New"
+        }
+      }
+    }
+  },
+  "changelog": {
+    "id": "135172",
+    "items": [
+      {
+        "field": "status",
+        "fieldtype": "jira",
+        "from": "5",
+        "fromString": "Resolved",
+        "to": "4",
+        "toString": "Reopened"
+      },
+      {
+        "field": "resolution",
+        "fieldtype": "jira",
+        "from": "1",
+        "fromString": "Fixed",
+        "to": null,
+        "toString": null
+      }
+    ]
+  },
+  "timestamp": 1433274246147
+}
