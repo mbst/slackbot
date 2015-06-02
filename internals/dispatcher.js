@@ -63,14 +63,13 @@ Dispatcher.prototype.send = function () {
     'icon_url': this.options.iconUrl,
     'attachments': _attachments
   };
+  
+  messagesLogger.log(messageObject);
 
   if (utils.isDev()) {
-    messagesLogger.log(messageObject);
     this.message = [];
     defer.resolve();
     return defer.promise;
-  } else {
-    messagesLogger.log(messageObject);
   }
 
   slack.webhook(messageObject, function (err, res) {
