@@ -22,25 +22,27 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   var issue       = taskdata.issue;
   var resolution  = issue.fields.resolution || null;
   var browseURL   = 'http://jira.metabroadcast.com/browse/';
-  var wording     = {};
 
   // construct the response string
   output.push(user.displayName);
 
-  if ( ev === 'jira:issue_updated' ) {
-    if ( _.isEmpty(resolution) ) {
-      logger.log('Not sending becasue `resolution` object is empty', taskdata);
-      return;
-    }else{
-      logger.log('Sending', taskdata);
-      wording.type = 'issue';
-      output.push('has resolved');
-    }
-  } else {
+  if ( ev !== 'jira:issue_updated' ||
+      _.isEmpty(resolution) ||
+      ! _.has(issue, 'fields')) {
     return;
   }
 
-  output.push(wording.type);
+  var statusString = issue.fields.status.name;
+
+  if (statusString !== 'Closed' ||
+      statusString !== 'Resolved') {
+    logger.log({ 'Status': statusString, 'notSent': taskdata });
+    return;
+  }
+
+  logger.log({'Sending': taskdata });
+  output.push('has ' + statusString.toLowerCase());
+  output.push('issue');
   output.push('<' + _.escape(browseURL+issue.key) + '|' + _.escape(issue.fields.summary) + '>');
 
   if (hasFeature) {

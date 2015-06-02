@@ -28,6 +28,7 @@ router.route('/').post( function(req, res) {
 
   // determine if this request is for a top level feature or a child issue
   if (_.isString(parent_issue)) {
+
     jira.getFeature(parent_issue).then(function(featuredata) {
       var response = jiraUtils.formatter(taskdata, featuredata);
       if (response) {
@@ -42,7 +43,9 @@ router.route('/').post( function(req, res) {
         logger.error(err);
       }
     });
-  }else{
+
+  } else {
+
     // send as feature
     if (! _.has(taskdata.fields, 'components')) {
       logger.log('No components key in taskdata', taskdata);
@@ -57,7 +60,9 @@ router.route('/').post( function(req, res) {
     }
     res.end();
   }
+
 });
+
 
 // Listen for incoming hooks from jira support
 router.route('/support').post( function(req, res) {
