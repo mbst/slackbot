@@ -10,7 +10,7 @@ var app        = express();
 var load = new Loader();
 
 // Tell Express to parse requests as JSON
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '5mb' }));
 
 // Load all the bots
 // TODO: Move express logic into bot loader, and pass endpoint as function arg

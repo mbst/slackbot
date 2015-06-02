@@ -40,11 +40,11 @@ function Logger(logname, options) {
 //  for writing normally to the log. uses bunyan info
 //
 //  @param content {string} what you want to be logged
-Logger.prototype.log = function (/*args*/) {
-  if (! _.isString(arguments[0])) {
+Logger.prototype.log = function (content) {
+  if (!_.isString(content)) {
     return;
   }
-  this.logger.info(arguments);
+  this.logger.info(content);
 };
 
 
@@ -60,30 +60,30 @@ Logger.prototype.dev = function (content) {
 };
 
 
-Logger.prototype.console = function (/*args*/) {
-  console.log(arguments);
+Logger.prototype.console = function (content) {
+  console.log(content);
 };
 
 
 //  for writing a warning to the log. uses bunyan info
 //
 //  @param content {string} what you want to be logged
-Logger.prototype.warn = function (/*args*/) {
-  if (!_.isString(arguments[0])) {
+Logger.prototype.warn = function (content) {
+  if (!_.isString(content)) {
     return;
   }
-  this.logger.warn(arguments);
+  this.logger.warn(content);
 };
 
 
 //  for writing errors to the log. uses bunyan warn
 //
 //  @param content {string} what you want to be logged
-Logger.prototype.error = function (/*args*/) {
-  if (!_.isString(arguments[0])) {
+Logger.prototype.error = function (content) {
+  if (!_.isString(content)) {
     return false;
   }
-  this.logger.error(arguments);
+  this.logger.error(content);
 };
 
 
