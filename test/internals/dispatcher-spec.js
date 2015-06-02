@@ -23,10 +23,22 @@ describe('Dispatcher', function () {
     assert.equal(dispatcher.chatname, defaultChatname);
   });
 
+  describe('#botname', function () {
+    it('should change the name of the bot that is shown in chat', function () {
+      dispatcher.botname('Test Bot');
+      assert.strictEqual('Test Bot', dispatcher.options.username);
+    });
+  });
+
   describe('#link', function () {
     it('should write a link to internal message array', function () {
       dispatcher.link('hello there slackbot');
       assert.lengthOf(dispatcher.message, 1);
+    });
+
+    it('should encode html entities', function () {
+      dispatcher.link('<hello&slack>', 'http://mbst.tv');
+      assert.strictEqual('<http://mbst.tv|&lt;hello&amp;slack&gt;>', dispatcher.message[0]);
     });
 
     it('should format link correctly', function () {

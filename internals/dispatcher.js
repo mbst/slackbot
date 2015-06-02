@@ -1,4 +1,5 @@
 'use strict';
+var Entities  = require('html-entities').AllHtmlEntities;
 var util      = require('util');
 var _         = require('lodash');
 var Q         = require('q');
@@ -17,7 +18,7 @@ slack.setWebhook('https://hooks.slack.com/services/T0270NQL9/B02N6QREG/RojNtPhjw
 //  @param chatname {string} name of the chat to post to eg. #anything-else
 //  @param options {object}
 //
-function Dispatcher(chatname, options) {
+function Dispatcher (chatname, options) {
   options = options || {};
   this.chatname = chatname;
   this.message = [];
@@ -29,9 +30,14 @@ function Dispatcher(chatname, options) {
   }, options);
 }
 
+Dispatcher.prototype.botname = function (name) {
+  if (_.isString(name)) {
+    this.options.username = name;
+  }
+};
 
 //  For sending the message to slack
-Dispatcher.prototype.send = function() {
+Dispatcher.prototype.send = function () {
   var defer = Q.defer();
   var self = this;
   if (! _.isString(this.chatname) || ! this.message.length) {
@@ -111,7 +117,7 @@ Dispatcher.prototype.interpolate = function (/* arguments: first param is messag
 
 
 //  For writing a message to the string in parts
-Dispatcher.prototype.write = function(message) {
+Dispatcher.prototype.write = function (message) {
   if (_.isArray(this.message)) {
     this.message.push(message);
   }
@@ -120,7 +126,7 @@ Dispatcher.prototype.write = function(message) {
 
 
 //  For writing a message to the string in parts
-Dispatcher.prototype.bold = function(message) {
+Dispatcher.prototype.bold = function (message) {
   if (_.isArray(this.message)) {
     this.message.push('*' + message + '*');
   }
@@ -135,9 +141,10 @@ Dispatcher.prototype.chat = function (chatName) {
 };
 
 
-Dispatcher.prototype.link = function(text, link) {
+Dispatcher.prototype.link = function (text, link) {
   if (_.isArray(this.message)) {
-    this.message.push('<' + link + '|' + text + '>');
+    var entities = new Entities();
+    this.message.push('<' + link + '|' + entities.encode(text) + '>');
   }
   return this;
 };

@@ -40,7 +40,7 @@ module.exports.sendMessage = function sendMessage (message_obj) {
     };
 
     var _message_options = {
-        username: 'Pagerduty Incident',
+        username: 'Incident - Pagerduty',
         color: colors.resolved
     };
     var message             = new Dispatcher('#support', _message_options);
