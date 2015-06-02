@@ -40,6 +40,7 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
     return;
   }
 
+  console.log(statusString.toLowerCase());
   logger.log({'Sending': taskdata });
   output.push('has ' + statusString.toLowerCase());
   output.push('issue');
