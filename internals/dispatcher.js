@@ -34,6 +34,7 @@ Dispatcher.prototype.botname = function (name) {
   if (_.isString(name)) {
     this.options.username = name;
   }
+  return this;
 };
 
 //  For sending the message to slack
@@ -93,7 +94,7 @@ Dispatcher.prototype.color = function (cssColor) {
 
 // Change the icon assigned to the massage
 Dispatcher.prototype.avatar = function (iconUrl) {
-  this.options.icon_url = iconUrl;
+  this.options.iconUrl = iconUrl;
   return this;
 };
 
@@ -138,6 +139,7 @@ Dispatcher.prototype.chat = function (chatName) {
   if (_.isString(chatName)) {
     this.chatname = (chatName.indexOf('#') > -1) ? chatName : '#' + chatName;
   }
+  return this;
 };
 
 

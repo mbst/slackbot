@@ -28,6 +28,11 @@ describe('Dispatcher', function () {
       dispatcher.botname('Test Bot');
       assert.strictEqual('Test Bot', dispatcher.options.username);
     });
+
+    it('should be chainable', function () {
+      var check = dispatcher.botname('Test Bot');
+      assert.instanceOf(check, Dispatcher);
+    });
   });
 
   describe('#link', function () {
@@ -45,6 +50,11 @@ describe('Dispatcher', function () {
       dispatcher.link('hello slackbot', 'http://mbst.tv');
       assert.strictEqual('<http://mbst.tv|hello slackbot>', dispatcher.message[0]);
     });
+
+    it('should be chainable', function () {
+      var check = dispatcher.link('hello', 'http://mbst.tv');
+      assert.instanceOf(check, Dispatcher);
+    });
   });
 
 
@@ -52,6 +62,11 @@ describe('Dispatcher', function () {
     it('should write string to internal message array', function () {
       dispatcher.write('hello there slackbot');
       assert.strictEqual('hello there slackbot', dispatcher.message[0]);
+    });
+
+    it('should be chainable', function () {
+      var check = dispatcher.write('Hello slackbot');
+      assert.instanceOf(check, Dispatcher);
     });
   });
 
@@ -61,6 +76,11 @@ describe('Dispatcher', function () {
       dispatcher.bold('hello there slackbot');
       assert.strictEqual('*hello there slackbot*', dispatcher.message[0]);
     });
+
+    it('should be chainable', function () {
+      var check = dispatcher.bold('Hello slackbot');
+      assert.instanceOf(check, Dispatcher);
+    });
   });
 
 
@@ -69,13 +89,23 @@ describe('Dispatcher', function () {
       dispatcher.interpolate('hello %s %s', 'there', 'slackbot');
       assert.strictEqual('hello there slackbot', dispatcher.message[0]);
     });
+
+    it('should be chainable', function () {
+      var check = dispatcher.interpolate('hello %s %s', 'there', 'slackbot');
+      assert.instanceOf(check, Dispatcher);
+    });
   });
 
 
   describe('#avatar', function () {
     it('should update the avatar image URL', function () {
       dispatcher.avatar('http://bukk.it/deal.gif');
-      assert.strictEqual('http://bukk.it/deal.gif', dispatcher.options.icon_url);
+      assert.strictEqual('http://bukk.it/deal.gif', dispatcher.options.iconUrl);
+    });
+
+    it('should be chainable', function () {
+      var check = dispatcher.avatar('http://bukk.it/deal.gif');
+      assert.instanceOf(check, Dispatcher);
     });
   });
 
@@ -89,6 +119,11 @@ describe('Dispatcher', function () {
     it('should automatically add hash to chat name, if its missing', function () {
       dispatcher.chat('test-chat');
       assert.strictEqual('#test-chat', dispatcher.chatname);
+    });
+
+    it('should be chainable', function () {
+      var check = dispatcher.chat('#test-chat');
+      assert.instanceOf(check, Dispatcher);
     });
   });
 

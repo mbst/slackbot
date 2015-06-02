@@ -44,7 +44,7 @@ module.exports.sendMessage = function sendMessage (message_obj) {
         color: colors.resolved
     };
     var message             = new Dispatcher('#support', _message_options);
-    var avatarUrl           = 'https://d1qb2nb5cznatu.cloudfront.net/startups/i/32606-ccb977f6d323e8bfb5128df59457ac0b-medium_jpg.jpg?buster=1405462151';
+    var avatarUrl           = 'http://i.imgur.com/CsoyiUT.jpg'; // Pagerduty logo
 
     var _type               = message_obj.type;
     var _incident           = message_obj.data.incident;
@@ -76,6 +76,6 @@ module.exports.sendMessage = function sendMessage (message_obj) {
       message.interpolate('assigned to: %s', _incident.assigned_to_user.name);
     }
 
-    message.avatar(avatarUrl);
-    message.send();
+    message.avatar(avatarUrl)
+           .send();
 };
