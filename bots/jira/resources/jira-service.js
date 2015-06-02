@@ -23,9 +23,8 @@ function JiraProvider() {
 JiraProvider.prototype.requestWithAuth = function(path, type) {
   var defer = Q.defer();
   if (!_.isString(path)) {
-    var error = 'path argument must be string';
-    logger.error(error);
-    defer.reject(error);
+    logger.error('path argument must be string');
+    defer.reject();
     return defer.promise;
   }
 
@@ -71,20 +70,22 @@ JiraProvider.prototype.requestWithAuth = function(path, type) {
 JiraProvider.prototype.getFeature = function(featureId) {
     var defer = Q.defer();
     if (!_.isString(featureId)) {
-        var error = 'featureId argument must be a string';
-        logger.error(error);
-        defer.reject(error);
-        return defer.promise;
+      var error = 'featureId argument must be a string';
+      logger.error(error);
+      defer.reject(error);
+      return defer.promise;
     }
 
     var _endpoint = '/rest/api/2/issue/';
     this.requestWithAuth(_endpoint+featureId).then(function(data) {
-        if ('errorMessages' in data) {
-            defer.reject(data.errorMessages);
-        }else{
-            defer.resolve(data);
-        }
-    }, defer.reject);
+      if ('errorMessages' in data) {
+        logger.error(data.errorMessages);
+        defer.reject(data.errorMessages);
+      } else {
+        defer.resolve(data);
+      }
+    },
+    defer.reject);
 
     return defer.promise;
 };

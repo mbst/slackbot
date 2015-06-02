@@ -18,6 +18,7 @@ message.avatar('https://marketplace-cdn.atlassian.com/files/images/f7a34752-e211
 router.route('/').post( function(req, res) {
   var taskdata = req.body || null;
   if (_.isEmpty(taskdata)) {
+    logger.warn('Taskdata object empty. Body:', req.body);
     res.end();
     return;
   }
@@ -27,12 +28,13 @@ router.route('/').post( function(req, res) {
 
   // determine if this request is for a top level feature or a child issue
   if (_.isString(parent_issue)) {
-    // send as issue
     jira.getFeature(parent_issue).then(function(featuredata) {
       var response = jiraUtils.formatter(taskdata, featuredata);
       if (response) {
-        message.chat(jira.getChatFromComponent(featuredata.fields.components));
-        message.write(response).send();
+        var chatname = jira.getChatFromComponent(featuredata.fields.components);
+        message.chat(chatname);
+        message.write(response)
+               .send();
       }
       res.end();
     }, function(err) {

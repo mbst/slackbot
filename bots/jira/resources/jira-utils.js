@@ -11,8 +11,8 @@ var logger     = require('../../../internals/logger').jirabot;
 //
 module.exports.formatter = function formatter (taskdata, featuredata) {
   if (!_.isObject(taskdata)) {
-    logger.error('formatter(*taskdata*, featuredata): taskdata argument must be a object');
-    return;
+    logger.warn('formatter(*taskdata*, featuredata): taskdata argument must be a object');
+    return '';
   }
 
   var output      = [];
@@ -29,8 +29,10 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
 
   if ( ev === 'jira:issue_updated' ) {
     if ( _.isEmpty(resolution) ) {
+      logger.log('Not sending becasue `resolution` object is empty', taskdata);
       return;
     }else{
+      logger.log('Sending', taskdata);
       wording.type = 'issue';
       output.push('has resolved');
     }

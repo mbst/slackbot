@@ -63,7 +63,7 @@ Dispatcher.prototype.send = function () {
     'icon_url': this.options.iconUrl,
     'attachments': _attachments
   };
-  
+
   messagesLogger.log(messageObject);
 
   if (utils.isDev()) {
