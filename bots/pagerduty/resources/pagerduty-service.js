@@ -49,49 +49,31 @@ module.exports.sendMessage = function sendMessage (message_obj) {
     var _incident           = message_obj.data.incident;
     var _incident_name      = _incident.trigger_summary_data.description;
     var _incident_number    = _incident.incident_number || '';
-    var _assignee           = message_obj.data.assigned_to_user;
 
     // determine which type of message to send
     if (_type.match(/\.trigger$/i)) {
       message.bold('Triggered:')
-             .write(_incident_name)
+             .link(_incident_name, _incident.html_url)
              .write('#'+_incident_number)
              .color(colors.triggered);
     } else if (_type.match(/\.acknowledge/i)) {
       message.bold('Acknowledged:')
-             .write(_incident_name)
+             .link(_incident_name, _incident.html_url)
              .write('#'+_incident_number)
              .color(colors.acknowledged);
     } else if (_type.match(/\.resolve/i)) {
       message.bold('Resolved:')
-             .write(_incident_name)
+             .link(_incident_name, _incident.html_url)
              .write('#'+_incident_number);
-    // } else if (_type.match(/\.unacknowledge/i)) {
-    //   message.write('unacknowledged:')
-    //          .write(_incident_name)
-    //          .write('#'+_incident_number);
-    // } else if (_type.match(/\.assign/i)) {
-    //   message.write(_incident_name)
-    //          .write('#'+_incident_number)
-    //          .write('assigned to')
-    //          .write(_incident.assigned_to_user.name);
      } else {
        return;
      }
-    // } else if (_type.match(/\.escalate/i)) {
-    //     //message.write('escalated');
-    //     return;
-    // } else if (_type.match(/\.delegate/i)) {
-    //     message.write('delegated to')
-    //            .write(_incident.assigned_to_user.name+'.');
-    // }
 
-    if (_.has(_assignee, 'name')) {
-      message.interpolate('assigned to: %s', _assignee.name);
+    if (_.has(message_obj.data, 'resolved_by_user')) {
+      message.interpolate('resolved by: %s', message_obj.data.resolved_by_user.name);
+    } else if (_.has(message_obj.data, 'assigned_to_user')) {
+      message.interpolate('assigned to: %s', message_obj.data.assigned_to_user.name);
     }
-
-    // link for more details about the incident
-    message.link('Details about this incident', _incident.html_url);
 
     message.send();
 };
