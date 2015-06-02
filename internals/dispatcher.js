@@ -33,6 +33,7 @@ function Dispatcher(chatname, options) {
 //  For sending the message to slack
 Dispatcher.prototype.send = function() {
   var defer = Q.defer();
+  var self = this;
   if (! _.isString(this.chatname) || ! this.message.length) {
     logger.error('chatname and message are both required to send a message');
     defer.reject();
@@ -69,7 +70,7 @@ Dispatcher.prototype.send = function() {
     }
 
     // clear message after message has been sent
-    this.message = [];
+    self.message = [];
     defer.resolve();
   });
 
