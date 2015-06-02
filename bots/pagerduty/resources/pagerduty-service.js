@@ -35,15 +35,16 @@ module.exports.sendMessage = function sendMessage (message_obj) {
 
     var colors = {
       triggered: '#D01D00',
-      acknowledged: '#E5AB12'
+      acknowledged: '#E5AB12',
+      resolved: '#47BA04'
     };
 
     var _message_options = {
         username: 'Pagerduty Incident',
-        color: '#47BA04',
-        icon_url: 'https://pbs.twimg.com/profile_images/482648331181490177/4X_QI2Vu_400x400.png'
+        color: colors.resolved
     };
     var message             = new Dispatcher('#support', _message_options);
+    var avatarUrl           = 'https://d1qb2nb5cznatu.cloudfront.net/startups/i/32606-ccb977f6d323e8bfb5128df59457ac0b-medium_jpg.jpg?buster=1405462151';
 
     var _type               = message_obj.type;
     var _incident           = message_obj.data.incident;
@@ -75,5 +76,6 @@ module.exports.sendMessage = function sendMessage (message_obj) {
       message.interpolate('assigned to: %s', message_obj.data.assigned_to_user.name);
     }
 
+    message.avatar(avatarUrl);
     message.send();
 };
