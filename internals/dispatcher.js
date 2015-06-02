@@ -1,7 +1,7 @@
 'use strict';
 var util      = require('util');
 var _         = require('lodash');
-var Q         = require('Q');
+var Q         = require('q');
 var utils     = require('./utils');
 var logger    = require('./logger').internals;
 var Slack     = require('slack-node');
