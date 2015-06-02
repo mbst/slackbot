@@ -1,10 +1,10 @@
 'use strict';
-var bunyan = require('bunyan');
+var bunyan  = require('bunyan');
 var utils   = require('./utils');
 var _       = require('lodash');
 var fs = require('fs');
 
-var LOG_EXTENTION = '.log';
+var LOG_EXTENTION = '.json';
 var LOGS_PATH = __dirname + '/../logs/';
 
 (function _setupLogsDir () {
@@ -15,7 +15,7 @@ var LOGS_PATH = __dirname + '/../logs/';
 
 //  the logger is for... logging. it keeps track of all
 //  logging processes in a single location, and uses
-//  winston to do most of the hard work
+//  bunyan to do most of the hard work
 //
 //  @param logname {string} name of the log file that will be saved in /logs
 function Logger(logname, options) {
@@ -36,7 +36,7 @@ function Logger(logname, options) {
   self.logger = log;
 }
 
-//  for writing normally to the log. uses winston.info
+//  for writing normally to the log. uses bunyan info
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.log = function (content) {
@@ -64,7 +64,7 @@ Logger.prototype.console = function (content) {
 };
 
 
-//  for writing a warning to the log. uses winston.info
+//  for writing a warning to the log. uses bunyan info
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.warn = function (content) {
@@ -75,7 +75,7 @@ Logger.prototype.warn = function (content) {
 };
 
 
-//  for writing errors to the log. uses winston.warn
+//  for writing errors to the log. uses bunyan warn
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.error = function (content) {
@@ -87,6 +87,7 @@ Logger.prototype.error = function (content) {
 
 
 Logger.prototype.loggers = {
+  test: new Logger('test'),
   messages: new Logger('messages'),
   internals: new Logger('internals'),
   jirabot: new Logger('jirabot'),
