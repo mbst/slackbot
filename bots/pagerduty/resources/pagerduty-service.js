@@ -70,10 +70,10 @@ module.exports.sendMessage = function sendMessage (message_obj) {
        return;
      }
 
-    if (_.has(message_obj.data, 'resolved_by_user')) {
-      message.interpolate('resolved by: %s', message_obj.data.resolved_by_user.name);
-    } else if (_.has(message_obj.data, 'assigned_to_user')) {
-      message.interpolate('assigned to: %s', message_obj.data.assigned_to_user.name);
+    if (_.has(_incident, 'resolved_by_user')) {
+      message.interpolate('resolved by: %s', _incident.resolved_by_user.name);
+    } else if (_.has(_incident, 'assigned_to_user')) {
+      message.interpolate('assigned to: %s', _incident.assigned_to_user.name);
     }
 
     message.avatar(avatarUrl);

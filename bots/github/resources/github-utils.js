@@ -52,4 +52,4 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
           message.send();
         });
     }
-}
+};
