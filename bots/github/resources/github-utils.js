@@ -11,9 +11,9 @@ var Jira        = require('../../jira/resources/jira-service');
 //
 module.exports.handlePullRequest = function handlePullRequest (body) {
     var _message_options = {
-        username: 'GitHub',
-        color: '#333',
-        icon_url: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'
+      username: 'Pull Request - GitHub',
+      color: '#333',
+      icon_url: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'
     };
 
 
@@ -28,6 +28,12 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
                .break()
                .bold('Branch: ')
                .link(branch, pullrequest.html_url);
+
+        // TODO: User request (to get github username)
+
+        console.log('GH-----');
+        console.log(JSON.stringify(body));
+        console.log('/GH----');
 
         // find the feature in Jira so we can add the feature info to the
         // message, otherwise just send the message without the jira link

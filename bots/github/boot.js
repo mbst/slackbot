@@ -4,7 +4,7 @@ var express     = require('express');
 var logger      = require('../../internals/logger').githubbot;
 var githubUtils = require('./resources/github-utils');
 
-var router      = express.Router();
+var router = express.Router();
 
 router.route('/').post(function(req, res) {
     var _body = req.body || null;
