@@ -8,6 +8,7 @@ var Promise     = require('promise');
 
 
 function getUserDetails (username) {
+  console.log(username);
   return new Promise(function (resolve, reject) {
     if (! _.isString(username)) {
       logger.warn('User details can\'t be gotten. `username` is not a string.');
@@ -24,6 +25,8 @@ function getUserDetails (username) {
 
     http.request(options,
     function (res) {
+      console.log(res);
+      res.setEncoding('utf8');
       res.on('data', function (chunk) {
         responseBody += chunk;
       })
@@ -103,6 +106,6 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
           }
           message.send();
         });
-      });
+      }).catch( logger.error );
     }
 };
