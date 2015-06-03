@@ -55,7 +55,7 @@ module.exports.sendMessage = function sendMessage (message_obj) {
     var _incident_number    = _incident.incident_number || '';
 
     // determine which type of message to send
-    if (_type.match(/\.trigger$/i)) {
+    if (_type.match(/\.trigger/i)) {
       message.bold('Triggered:')
              .link(_incident_name, _incident.html_url)
              .write('#'+_incident_number)
