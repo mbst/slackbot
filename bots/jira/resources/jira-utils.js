@@ -19,7 +19,6 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   var hasFeature  = _.isObject(featuredata);
   var ev          = taskdata.webhookEvent;
   var issue       = taskdata.issue;
-  var fields      = issue.fields;
   var resolution  = issue.fields.resolution;
   var browseURL   = 'http://jira.metabroadcast.com/browse/';
 
@@ -32,8 +31,8 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   logger.log({'Sending': taskdata });
 
   // construct the response string
-  if (_.has(fields, 'reporter')) {
-    output.push(fields.reporter.displayName);
+  if (_.has(taskdata, 'user')) {
+    output.push(taskdata.user.displayName);
     output.push('closed issue');
   } else {
     output.push('Issue closed');

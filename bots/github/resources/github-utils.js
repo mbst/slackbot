@@ -26,8 +26,8 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
         var message         = new Dispatcher('#pull-requests', _message_options);
         var jira            = new Jira();
 
-        if (state !== 'open' ||
-            action !== 'opened' ||
+        if (state !== 'open' &&
+            action !== 'opened' &&
             action !== 'reopened') {
           return;
         }
