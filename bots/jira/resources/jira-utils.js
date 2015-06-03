@@ -28,7 +28,7 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
     return;
   }
 
-  logger.log({'Sending': taskdata });
+  logger.log({'Sending': JSON.stringify(taskdata) });
 
   // construct the response string
   if (_.has(taskdata, 'user')) {
