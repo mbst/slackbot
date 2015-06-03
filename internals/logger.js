@@ -41,9 +41,6 @@ function Logger(logname, options) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.log = function (content) {
-  if (!_.isString(content)) {
-    return;
-  }
   this.logger.info(content);
 };
 
@@ -52,8 +49,7 @@ Logger.prototype.log = function (content) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.dev = function (content) {
-  if (! _.isString(content) ||
-      ! utils.isDev()) {
+  if (! utils.isDev()) {
     return;
   }
   this.console(content);
@@ -69,9 +65,6 @@ Logger.prototype.console = function (content) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.warn = function (content) {
-  if (!_.isString(content)) {
-    return;
-  }
   this.logger.warn(content);
 };
 
@@ -80,9 +73,6 @@ Logger.prototype.warn = function (content) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.error = function (content) {
-  if (!_.isString(content)) {
-    return false;
-  }
   this.logger.error(content);
 };
 
