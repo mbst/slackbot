@@ -19,6 +19,7 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
 
     if ("pull_request" in body) {
         var pullrequest     = body.pull_request;
+        var repo            = body.repository;
         var state           = pullrequest.state;
         var branch          = pullrequest.head.ref;
         var message         = new Dispatcher('#pull-requests', _message_options);
@@ -30,6 +31,9 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
 
         // start constructing the pull request message
         message.write(pullrequest.title)
+               .break()
+               .bold('Repo: ')
+               .link(repo.full_name, repo.html_url)
                .break()
                .bold('Branch: ')
                .link(branch, pullrequest.html_url);
