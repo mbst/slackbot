@@ -43,8 +43,11 @@ module.exports.sendMessage = function sendMessage (message_obj) {
         username: 'Incident - Pagerduty',
         color: colors.resolved
     };
+    
     var message             = new Dispatcher('#support', _message_options);
     var avatarUrl           = 'http://i.imgur.com/CsoyiUT.jpg'; // Pagerduty logo
+
+    message.avatar(avatarUrl);
 
     var _type               = message_obj.type;
     var _incident           = message_obj.data.incident;
@@ -70,12 +73,14 @@ module.exports.sendMessage = function sendMessage (message_obj) {
        return;
      }
 
+     var userName;
     if (_.has(_incident, 'resolved_by_user')) {
-      message.interpolate('resolved by: %s', _incident.resolved_by_user.name);
+      userName = _.has(_incident.resolved_by_user, 'name') ? _incident.resolved_by_user.name : '';
+      message.interpolate('resolved by: %s', userName);
     } else if (_.has(_incident, 'assigned_to_user')) {
-      message.interpolate('assigned to: %s', _incident.assigned_to_user.name);
+      userName = _.has(_incident.assigned_to_user, 'name') ? _incident.assigned_to_user.name : '';
+      message.interpolate('assigned to: %s', userName);
     }
 
-    message.avatar(avatarUrl)
-           .send();
+    message.send();
 };
