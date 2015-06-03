@@ -13,7 +13,7 @@ var message_options = {
   color: '#053663'
 };
 var message = new Dispatcher('#mb-feeds', message_options);
-message.avatar('https://marketplace-cdn.atlassian.com/files/images/f7a34752-e211-4b23-a8f7-e461c7a1f382.png');
+message.avatar('http://i.imgur.com/nB41VgE.png');
 
 router.route('/').post( function(req, res) {
   var taskdata = req.body || null;
@@ -60,7 +60,6 @@ router.route('/').post( function(req, res) {
     }
     res.end();
   }
-
 });
 
 
@@ -72,9 +71,8 @@ router.route('/support').post( function(req, res) {
     return;
   }
 
-  console.log('\n\n---JIRA SUPPORT---');
-  console.log(JSON.stringify(supportdata));
-  console.log('---/JIRA SUPPORT---');
+  // Logging this for now
+  logger.log({'support_data': JSON.stringify(supportdata) });
 
   var jira = new Jira();
   var parent_issue = supportdata.issue.fields.customfield_10400 || undefined;

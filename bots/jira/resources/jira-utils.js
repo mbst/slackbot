@@ -28,7 +28,6 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   if (! isUpdate ||
       ! resolution ||
       isReply) {
-    // console.log(JSON.stringify(issue));
     return;
   }
 
