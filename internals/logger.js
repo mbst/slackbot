@@ -91,7 +91,7 @@ Logger.prototype.loggers = {
   test: new Logger('test'),
   messages: new Logger('messages'),
   internals: new Logger('internals'),
-  jirabot: new Logger('jirabot'),
+  jirabot: new Logger('jira'),
   testbot: new Logger('testbot'),
   githubbot: new Logger('github'),
   bitbucketbot: new Logger('bitbucket'),
