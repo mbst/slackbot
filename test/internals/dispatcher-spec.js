@@ -99,6 +99,12 @@ describe('Dispatcher', function () {
       var check = dispatcher.bold('Hello slackbot');
       assert.instanceOf(check, Dispatcher);
     });
+
+    it('should embolden last message in array if called with no args', function () {
+      dispatcher.write('Oh hi');
+      dispatcher.write('Hello slackbot').bold();
+      assert.strictEqual('*Hello slackbot*', dispatcher.message.pop());
+    });
   });
 
 

@@ -130,10 +130,17 @@ Dispatcher.prototype.write = function (message) {
 };
 
 
-//  For writing a message to the string in parts
+//  For writing a bold message. If this is called with no arguments, then
+//  the previous message will be made bold instead
 Dispatcher.prototype.bold = function (message) {
-  if (_.isArray(this.message)) {
+  if (! _.isArray(this.message)) {
+    return;
+  }
+  if (_.isString(message)) {
     this.message.push('*' + message + '*');
+  } else {
+    var msg = this.message.pop() || '';
+    this.message.push('*' + msg + '*');
   }
   return this;
 };

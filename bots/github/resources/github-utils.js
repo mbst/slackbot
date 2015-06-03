@@ -21,11 +21,14 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
         var pullrequest     = body.pull_request;
         var repo            = body.repository;
         var state           = pullrequest.state;
+        var action          = body.action;
         var branch          = pullrequest.head.ref;
         var message         = new Dispatcher('#pull-requests', _message_options);
         var jira            = new Jira();
 
-        if (state !== 'open') {
+        if (state !== 'open' ||
+            action !== 'opened' ||
+            action !== 'reopened') {
           return;
         }
 
@@ -33,7 +36,7 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
         message.write(pullrequest.title)
                .break()
                .bold('Repo: ')
-               .link(repo.full_name, repo.html_url)
+               .link(repo.full_name, repo.html_url).bold()
                .break()
                .bold('Branch: ')
                .link(branch, pullrequest.html_url);
