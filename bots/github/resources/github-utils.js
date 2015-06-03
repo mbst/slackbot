@@ -19,9 +19,14 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
 
     if ("pull_request" in body) {
         var pullrequest     = body.pull_request;
+        var state           = pullrequest.state;
         var branch          = pullrequest.head.ref;
         var message         = new Dispatcher('#pull-requests', _message_options);
         var jira            = new Jira();
+
+        if (state !== 'open') {
+          return;
+        }
 
         // start constructing the pull request message
         message.write(pullrequest.title)
