@@ -4,6 +4,7 @@ var _           = require('lodash');
 var logger      = require('../../../internals/logger').githubbot;
 var Dispatcher  = require('../../../internals/dispatcher');
 var Jira        = require('../../jira/resources/jira-service');
+var Promise     = require('promise');
 
 
 function getUserDetails (username) {
