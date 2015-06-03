@@ -66,8 +66,7 @@ Dispatcher.prototype.send = function () {
     'attachments': _attachments
   };
 
-  messagesLogger.log('msg');
-  messagesLogger.log(messageObject);
+  messagesLogger.log({ 'message_body': messageObject });
 
   if (utils.isDev()) {
     this.message = [];
