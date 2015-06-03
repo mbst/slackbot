@@ -22,8 +22,12 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   var resolution  = issue.fields.resolution;
   var browseURL   = 'http://jira.metabroadcast.com/browse/';
 
-  if ( ev !== 'jira:issue_updated' ||
-      ! resolution) {
+  var isReply     = _.has(taskdata, 'comment');
+  var isUpdate    = ev === 'jira:issue_updated';
+
+  if (! isUpdate ||
+      ! resolution ||
+      isReply) {
     // console.log(JSON.stringify(issue));
     return;
   }

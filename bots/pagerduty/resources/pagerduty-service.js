@@ -43,7 +43,7 @@ module.exports.sendMessage = function sendMessage (message_obj) {
         username: 'Incident - Pagerduty',
         color: colors.resolved
     };
-    
+
     var message             = new Dispatcher('#support', _message_options);
     var avatarUrl           = 'http://i.imgur.com/CsoyiUT.jpg'; // Pagerduty logo
 
@@ -70,6 +70,7 @@ module.exports.sendMessage = function sendMessage (message_obj) {
              .link(_incident_name, _incident.html_url)
              .write('#'+_incident_number);
      } else {
+       logger.log({'not_sent': JSON.stringify(message_obj)});
        return;
      }
 

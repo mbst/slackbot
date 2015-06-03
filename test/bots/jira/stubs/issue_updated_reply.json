@@ -1,0 +1,375 @@
+{
+  "webhookEvent": "jira:issue_updated",
+  "user": {
+    "self": "https://jira.metabroadcast.com/rest/api/2/user?username=james%40shedcode.co.uk",
+    "name": "james@shedcode.co.uk",
+    "emailAddress": "james@shedcode.co.uk",
+    "avatarUrls": {
+      "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+      "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+      "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+      "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+    },
+    "displayName": "James Jefferies",
+    "active": true
+  },
+  "issue": {
+    "id": "26349",
+    "self": "https://jira.metabroadcast.com/rest/api/2/issue/26349",
+    "key": "SUPPORT-842",
+    "fields": {
+      "issuetype": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/issuetype/1",
+        "id": "1",
+        "description": "A problem which impairs or prevents the functions of the product.",
+        "iconUrl": "https://jira.metabroadcast.com/images/icons/issuetypes/bug.png",
+        "name": "Bug",
+        "subtask": false
+      },
+      "timespent": null,
+      "timeoriginalestimate": null,
+      "description": "Hello\r\n\r\nFor assorted spreadsheet parsing reasons the homefront universe has 2\r\nplaces:\r\n1. Macknade's House (upper case H)\r\n2. Macknade's house (lower case h)\r\n\r\nJames is using storyarc to try to edit all scenes listed under Macknade's\r\nhouse to be assigned instead to Macknade's House. The application is\r\nreporting that the scene has saved but refreshing the scene shows it's\r\nstill associated with Macknade's house\r\n\r\nI thought there might some caseless matching going on so renamed\r\n\"Macknade's House\" to \"Real Macknade's House\" and tried to point scenes\r\nlinked to \"Macknade's house\" to \"Real Macknade's House\"\r\n\r\nBut the scene association is still not saving\r\n\r\nJust tried attaching a completely different place to an existing scene and\r\nthat didn't save either\r\n\r\nmichael\r\n\r\n\r\n\r\n-----------------------------\r\nhttp://www.bbc.co.uk\r\nThis e-mail (and any attachments) is confidential and \r\nmay contain personal views which are not the views of the BBC unless specifically stated.\r\nIf you have received it in \r\nerror, please delete it from your system.\r\nDo not use, copy or disclose the \r\ninformation in any way nor act in reliance on it and notify the sender \r\nimmediately.\r\nPlease note that the BBC monitors e-mails \r\nsent or received.\r\nFurther communication will signify your consent to \r\nthis.\r\n-----------------------------",
+      "project": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/project/10400",
+        "id": "10400",
+        "key": "SUPPORT",
+        "name": "Support",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/projectavatar?pid=10400&avatarId=10011",
+          "24x24": "https://jira.metabroadcast.com/secure/projectavatar?size=small&pid=10400&avatarId=10011",
+          "16x16": "https://jira.metabroadcast.com/secure/projectavatar?size=xsmall&pid=10400&avatarId=10011",
+          "32x32": "https://jira.metabroadcast.com/secure/projectavatar?size=medium&pid=10400&avatarId=10011"
+        }
+      },
+      "fixVersions": [],
+      "aggregatetimespent": null,
+      "resolution": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/resolution/1",
+        "id": "1",
+        "description": "A fix for this issue is checked into the tree and tested.",
+        "name": "Fixed"
+      },
+      "customfield_10006": null,
+      "security": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/securitylevel/10000",
+        "id": "10000",
+        "description": "Defines the security level for Reporters",
+        "name": "Reporter's Visibility"
+      },
+      "customfield_10800": "1|y00c96:",
+      "attachment": [],
+      "customfield_10900": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/customFieldOption/10400",
+        "value": "Glitch",
+        "id": "10400"
+      },
+      "aggregatetimeestimate": null,
+      "resolutiondate": "2015-06-03T14:49:23.165+0000",
+      "workratio": -1,
+      "summary": "storyarc: change of place not saving on scene edit",
+      "lastViewed": null,
+      "watches": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/issue/SUPPORT-842/watchers",
+        "watchCount": 2,
+        "isWatching": false
+      },
+      "creator": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/user?username=michael.smethurst%40bbc.co.uk",
+        "name": "michael.smethurst@bbc.co.uk",
+        "emailAddress": "michael.smethurst@bbc.co.uk",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+          "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+          "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+          "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+        },
+        "displayName": "Michael Smethurst",
+        "active": true
+      },
+      "subtasks": [],
+      "created": "2015-06-03T14:01:45.716+0000",
+      "reporter": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/user?username=michael.smethurst%40bbc.co.uk",
+        "name": "michael.smethurst@bbc.co.uk",
+        "emailAddress": "michael.smethurst@bbc.co.uk",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+          "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+          "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+          "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+        },
+        "displayName": "Michael Smethurst",
+        "active": true
+      },
+      "customfield_10000": "9223372036854775807",
+      "aggregateprogress": {
+        "progress": 0,
+        "total": 0
+      },
+      "priority": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/priority/3",
+        "iconUrl": "https://jira.metabroadcast.com/images/icons/priorities/major.png",
+        "name": "Major",
+        "id": "3"
+      },
+      "customfield_10001": null,
+      "customfield_10002": null,
+      "customfield_10200": "9223372036854775807",
+      "customfield_10300": null,
+      "customfield_10400": null,
+      "timeestimate": null,
+      "aggregatetimeoriginalestimate": null,
+      "versions": [],
+      "progress": {
+        "progress": 0,
+        "total": 0
+      },
+      "comment": {
+        "startAt": 0,
+        "maxResults": 5,
+        "total": 5,
+        "comments": [
+          {
+            "self": "https://jira.metabroadcast.com/rest/api/2/issue/26349/comment/19039",
+            "id": "19039",
+            "author": {
+              "self": "https://jira.metabroadcast.com/rest/api/2/user?username=tristan.ferne%40bbc.co.uk",
+              "name": "tristan.ferne@bbc.co.uk",
+              "emailAddress": "tristan.ferne@bbc.co.uk",
+              "avatarUrls": {
+                "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+                "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+                "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+                "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+              },
+              "displayName": "Tristan Ferne",
+              "active": true
+            },
+            "body": "Earlier today I did manage to successfully add a place to a scene that previously had no place…\r\nhttps://storyarc.metabroadcast.com/#/universes/2/episodes/20824/scenes/71047\r\n\r\n--\r\nTristan Ferne, Lead Producer\r\nInternet Research & Future Services\r\nBBC Research & Development\r\n\r\nhttp://www.bbc.co.uk/rd\r\n@bbcrd\r\nSubscribe to our newsletter at https://lists.forge.bbc.co.uk/mailman/listinfo/rd-fm-updates\r\n\r\nFrom: Michael Smethurst <michael.smethurst@bbc.co.uk<mailto:michael.smethurst@bbc.co.uk>>\r\nDate: Wednesday, 3 June 2015 15:00\r\nTo: MetaBroadcast Support <support@metabroadcast.com<mailto:support@metabroadcast.com>>\r\nCc: Chris Godbert <chris.godbert@bbc.co.uk<mailto:chris.godbert@bbc.co.uk>>, James Jefferies <james@shedcode.co.uk<mailto:james@shedcode.co.uk>>, Tristan Ferne <tristan.ferne@bbc.co.uk<mailto:tristan.ferne@bbc.co.uk>>\r\nSubject: storyarc: change of place not saving on scene edit\r\n\r\nHello\r\n\r\nFor assorted spreadsheet parsing reasons the homefront universe has 2\r\nplaces:\r\n1. Macknade's House (upper case H)\r\n2. Macknade's house (lower case h)\r\n\r\nJames is using storyarc to try to edit all scenes listed under Macknade's\r\nhouse to be assigned instead to Macknade's House. The application is\r\nreporting that the scene has saved but refreshing the scene shows it's\r\nstill associated with Macknade's house\r\n\r\nI thought there might some caseless matching going on so renamed\r\n\"Macknade's House\" to \"Real Macknade's House\" and tried to point scenes\r\nlinked to \"Macknade's house\" to \"Real Macknade's House\"\r\n\r\nBut the scene association is still not saving\r\n\r\nJust tried attaching a completely different place to an existing scene and\r\nthat didn't save either\r\n\r\nmichael\r\n\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://jira.metabroadcast.com/rest/api/2/user?username=tristan.ferne%40bbc.co.uk",
+              "name": "tristan.ferne@bbc.co.uk",
+              "emailAddress": "tristan.ferne@bbc.co.uk",
+              "avatarUrls": {
+                "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+                "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+                "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+                "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+              },
+              "displayName": "Tristan Ferne",
+              "active": true
+            },
+            "created": "2015-06-03T14:24:01.264+0000",
+            "updated": "2015-06-03T14:24:01.264+0000"
+          },
+          {
+            "self": "https://jira.metabroadcast.com/rest/api/2/issue/26349/comment/19040",
+            "id": "19040",
+            "author": {
+              "self": "https://jira.metabroadcast.com/rest/api/2/user?username=michael.smethurst%40bbc.co.uk",
+              "name": "michael.smethurst@bbc.co.uk",
+              "emailAddress": "michael.smethurst@bbc.co.uk",
+              "avatarUrls": {
+                "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+                "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+                "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+                "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+              },
+              "displayName": "Michael Smethurst",
+              "active": true
+            },
+            "body": "Hello\r\n\r\nThis looks to be a wider association not saving problem\r\n\r\nJust tried adding a residence to a character, a group membership to a\r\ncharacter and a casting to a character. All reported as being saved but\r\nweren't\r\n\r\nOn 03/06/2015 15:00, \"Michael Smethurst\" <michael.smethurst@bbc.co.uk>\r\n\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://jira.metabroadcast.com/rest/api/2/user?username=michael.smethurst%40bbc.co.uk",
+              "name": "michael.smethurst@bbc.co.uk",
+              "emailAddress": "michael.smethurst@bbc.co.uk",
+              "avatarUrls": {
+                "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+                "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+                "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+                "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+              },
+              "displayName": "Michael Smethurst",
+              "active": true
+            },
+            "created": "2015-06-03T14:24:59.573+0000",
+            "updated": "2015-06-03T14:24:59.573+0000"
+          },
+          {
+            "self": "https://jira.metabroadcast.com/rest/api/2/issue/26349/comment/19041",
+            "id": "19041",
+            "author": {
+              "self": "https://jira.metabroadcast.com/rest/api/2/user?username=support",
+              "name": "support",
+              "emailAddress": "support@metabroadcast.com",
+              "avatarUrls": {
+                "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+                "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+                "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+                "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+              },
+              "displayName": "MetaBroadcast Support ",
+              "active": true
+            },
+            "body": "We'll take a look.\r\n\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://jira.metabroadcast.com/rest/api/2/user?username=support",
+              "name": "support",
+              "emailAddress": "support@metabroadcast.com",
+              "avatarUrls": {
+                "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+                "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+                "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+                "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+              },
+              "displayName": "MetaBroadcast Support ",
+              "active": true
+            },
+            "created": "2015-06-03T14:25:03.149+0000",
+            "updated": "2015-06-03T14:25:03.149+0000"
+          },
+          {
+            "self": "https://jira.metabroadcast.com/rest/api/2/issue/26349/comment/19042",
+            "id": "19042",
+            "author": {
+              "self": "https://jira.metabroadcast.com/rest/api/2/user?username=support",
+              "name": "support",
+              "emailAddress": "support@metabroadcast.com",
+              "avatarUrls": {
+                "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+                "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+                "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+                "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+              },
+              "displayName": "MetaBroadcast Support ",
+              "active": true
+            },
+            "body": "It is fixed.\r\n\r\nOn 3 June 2015 at 15:23, MetaBroadcast Support <support@metabroadcast.com>\r\n\r\n",
+            "updateAuthor": {
+              "self": "https://jira.metabroadcast.com/rest/api/2/user?username=support",
+              "name": "support",
+              "emailAddress": "support@metabroadcast.com",
+              "avatarUrls": {
+                "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+                "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+                "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+                "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+              },
+              "displayName": "MetaBroadcast Support ",
+              "active": true
+            },
+            "created": "2015-06-03T14:51:02.896+0000",
+            "updated": "2015-06-03T14:51:02.896+0000"
+          },
+          {
+            "self": "https://jira.metabroadcast.com/rest/api/2/issue/26349/comment/19044",
+            "id": "19044",
+            "author": {
+              "self": "https://jira.metabroadcast.com/rest/api/2/user?username=james%40shedcode.co.uk",
+              "name": "james@shedcode.co.uk",
+              "emailAddress": "james@shedcode.co.uk",
+              "avatarUrls": {
+                "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+                "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+                "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+                "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+              },
+              "displayName": "James Jefferies",
+              "active": true
+            },
+            "body": "thanks!\r\n\r\nOn 3 June 2015 at 15:48, MetaBroadcast Support <support@metabroadcast.com>\r\n\r\n\r\n\r\n-- \r\nJames Jefferies\r\nShedCode Limited\r\nSheffield, South Yorkshire\r\nTwitter: @shedcode @jamesjefferies\r\nEmail: james@shedcode.co.uk\r\nWeb: shedcode.co.uk jamesjefferies.com\r\nPhone: 07595 252069\r\n",
+            "updateAuthor": {
+              "self": "https://jira.metabroadcast.com/rest/api/2/user?username=james%40shedcode.co.uk",
+              "name": "james@shedcode.co.uk",
+              "emailAddress": "james@shedcode.co.uk",
+              "avatarUrls": {
+                "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+                "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+                "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+                "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+              },
+              "displayName": "James Jefferies",
+              "active": true
+            },
+            "created": "2015-06-03T15:06:10.962+0000",
+            "updated": "2015-06-03T15:06:10.962+0000"
+          }
+        ]
+      },
+      "issuelinks": [],
+      "votes": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/issue/SUPPORT-842/votes",
+        "votes": 0,
+        "hasVoted": false
+      },
+      "worklog": {
+        "startAt": 0,
+        "maxResults": 20,
+        "total": 0,
+        "worklogs": []
+      },
+      "assignee": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/user?username=jason",
+        "name": "jason",
+        "emailAddress": "jason@metabroadcast.com",
+        "avatarUrls": {
+          "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+          "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+          "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+          "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+        },
+        "displayName": "Jason Howmans",
+        "active": true
+      },
+      "updated": "2015-06-03T15:06:12.375+0000",
+      "status": {
+        "self": "https://jira.metabroadcast.com/rest/api/2/status/6",
+        "description": "The issue is considered finished, the resolution is correct. Issues which are closed can be reopened.",
+        "iconUrl": "https://jira.metabroadcast.com/images/icons/statuses/closed.png",
+        "name": "Closed",
+        "id": "6",
+        "statusCategory": {
+          "self": "https://jira.metabroadcast.com/rest/api/2/statuscategory/3",
+          "id": 3,
+          "key": "done",
+          "colorName": "green",
+          "name": "Complete"
+        }
+      }
+    }
+  },
+  "comment": {
+    "self": "https://jira.metabroadcast.com/rest/api/2/issue/26349/comment/19044",
+    "id": "19044",
+    "author": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/user?username=james%40shedcode.co.uk",
+      "name": "james@shedcode.co.uk",
+      "emailAddress": "james@shedcode.co.uk",
+      "avatarUrls": {
+        "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+        "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+        "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+        "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+      },
+      "displayName": "James Jefferies",
+      "active": true
+    },
+    "body": "thanks!\r\n\r\nOn 3 June 2015 at 15:48, MetaBroadcast Support <support@metabroadcast.com>\r\n\r\n\r\n\r\n-- \r\nJames Jefferies\r\nShedCode Limited\r\nSheffield, South Yorkshire\r\nTwitter: @shedcode @jamesjefferies\r\nEmail: james@shedcode.co.uk\r\nWeb: shedcode.co.uk jamesjefferies.com\r\nPhone: 07595 252069\r\n",
+    "updateAuthor": {
+      "self": "https://jira.metabroadcast.com/rest/api/2/user?username=james%40shedcode.co.uk",
+      "name": "james@shedcode.co.uk",
+      "emailAddress": "james@shedcode.co.uk",
+      "avatarUrls": {
+        "48x48": "https://jira.metabroadcast.com/secure/useravatar?avatarId=10122",
+        "24x24": "https://jira.metabroadcast.com/secure/useravatar?size=small&avatarId=10122",
+        "16x16": "https://jira.metabroadcast.com/secure/useravatar?size=xsmall&avatarId=10122",
+        "32x32": "https://jira.metabroadcast.com/secure/useravatar?size=medium&avatarId=10122"
+      },
+      "displayName": "James Jefferies",
+      "active": true
+    },
+    "created": "2015-06-03T15:06:10.962+0000",
+    "updated": "2015-06-03T15:06:10.962+0000"
+  },
+  "timestamp": 1433343972396
+}
