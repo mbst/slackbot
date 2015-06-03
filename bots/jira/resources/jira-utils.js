@@ -15,8 +15,6 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
     return '';
   }
 
-  // console.log(JSON.stringify(taskdata));
-
   var output      = [];
   var hasFeature  = _.isObject(featuredata);
   var ev          = taskdata.webhookEvent;

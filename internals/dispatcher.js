@@ -4,9 +4,11 @@ var util           = require('util');
 var _              = require('lodash');
 var Q              = require('q');
 var utils          = require('./utils');
-var logger         = require('./logger').internals;
-var messagesLogger = require('./logger').messages;
+var Log            = require('./logger');
 var Slack          = require('slack-node');
+
+var logger = Log.internals;
+var messagesLogger = Log.messages;
 
 var slack = new Slack();
 slack.setWebhook('https://hooks.slack.com/services/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'); // TODO: moov into config
@@ -64,6 +66,7 @@ Dispatcher.prototype.send = function () {
     'attachments': _attachments
   };
 
+  messagesLogger.log('msg');
   messagesLogger.log(messageObject);
 
   if (utils.isDev()) {

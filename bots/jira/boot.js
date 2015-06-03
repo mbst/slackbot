@@ -72,6 +72,10 @@ router.route('/support').post( function(req, res) {
     return;
   }
 
+  console.log('\n\n---JIRA SUPPORT---');
+  console.log(JSON.stringify(supportdata));
+  console.log('---/JIRA SUPPORT---');
+
   var jira = new Jira();
   var parent_issue = supportdata.issue.fields.customfield_10400 || undefined;
 
