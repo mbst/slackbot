@@ -11,40 +11,40 @@ var logger     = require('../../../internals/logger').jirabot;
 //
 module.exports.formatter = function formatter (taskdata, featuredata) {
   if (!_.isObject(taskdata)) {
-    logger.error('formatter(*taskdata*, featuredata): taskdata argument must be a object');
-    return;
+    logger.warn('formatter(*taskdata*, featuredata): taskdata argument must be a object');
+    return '';
   }
 
   var output      = [];
-  var isFeature   = (_.isObject(featuredata))? false : true;
+  var hasFeature  = _.isObject(featuredata);
   var ev          = taskdata.webhookEvent;
-  var user        = taskdata.user;
   var issue       = taskdata.issue;
-  var resolution  = issue.fields.resolution || null;
+  var fields      = issue.fields;
+  var resolution  = issue.fields.resolution;
   var browseURL   = 'http://jira.metabroadcast.com/browse/';
-  var wording     = {};
 
-  // construct the response string
-  output.push(user.displayName);
-
-  if ( ev === 'jira:issue_updated' ) {
-    if ( _.isEmpty(resolution) ) {
-      return;
-    }else{
-      output.push('has resolved');
-    }
-  } else {
+  if ( ev !== 'jira:issue_updated' ||
+      ! resolution) {
+    // console.log(JSON.stringify(issue));
     return;
   }
 
-  wording.type = isFeature ? 'feature' : 'issue';
-  output.push(wording.type);
-  output.push('<'+_.escape(browseURL+issue.key)+'|'+_.escape(issue.fields.summary)+'>');
+  logger.log({'Sending': taskdata });
 
-  if (! isFeature) {
+  // construct the response string
+  if (_.has(fields, 'reporter')) {
+    output.push(fields.reporter.displayName);
+    output.push('closed issue');
+  } else {
+    output.push('Issue closed');
+  }
+
+  output.push('<' + _.escape(browseURL+issue.key) + '|' + _.escape(issue.fields.summary) + '>');
+
+  if (hasFeature) {
     output.push('in the feature');
-    output.push('<' + _.escape(browseURL+featuredata.key) + '|' + _.escape(featuredata.fields.summary) + '>');
+    output.push('<' + _.escape(browseURL + featuredata.key) + '|' + _.escape(featuredata.fields.summary) + '>');
   }
 
   return output.join(' ');
-}
+};

@@ -10,7 +10,7 @@ var app        = express();
 var load = new Loader();
 
 // Tell Express to parse requests as JSON
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '5mb' }));
 
 // Load all the bots
 // TODO: Move express logic into bot loader, and pass endpoint as function arg
@@ -21,5 +21,5 @@ app.use('/webhooks/bitbucket', load.bot('bitbucket'));
 app.use('/webhooks/pagerduty', load.bot('pagerduty'));
 
 // Boot the app
-logger.dev('Bot ready @ http://dev.mbst.tv:' + common.port);
+logger.log('Bot ready @ port ' + common.port);
 app.listen(common.port);
