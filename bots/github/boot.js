@@ -11,7 +11,7 @@ router.route('/').post(function(req, res) {
     var _event = req.headers['x-github-event'] || null;
 
     // end the response here if any of the request data is missing
-    if (!_body || !_event) {
+    if (! _body || ! _event) {
         res.end('not enough data to continue');
         return;
     }

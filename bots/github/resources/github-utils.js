@@ -1,5 +1,5 @@
 'use strict';
-var http        = require('http');
+var https        = require('https');
 var _           = require('lodash');
 var logger      = require('../../../internals/logger').githubbot;
 var Dispatcher  = require('../../../internals/dispatcher');
@@ -8,7 +8,6 @@ var Promise     = require('promise');
 
 
 function getUserDetails (username) {
-  console.log(username);
   return new Promise(function (resolve, reject) {
     if (! _.isString(username)) {
       logger.warn('User details can\'t be gotten. `username` is not a string.');
@@ -17,27 +16,35 @@ function getUserDetails (username) {
     }
 
     var options = {
-      method: 'get',
+      method: 'GET',
       hostname: 'api.github.com',
-      path: '/users/' + username
+      path: '/users/' + username,
+      agent: false,
+      headers: {
+        'User-Agent': 'mbst/slackbot'
+      }
     };
-    var responseBody = '';
 
-    http.request(options,
+    var usersRequest = https.request(options,
     function (res) {
-      console.log(res);
       res.setEncoding('utf8');
+      var responseBody = '';
+
       res.on('data', function (chunk) {
         responseBody += chunk;
-      })
-      .on('end', function () {
+      });
+
+      res.on('end', function () {
         resolve(JSON.parse(responseBody));
-      })
-      .on('error', function (err) {
-        logger.error(err);
-        reject();
       });
     });
+
+    usersRequest.on('error', function (err) {
+      logger.error(err);
+      reject();
+    });
+
+    usersRequest.end();
   });
 }
 
@@ -73,7 +80,6 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
 
       getUserDetails(user.login).then(
       function (userObj) {
-        console.log(userObj);
         // start constructing the pull request message
         message.write(pullrequest.title)
                .write('By: ')
