@@ -8,13 +8,6 @@ var jiraUtils  = require('./resources/jira-utils');
 
 var router     = express.Router();
 
-var message_options = {
-  username: 'Jira',
-  color: '#053663'
-};
-var message = new Dispatcher('#mb-feeds', message_options);
-message.avatar('http://i.imgur.com/nB41VgE.png');
-
 router.route('/').post( function(req, res) {
   var taskdata = req.body || null;
   if (_.isEmpty(taskdata)) {
@@ -22,6 +15,13 @@ router.route('/').post( function(req, res) {
     res.end();
     return;
   }
+
+  var message_options = {
+    username: 'Jira',
+    color: '#053663'
+  };
+  var message = new Dispatcher('#mb-feeds', message_options);
+  message.avatar('http://i.imgur.com/nB41VgE.png');
 
   var jira = new Jira();
   var parent_issue = taskdata.issue.fields.customfield_10400 || undefined; // <- Who do you blame for a key name like that?
@@ -71,14 +71,18 @@ router.route('/support').post( function(req, res) {
     return;
   }
 
+  var message_options = {
+    username: 'Support - Jira',
+    color: '#053663'
+  };
+  var message = new Dispatcher('#support', message_options);
+  message.avatar('http://i.imgur.com/nB41VgE.png');
+
   // Logging this for now
   logger.log({'support_data': JSON.stringify(supportdata) });
 
   var jira = new Jira();
   var parent_issue = supportdata.issue.fields.customfield_10400 || undefined;
-
-  message.chat('#support')
-         .botname('Support - Jira');
 
   // determine if this request is for a top level feature or a child issue
   if (_.isString(parent_issue)) {

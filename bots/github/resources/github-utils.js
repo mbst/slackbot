@@ -106,6 +106,6 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
           }
           message.send();
         });
-      }).catch( logger.error );
+      });
     }
 };
