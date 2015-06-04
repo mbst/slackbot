@@ -81,7 +81,8 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
       getUserDetails(user.login).then(
       function (userObj) {
         // start constructing the pull request message
-        message.write(pullrequest.title)
+        message.bold(pullrequest.title)
+               .break()
                .write('By: ')
                .write(userObj.name)
                .break()
