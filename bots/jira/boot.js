@@ -12,7 +12,6 @@ var router     = express.Router();
 
 router.route('/').post( function(req, res) {
   var taskdata = req.body || null;
-  console.log(taskdata);
   if (_.isEmpty(taskdata)) {
     logger.warn('Taskdata object empty. Body:', req.body);
     res.end();
@@ -26,7 +25,7 @@ router.route('/').post( function(req, res) {
   var message = new Dispatcher('#mb-feeds', message_options);
   message.avatar('http://i.imgur.com/nB41VgE.png');
   
-  logger.log( { 'ticket_data': JSON.stringify(taskdata) } );
+  // logger.log( { 'ticket_data': JSON.stringify(taskdata) } );
 
   var jira = new Jira();
   var parent_issue = taskdata.issue.fields.customfield_10400 || undefined; // <- Who do you blame for a key name like that?
@@ -48,14 +47,20 @@ router.route('/').post( function(req, res) {
   // determine if this request is for a top level feature or a child issue
   if (_.isString(parent_issue)) {
     
-    jira.getFeature(parent_issue).then(function(featuredata) {
+    jira.getFeature(parent_issue).then(
+    function(featuredata) {
       var response = jiraUtils.formatter(taskdata, featuredata);
-      if (response) {
-        var chatname = jira.getChatFromComponent(featuredata.fields.components);
-        message.chat(chatname)
-               .write(response)
-               .send();
+      
+      if (! response) {
+        logger.warn({'message': 'No response could be made for ticket'});
+        res.end();
+        return;
       }
+      
+      var chatname = jira.getChatFromComponent(featuredata.fields.components);
+      message.chat(chatname)
+             .write(response)
+             .send();
       res.end();
     }, 
     function(err) {
@@ -66,21 +71,25 @@ router.route('/').post( function(req, res) {
 
   } else {
 
-    // send as feature
-    if (! _.has(taskdata.fields, 'components')) {
-      logger.log({message: 'No components key in taskdata', webhook_data: taskdata});
+    // send as feature    
+    if (! _.has(taskdata.issue.fields, 'components')) {
+      logger.log({'message': 'No components key in taskdata', 'webhook_data': taskdata});
       message.chat('mb-feeds');
     } else {
-      var components = taskdata.fields.components ? taskdata.fields.components : null;
+      var components = taskdata.issue.fields.components ? taskdata.issue.fields.components : null;
       var chatname = jira.getChatFromComponent(components);
       message.chat( chatname );
     }
     
     var response = jiraUtils.formatter(taskdata);
-    if (response) {
-      message.write(response)
-             .send();
+    if (! response) {
+      logger.warn({'message': 'No response could be made for ticket'});
+      res.end();
+      return;
     }
+    
+    message.write(response)
+           .send();
     res.end();
   }
 });

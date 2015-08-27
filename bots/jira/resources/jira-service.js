@@ -120,11 +120,10 @@ JiraProvider.prototype.getFeatureFromString = function(string) {
 //  @param components {array} the components array sent from Jira
 //
 JiraProvider.prototype.getChatFromComponent = function(components) {
-  var _default = 'mb-feeds';
-  if (!_.isArray(components)) {
-    return _default;
+  if (! _.isArray(components)) {
+    return null;
   }
-  var name = (components.length) ? components[0].name : _default;
+  var name = (components.length) ? components[0].name : null;
   var chatname;
   // turn component name into a chat name string
   // eg. Metabroadcast.com -> #metabroadcast-com

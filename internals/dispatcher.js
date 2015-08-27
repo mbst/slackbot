@@ -49,6 +49,9 @@ Dispatcher.prototype.send = function () {
     defer.reject();
     return defer.promise;
   }
+  
+  console.log(botUtils.isDev());
+  
   var _message = this.message.join(' ');
   var _attachments = [{
     'title': ' ',
@@ -60,18 +63,20 @@ Dispatcher.prototype.send = function () {
 
   var messageObject = {
     'text': ' ',
+    'as_user': false,
     'channel': this.chatname,
     'username': this.options.username,
     'icon_url': this.options.iconUrl,
     'attachments': _attachments
   };
 
-  messagesLogger.log({ 'message_body': messageObject });
-
   if (botUtils.isDev()) {
+    console.log(messageObject);
     defer.resolve( messageObject );
     return defer.promise;
   }
+  
+  messagesLogger.log({ 'message_body': messageObject });
 
   slack.webhook(messageObject, function (err, res) {
     if (err) {

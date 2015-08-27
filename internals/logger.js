@@ -1,8 +1,8 @@
 'use strict';
 var bunyan  = require('bunyan');
-var utils   = require('./utils');
+var botUtils= require('./utils');
 var _       = require('lodash');
-var fs = require('fs');
+var fs      = require('fs');
 
 var LOG_EXTENTION = '.json';
 var LOGS_PATH = __dirname + '/../logs/';
@@ -28,7 +28,7 @@ function Logger(logname, options) {
     streams: [{
       type: 'rotating-file',
       path: LOGS_PATH + _logname + LOG_EXTENTION,
-      period: '30d'
+      period: '10d'
     }]
   }, options);
 
@@ -41,7 +41,11 @@ function Logger(logname, options) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.log = function (content) {
-  this.logger.info(content);
+  if (botUtils.isDev()) {
+    console.log(content);
+  } else {
+    this.logger.info(content);
+  }
 };
 
 
@@ -49,7 +53,7 @@ Logger.prototype.log = function (content) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.dev = function (content) {
-  if (! utils.isDev()) {
+  if (! botUtils.isDev()) {
     return;
   }
   this.console(content);
@@ -65,7 +69,11 @@ Logger.prototype.console = function (content) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.warn = function (content) {
-  this.logger.warn(content);
+  if (botUtils.isDev()) {
+    console.warn(content);
+  } else {
+    this.logger.warn(content);
+  }
 };
 
 
@@ -73,7 +81,11 @@ Logger.prototype.warn = function (content) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.error = function (content) {
-  this.logger.error(content);
+  if (botUtils.isDev()) {
+    console.error(content);
+  } else {
+    this.logger.error(content);
+  }
 };
 
 

@@ -19,8 +19,6 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   var hasFeature  = _.isObject(featuredata);
   var issue       = taskdata.issue;
   var browseURL   = 'http://jira.metabroadcast.com/browse/';
-  
-  logger.log({'Sending': JSON.stringify(taskdata) });
 
   // construct the response string
   if (_.has(taskdata, 'user')) {
