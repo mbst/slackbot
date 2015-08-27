@@ -9,15 +9,15 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
         username: 'Bitbucket',
         color: '#205081',
         icon_url: 'https://www.vectorbase.org/sites/default/files/ftp/Landing_page_icons/Downloads_icons/bitbucket_logo.png'
-    }
+    };
 
     var _pr                 = body.pullrequest_created,
         _pr_title           = _pr.title,
         _branch             = _pr.source.branch.name,
         _destination_branch = _pr.destination.branch.name;
 
-    var message = new Dispatcher('#pull-requests', _message_options),
-        jira = new Jira();
+    var message = new Dispatcher('#pull-requests', _message_options);
+    var jira = new Jira();
 
     // start constructing the pull request message
     message.write(_pr.author.display_name)
@@ -35,7 +35,9 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
                .link(feature_title, jiraURL)
                .send();
     }, function (err) {
-        if (err) logger.error(err);
+        if (err) {
+          logger.error(err);
+        }
         message.send();
-    })
-}
+    });
+};
