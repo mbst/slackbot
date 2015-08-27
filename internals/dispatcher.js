@@ -3,7 +3,7 @@ var Entities       = require('html-entities').AllHtmlEntities;
 var util           = require('util');
 var _              = require('lodash');
 var Q              = require('q');
-var utils          = require('./utils');
+var botUtils       = require('./utils');
 var Log            = require('./logger');
 var Slack          = require('slack-node');
 
@@ -68,9 +68,8 @@ Dispatcher.prototype.send = function () {
 
   messagesLogger.log({ 'message_body': messageObject });
 
-  if (utils.isDev()) {
-    this.message = [];
-    defer.resolve();
+  if (botUtils.isDev()) {
+    defer.resolve( messageObject );
     return defer.promise;
   }
 

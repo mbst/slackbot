@@ -8,8 +8,11 @@ var jiraUtils  = require('./resources/jira-utils');
 
 var router     = express.Router();
 
+// TODO: refactor this into a single route listener, with :type attribute
+
 router.route('/').post( function(req, res) {
   var taskdata = req.body || null;
+  console.log(taskdata);
   if (_.isEmpty(taskdata)) {
     logger.warn('Taskdata object empty. Body:', req.body);
     res.end();
@@ -22,23 +25,40 @@ router.route('/').post( function(req, res) {
   };
   var message = new Dispatcher('#mb-feeds', message_options);
   message.avatar('http://i.imgur.com/nB41VgE.png');
+  
+  logger.log( { 'ticket_data': JSON.stringify(taskdata) } );
 
   var jira = new Jira();
   var parent_issue = taskdata.issue.fields.customfield_10400 || undefined; // <- Who do you blame for a key name like that?
 
+  var issue       = taskdata.issue;
+  var ev          = taskdata.webhookEvent;
+  var resolution  = issue.fields.resolution;
+  var isReply     = _.has(taskdata, 'comment');
+  var isUpdated   = ev === 'jira:issue_updated';
+
+  // Only allow resolutions through
+  if (! isUpdated ||
+      ! resolution ||
+      isReply) {
+    res.end();
+    return;
+  }
+  
   // determine if this request is for a top level feature or a child issue
   if (_.isString(parent_issue)) {
-
+    
     jira.getFeature(parent_issue).then(function(featuredata) {
       var response = jiraUtils.formatter(taskdata, featuredata);
       if (response) {
         var chatname = jira.getChatFromComponent(featuredata.fields.components);
-        message.chat(chatname);
-        message.write(response)
+        message.chat(chatname)
+               .write(response)
                .send();
       }
       res.end();
-    }, function(err) {
+    }, 
+    function(err) {
       if (err) {
         logger.error(err);
       }
@@ -48,15 +68,18 @@ router.route('/').post( function(req, res) {
 
     // send as feature
     if (! _.has(taskdata.fields, 'components')) {
-      logger.log('No components key in taskdata', taskdata);
-      res.end();
-      return;
+      logger.log({message: 'No components key in taskdata', webhook_data: taskdata});
+      message.chat('mb-feeds');
+    } else {
+      var components = taskdata.fields.components ? taskdata.fields.components : null;
+      var chatname = jira.getChatFromComponent(components);
+      message.chat( chatname );
     }
-    var components = taskdata.fields.components ? taskdata.fields.components : null;
-    message.chat(jira.getChatFromComponent(components));
+    
     var response = jiraUtils.formatter(taskdata);
     if (response) {
-      message.write(response).send();
+      message.write(response)
+             .send();
     }
     res.end();
   }
@@ -78,12 +101,29 @@ router.route('/support').post( function(req, res) {
   var message = new Dispatcher('#support', message_options);
   message.avatar('http://i.imgur.com/nB41VgE.png');
 
-  // Logging this for now
   logger.log({'support_data': JSON.stringify(supportdata) });
 
   var jira = new Jira();
   var parent_issue = supportdata.issue.fields.customfield_10400 || undefined;
 
+  var issue         = supportdata.issue;
+  var ev            = supportdata.webhookEvent;
+  var resolution    = issue.fields.resolution;
+  var isReply       = _.has(supportdata, 'comment');
+  var isCreated     = ev === 'jira:issue_created';
+  var isUpdated     = ev === 'jira:issue_updated';
+  
+  // Only allow new issues and resolutions through
+  if (! isCreated && ! isUpdated) {
+    res.end();
+    return;
+  }
+  if (isUpdated && 
+     (! resolution || isReply)) {
+    res.end();
+    return;
+  }
+  
   // determine if this request is for a top level feature or a child issue
   if (_.isString(parent_issue)) {
     // send as issue
@@ -93,7 +133,8 @@ router.route('/support').post( function(req, res) {
         message.write(response).send();
       }
       res.end();
-    }, function(err) {
+    }, 
+    function(err) {
       if (err) {
         logger.error(err);
       }

@@ -1,3 +1,1 @@
-#Slackbot
-
-A little bot for forwarding data to Slack
+#MBST SlackBot

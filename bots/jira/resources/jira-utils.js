@@ -7,7 +7,7 @@ var logger     = require('../../../internals/logger').jirabot;
 //  @param taskdata {object}
 //  @param featuredata {object} omitting this causes the data
 //         to be treated as a parent feature, not an issue
-//  @returns {string} slack message or null
+//  @returns {string} slack message or empty string
 //
 module.exports.formatter = function formatter (taskdata, featuredata) {
   if (!_.isObject(taskdata)) {
@@ -17,20 +17,9 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
 
   var output      = [];
   var hasFeature  = _.isObject(featuredata);
-  var ev          = taskdata.webhookEvent;
   var issue       = taskdata.issue;
-  var resolution  = issue.fields.resolution;
   var browseURL   = 'http://jira.metabroadcast.com/browse/';
-
-  var isReply     = _.has(taskdata, 'comment');
-  var isUpdate    = ev === 'jira:issue_updated';
-
-  if (! isUpdate ||
-      ! resolution ||
-      isReply) {
-    return;
-  }
-
+  
   logger.log({'Sending': JSON.stringify(taskdata) });
 
   // construct the response string
