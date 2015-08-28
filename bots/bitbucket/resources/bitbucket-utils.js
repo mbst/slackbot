@@ -6,7 +6,7 @@ var Jira       = require('../../jira/resources/jira-service');
 
 module.exports.handlePullRequest = function handlePullRequest (body) {
     var _message_options = {
-        username: 'Bitbucket',
+        username: 'Pull Request - BitBucket',
         color: '#205081',
         icon_url: 'https://www.vectorbase.org/sites/default/files/ftp/Landing_page_icons/Downloads_icons/bitbucket_logo.png'
     };
