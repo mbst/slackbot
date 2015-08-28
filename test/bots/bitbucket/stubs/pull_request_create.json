@@ -1,0 +1,155 @@
+{
+  "pullrequest": {
+    "type": "pullrequest",
+    "author": {
+      "type": "user",
+      "uuid": "{f79c7bcb-6da5-4223-b6ae-23eac52cf2d8}",
+      "username": "jasonhowmans",
+      "display_name": "Jason Howmans",
+      "links": {
+        "html": {
+          "href": "https://bitbucket.org/jasonhowmans/"
+        },
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/users/jasonhowmans"
+        },
+        "avatar": {
+          "href": "https://bitbucket.org/account/jasonhowmans/avatar/32/"
+        }
+      }
+    },
+    "participants": [],
+    "description": "* Set universe to special\r\n\r\n* Add new route and controller for universe settings\r\n\r\n* Updated to version 0.0.572\r\n\r\n* PR feedback - naming of things, and improved defaults logic\r\n\r\n* Updated to version 0.0.573\r\n\r\n* Trying to create custom route and controller for universe settings\r\n\r\n* Refactoring trying to make things work\r\n\r\n* Revert \"Refactoring trying to make things work\"\r\n\r\n    This reverts commit 00dcbc4c02ce9fb589e28a1c94c22a0b93b567ac.\r\n\r\n* Refactoring to make things work\r\n\r\n* Closer to working\r\n\r\n* Now showing form but for wrong universe\r\n\r\n* Fix current universe issue\r\n\r\n* Updated to version 0.0.574\r\n\r\n* Updated to version 0.0.575\r\n\r\n* Added title to relationships connections\r\n\r\n* Removed some unneeded imports from CF\r\n\r\n* made improvements to global search.\r\n\r\n    - Made search requests concurrent.\r\n    - Removed the need for two requests on the total endpoint.\r\n\r\n* Updated to version 0.0.572\r\n\r\n* PR feedback - naming of things, and improved defaults logic\r\n\r\n* Updated to version 0.0.573\r\n\r\n* Updated to version 0.0.574\r\n\r\n* Fix saving bug for fictional universe settings\r\n\r\n* Updated to version 0.0.576\r\n\r\n* Updated to version 0.0.577\r\n\r\n* Remove duplicate to\r\n\r\n* Updated to version 0.0.578\r\n\r\n* Updated to version 0.0.579\r\n\r\n* Add test config to gitignore\r\n\r\n* Add tests dist directory to gitignore\r\n\r\n* Project is now ready for unit tests.\r\n\r\n* More work on library stuff.\r\n\r\n* Set up testing\r\n\r\n* Set up very basic helper tests\r\n\r\n* Setup transpiling for tests\r\n\r\n* Add stringHelpers tests\r\n\r\n* Add objectHelpers tests\r\n\r\n* Add helper tests\r\n\r\n* Add test file for modules\r\n\r\n* Add tests for modules\r\n\r\n* Add tests for normaliser\r\n\r\n* Add more module tests\r\n\r\n* Set up placeholder tests for controllers\r\n\r\n* Remove unnecessary asserts\r\n\r\n* Import all controllers for tests\r\n\r\n* Setting up for interaction tests\r\n\r\n* Setup for casperjs\r\n\r\n* Setup basic casper test and update readme with instructions\r\n\r\n* Move login credentials to a config\r\n\r\n* Fix config path\r\n\r\n* Correct path for test config\r\n\r\n* Add sample test config\r\n\r\n* Trying to get login working\r\n\r\n* Trying to get login working\r\n\r\n* Clean up failed attempts at testing\r\n\r\n* Update run sequence module\r\n\r\n* Setup dummy testing\r\n\r\n* Tidy up gulp test tasks\r\n\r\n* Revert \"Tidy up gulp test tasks\"\r\n\r\n    This reverts commit 75e3d2bdefec85ef3b6a451c5d5589d681625490.\r\n\r\n* Rename test task\r\n\r\n* Tidy gulp tests\r\n\r\n* Got basic test running\r\n\r\n* Add second test\r\n\r\n* Remove test results\r\n\r\n* Remove unused boilerplate\r\n\r\n* Add test outline\r\n\r\n* Update before and after functions\r\n\r\n* Add outline for next test\r\n\r\n* Change driver to chrome\r\n\r\n* Able to login\r\n\r\n* Fix characters bug\r\n\r\n* Updated to version 0.0.580\r\n\r\n* Updated to version 0.0.581\r\n\r\n* Fix checkbox bug\r\n\r\n* Add relationships header\r\n\r\n* Fix page title inconsistency\r\n\r\n* Fix characters bug\r\n\r\n* Updated to version 0.0.580\r\n\r\n* Updated to version 0.0.581\r\n\r\n* Fix checkbox bug\r\n\r\n* Add relationships header\r\n\r\n* Fix page title inconsistency\r\n\r\n* Fix tests\r\n\r\n* Fix title inconsistency\r\n\r\n* Tidy up tests and update readme\r\n\r\n* Sanitised errors\r\n\r\n* Fix failing test\r\n\r\n* Updated to version 0.0.582\r\n\r\n* Updated to version 0.0.583\r\n\r\n* Add classes for tests\r\n\r\n* Add classes to form elements\r\n\r\n* Updated to version 0.0.584\r\n\r\n* Updated to version 0.0.585\r\n\r\n* Add more tests\r\n\r\n* Add more form classes\r\n\r\n* Updated to version 0.0.586\r\n\r\n* Add new test\r\n\r\n* Add more tests for episodes\r\n\r\n* Add delete episode test\r\n\r\n* \"Rename files\"\r\n\r\n* Add delete episode test\r\n\r\n* Add more tests\r\n\r\n* Add more tests\r\n\r\n* ignore .idea folder\r\n\r\n* Updated to version 0.0.584\r\n\r\n* Updated to version 0.0.585\r\n\r\n* Add more form classes\r\n\r\n* Updated to version 0.0.587\r\n\r\n* Add action on keypress for characters tab\r\n\r\n* Get value of search query\r\n\r\n* Positioned autocomplete picker for characters\r\n\r\n* Added openAM url to config. Updated customUserStatusCheckComponent to resend invitations for pending users\r\n\r\n* Removed idea\r\n\r\n* Clean up styling\r\n\r\n* Updated to version 0.0.588\r\n\r\n* Update to email message on reinvite email\r\n\r\n* Updated to version 0.0.589\r\n\r\n* Add autocomplete results\r\n\r\n* Click outside of element closes list\r\n\r\n* Fix keyup\r\n\r\n* Able to select auto complete\r\n\r\n* Add highlighting\r\n\r\n* Style change\r\n\r\n* Updated to version 0.0.590\r\n\r\n* Event fix\r\n\r\n* Updated to version 0.0.591\r\n\r\n* Printing works for scene search results\r\n\r\n* Remove some comments\r\n\r\n* Updated to version 0.0.592\r\n\r\n* From and to were mis-named\r\n\r\n* Updated to version 0.0.593\r\n\r\n* Minor adjustments\r\n\r\n* Remove check for resource\r\n\r\n* Make autocomplete generic\r\n\r\n* Updated to version 0.0.594\r\n\r\n* Minor tweaks\r\n\r\n* Updated to version 0.0.595\r\n\r\n* Add empty q parameter\r\n\r\n* Updated to version 0.0.596\r\n\r\n* Fix search query\r\n\r\n* Fix invalid date bug\r\n\r\n* Updated to version 0.0.597\r\n\r\n* Fix empty query bug\r\n\r\n* Updated to version 0.0.598\r\n\r\n* Some refactoring of autocomplete\r\n\r\n* Only show autocomplete when typing\r\n\r\n* Updated to version 0.0.599\r\n\r\n* Debounce autocomplete\r\n\r\n* Updated package name to storyarc, and updated authors.\r\n\r\n* Updated to version 0.0.600\r\n\r\n* Add unauthorized page\r\n\r\n* Updated to version 0.0.601\r\n\r\n* Updated to version 0.0.602\r\n\r\n* Updated to version 0.0.603\r\n\r\n* Updated to version 0.0.604\r\n\r\n* Updated to version 0.0.605\r\n\r\n* Updated to version 0.0.606\r\n\r\n* Updated to version 0.0.607\r\n\r\n* Updated to version 0.0.608\r\n\r\n* Updated to version 0.0.609\r\n\r\n* Updated to version 0.0.610\r\n\r\n* Fixing registration email bug\r\n\r\n* Updated to version 0.0.611\r\n\r\n* Rename unauthorized file\r\n\r\n* Updated to version 0.0.612\r\n\r\n* Revert \"Rename unauthorized file\"\r\n\r\n    This reverts commit 00aaead1bf63db1bb1aceae13b28a94f376cddab.\r\n\r\n* Fix registration email bug\r\n\r\n* Updated to version 0.0.613\r\n\r\n* Update gulp file\r\n\r\n* Fix typo in build step\r\n\r\n* Updated to version 0.0.614\r\n\r\n* Updated to version 0.0.615\r\n\r\n* Add sort buttons to scene search\r\n\r\n* Have filters showing in episode scenes\r\n\r\n* Add ordering to storylines\r\n\r\n* Add sorting for places\r\n\r\n* Add sorting for groups\r\n\r\n* Add sorting for characters\r\n\r\n* Add ordering to scene search\r\n\r\n* Updated to version 0.0.616\r\n\r\n* Updated to version 0.0.617\r\n\r\n* No longer serve html extension\r\n\r\n* Updated to version 0.0.618\r\n\r\n* Make height of autocomplete picker fluid\r\n\r\n* Make autocomplete height dynamic\r\n\r\n* Updated to version 0.0.619\r\n\r\n* Fix groups ordering bug\r\n\r\n* Updated to version 0.0.620",
+    "links": {
+      "html": {
+        "href": "https://bitbucket.org/mbst/storyarc-frontend/pull-requests/137"
+      },
+      "self": {
+        "href": "https://api.bitbucket.org/2.0/repositories/mbst/storyarc-frontend/pullrequests/137"
+      }
+    },
+    "merge_commit": null,
+    "closed_by": null,
+    "reviewers": [],
+    "id": 137,
+    "title": "**IGNORE THIS**",
+    "created_on": "2015-08-27T17:32:14.367058+00:00",
+    "destination": {
+      "commit": {
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/mbst/storyarc-frontend/commit/6b230a8d73d0"
+          }
+        },
+        "hash": "6b230a8d73d0"
+      },
+      "branch": {
+        "name": "speed-up-search"
+      },
+      "repository": {
+        "type": "repository",
+        "uuid": "{d9f55ded-7513-43ca-b74b-b07c2b8101a5}",
+        "links": {
+          "html": {
+            "href": "https://bitbucket.org/mbst/storyarc-frontend"
+          },
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/mbst/storyarc-frontend"
+          },
+          "avatar": {
+            "href": "https://bitbucket.org/mbst/storyarc-frontend/avatar/16/"
+          }
+        },
+        "name": "storyarc-frontend",
+        "full_name": "mbst/storyarc-frontend"
+      }
+    },
+    "close_source_branch": false,
+    "updated_on": "2015-08-27T17:32:14.435069+00:00",
+    "source": {
+      "commit": {
+        "links": {
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/mbst/storyarc-frontend/commit/76fce41fa6d5"
+          }
+        },
+        "hash": "76fce41fa6d5"
+      },
+      "branch": {
+        "name": "master"
+      },
+      "repository": {
+        "type": "repository",
+        "uuid": "{d9f55ded-7513-43ca-b74b-b07c2b8101a5}",
+        "links": {
+          "html": {
+            "href": "https://bitbucket.org/mbst/storyarc-frontend"
+          },
+          "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/mbst/storyarc-frontend"
+          },
+          "avatar": {
+            "href": "https://bitbucket.org/mbst/storyarc-frontend/avatar/16/"
+          }
+        },
+        "name": "storyarc-frontend",
+        "full_name": "mbst/storyarc-frontend"
+      }
+    },
+    "reason": "",
+    "state": "OPEN"
+  },
+  "repository": {
+    "type": "repository",
+    "uuid": "{d9f55ded-7513-43ca-b74b-b07c2b8101a5}",
+    "name": "storyarc-frontend",
+    "is_private": true,
+    "links": {
+      "html": {
+        "href": "https://bitbucket.org/mbst/storyarc-frontend"
+      },
+      "self": {
+        "href": "https://api.bitbucket.org/2.0/repositories/mbst/storyarc-frontend"
+      },
+      "avatar": {
+        "href": "https://bitbucket.org/mbst/storyarc-frontend/avatar/16/"
+      }
+    },
+    "owner": {
+      "type": "team",
+      "uuid": "{18d527f2-142f-4151-9a91-7e92f0f979d7}",
+      "username": "mbst",
+      "display_name": "MetaBroadcast",
+      "links": {
+        "html": {
+          "href": "https://bitbucket.org/mbst/"
+        },
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/teams/mbst"
+        },
+        "avatar": {
+          "href": "https://bitbucket.org/account/mbst/avatar/32/"
+        }
+      }
+    },
+    "full_name": "mbst/storyarc-frontend",
+    "scm": "git"
+  },
+  "actor": {
+    "type": "user",
+    "uuid": "{f79c7bcb-6da5-4223-b6ae-23eac52cf2d8}",
+    "username": "jasonhowmans",
+    "display_name": "Jason Howmans",
+    "links": {
+      "html": {
+        "href": "https://bitbucket.org/jasonhowmans/"
+      },
+      "self": {
+        "href": "https://api.bitbucket.org/2.0/users/jasonhowmans"
+      },
+      "avatar": {
+        "href": "https://bitbucket.org/account/jasonhowmans/avatar/32/"
+      }
+    }
+  }
+}

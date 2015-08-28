@@ -3,15 +3,13 @@ var express        = require('express');
 var _              = require('lodash');
 var bitbucketUtils = require('./resources/bitbucket-utils');
 var logger         = require('../../internals/logger').bitbucketbot;
-var router     = express.Router();
+var router         = express.Router();
 
 router.post('/', function(req, res) {
   var _body = req.body || null;
-
-  logger.log({"PR": _body});
   
   // decide from the request where to send the data
-  if (_.has(_body, 'pullrequest_created')) {
+  if (_.has(_body, 'pullrequest')) {
     bitbucketUtils.handlePullRequest(_body);
   }
   res.end();
