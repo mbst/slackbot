@@ -52,7 +52,7 @@ Dispatcher.prototype.send = function () {
   
   var _message = this.message.join(' ');
   var _attachments = [{
-    'title': ' ',
+    // 'title': ' ',
     'color': this.options.color,
     'fallback': this.options.fallback || _message,
     'text': _message,
@@ -60,7 +60,7 @@ Dispatcher.prototype.send = function () {
   }];
 
   var messageObject = {
-    'text': ' ',
+    // 'text': ' ',
     // 'as_user': false,
     'channel': this.chatname,
     'username': this.options.username,
