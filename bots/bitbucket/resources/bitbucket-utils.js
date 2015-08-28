@@ -7,8 +7,7 @@ var Jira       = require('../../jira/resources/jira-service');
 module.exports.handlePullRequest = function handlePullRequest (body) {
     var _message_options = {
         username: 'Pull Request - BitBucket',
-        color: '#205081',
-        icon_url: 'https://www.vectorbase.org/sites/default/files/ftp/Landing_page_icons/Downloads_icons/bitbucket_logo.png'
+        color: '#205081'    
     };
 
     var pr         = body.pullrequest;
@@ -19,6 +18,8 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
     var message = new Dispatcher('#pull-requests', _message_options);
     var jira = new Jira();
 
+    message.avatar( 'https://www.vectorbase.org/sites/default/files/ftp/Landing_page_icons/Downloads_icons/bitbucket_logo.png' );
+    
     // start constructing the pull request message
     message.bold(prTitle)
            .break()

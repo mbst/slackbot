@@ -57,8 +57,7 @@ function getUserDetails (username) {
 module.exports.handlePullRequest = function handlePullRequest (body) {
     var _message_options = {
       username: 'Pull Request - GitHub',
-      color: '#333',
-      icon_url: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'
+      color: '#333'
     };
 
 
@@ -71,6 +70,8 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
       var branch          = pullrequest.head.ref;
       var message         = new Dispatcher('#pull-requests', _message_options);
       var jira            = new Jira();
+
+      message.avatar( 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png' );
 
       if (state !== 'open' &&
           action !== 'opened' &&

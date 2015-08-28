@@ -50,8 +50,6 @@ Dispatcher.prototype.send = function () {
     return defer.promise;
   }
   
-  console.log(botUtils.isDev());
-  
   var _message = this.message.join(' ');
   var _attachments = [{
     'title': ' ',
@@ -63,7 +61,7 @@ Dispatcher.prototype.send = function () {
 
   var messageObject = {
     'text': ' ',
-    'as_user': false,
+    // 'as_user': false,
     'channel': this.chatname,
     'username': this.options.username,
     'icon_url': this.options.iconUrl,
@@ -71,7 +69,7 @@ Dispatcher.prototype.send = function () {
   };
 
   if (botUtils.isDev()) {
-    console.log(messageObject);
+    logger.log(messageObject);
     defer.resolve( messageObject );
     return defer.promise;
   }

@@ -2,7 +2,6 @@
 var express        = require('express');
 var _              = require('lodash');
 var bitbucketUtils = require('./resources/bitbucket-utils');
-var logger         = require('../../internals/logger').bitbucketbot;
 var router         = express.Router();
 
 router.post('/', function(req, res) {

@@ -17,9 +17,7 @@ module.exports.parseRequest = function parseRequest (req, callback) {
         logger.error('parseRequest(req, callback): req.messages isnt an array.');
         callback(null);
     }
-
     var _messages = req.messages;
-
     _.forEach(_messages, callback);
 };
 
@@ -44,10 +42,8 @@ module.exports.sendMessage = function sendMessage (message_obj) {
         color: colors.resolved
     };
 
-    var message             = new Dispatcher('#support', _message_options);
-    var avatarUrl           = 'http://i.imgur.com/CsoyiUT.jpg'; // Pagerduty logo
-
-    message.avatar(avatarUrl);
+    var message = new Dispatcher('#support', _message_options);
+    message.avatar( 'http://i.imgur.com/CsoyiUT.jpg' );
 
     var _type               = message_obj.type;
     var _incident           = message_obj.data.incident;
