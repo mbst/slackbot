@@ -18,7 +18,8 @@ var compliments = [
 ];
 
 var options = {
-  username: 'LoveBot'
+  username: 'LoveBot',
+  icon_emoji: ':heart:'
 };
 
 // a test endpoint, just because its fun ;)
@@ -39,7 +40,6 @@ function(req, res) {
   
   var dispatcher = new Dispatcher('#anything-else', options);
   dispatcher.chat(chatName);
-  dispatcher.avatar('http://4.bp.blogspot.com/-WUaQ2KqGsDQ/U16s6Lyfa8I/AAAAAAAAAm0/S0QEvchffd8/s1600/khvQssw.png');
   dispatcher.color('#FF4B4B');
   
   if (message.indexOf('%s') > -1) {

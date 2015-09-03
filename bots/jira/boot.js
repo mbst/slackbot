@@ -5,6 +5,7 @@ var logger     = require('../../internals/logger').jirabot;
 var Dispatcher = require('../../internals/dispatcher');
 var Jira       = require('./resources/jira-service');
 var jiraUtils  = require('./resources/jira-utils');
+var commands   = require('./commands');
 
 var router     = express.Router();
 
@@ -158,4 +159,4 @@ router.route('/support').post( function(req, res) {
   }
 });
 
-module.exports = { webhook: router };
+module.exports = { webhook: router, command: commands };
