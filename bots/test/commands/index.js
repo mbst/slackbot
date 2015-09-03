@@ -27,7 +27,7 @@ function(req, res) {
   var recipient = body.text; 
   var message = compliments[ Math.floor(Math.random() * compliments.length) ];
   
-  if (recipient) {
+  if (! recipient) {
     res.end();
     return;
   }
