@@ -106,6 +106,13 @@ Dispatcher.prototype.avatar = function (iconUrl) {
 };
 
 
+// Starts the message with @recipient name
+Dispatcher.prototype.recipient = function (username) {
+  this.message.unshift('@' + username);
+  return this;
+};
+
+
 // For interpolating a string, printf style, then adding with this.write. Give
 // the function a string with %s flags, and it will replace them with the strings
 // supplied as subsequent arguments.

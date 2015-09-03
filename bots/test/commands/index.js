@@ -24,7 +24,13 @@ function(req, res) {
   var body = req.body || {};
   var chatName = body.channel_name;
   var username = body.user_name;
+  var recipient = body.text; 
   var message = compliments[ Math.floor(Math.random() * compliments.length) ];
+  
+  if (recipient) {
+    res.end();
+    return;
+  }
   
   var dispatcher = new Dispatcher(chatName, options);
   dispatcher.avatar('http://4.bp.blogspot.com/-WUaQ2KqGsDQ/U16s6Lyfa8I/AAAAAAAAAm0/S0QEvchffd8/s1600/khvQssw.png');
@@ -35,6 +41,8 @@ function(req, res) {
   } else {
     dispatcher.write(message);
   }
+  
+  dispatcher.recipient(recipient);
   
   dispatcher.send();
   res.end();

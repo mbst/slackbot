@@ -34,6 +34,19 @@ describe('Dispatcher', function () {
       assert.instanceOf(check, Dispatcher);
     });
   });
+  
+  describe('#recipient', function () {
+    it('should start message with @[recipient]', function () {
+      dispatcher.write('hello there');
+      dispatcher.recipient('jason');
+      assert.strictEqual('@jason', dispatcher.message[0]);
+    });
+    
+    it('should be chainable', function () {
+      var check = dispatcher.recipient('jason');
+      assert.instanceOf(check, Dispatcher);
+    });
+  });
 
   describe('#link', function () {
     it('should write a link to internal message array', function () {
