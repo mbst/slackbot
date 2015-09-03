@@ -28,7 +28,7 @@ function Logger(logname, options) {
     streams: [{
       type: 'rotating-file',
       path: LOGS_PATH + _logname + LOG_EXTENTION,
-      period: '10d'
+      period: '7d'
     }]
   }, options);
 
@@ -94,7 +94,6 @@ Logger.prototype.loggers = {
   messages: new Logger('messages'),
   internals: new Logger('internals'),
   jirabot: new Logger('jira'),
-  testbot: new Logger('testbot'),
   githubbot: new Logger('github'),
   bitbucketbot: new Logger('bitbucket'),
   pagerdutybot: new Logger('pagerduty')

@@ -6,7 +6,6 @@ var Dispatcher  = require('../../../internals/dispatcher');
 var Jira        = require('../../jira/resources/jira-service');
 var Promise     = require('promise');
 
-
 function getUserDetails (username) {
   return new Promise(function (resolve, reject) {
     if (! _.isString(username)) {

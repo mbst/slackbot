@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 var app        = express();
 
 function BotLoader () {
+  // Define this before all routes, or it won't work
+  app.use(bodyParser.json({ limit: '5mb' }));
+  
   this.BOTS_DIR = '../bots';
   this.BOOT_FILE = 'boot.js';
 }
@@ -63,9 +66,8 @@ BotLoader.prototype.bot = function (botName) {
 };
 
 BotLoader.prototype.boot = function (port) {
-  app.use(bodyParser.json({ limit: '5mb' }));
-  logger.log('Bot ready @ port ' + port);
   app.listen(port);
+  logger.console('Bot ready @ port ' + port);
 };
 
 module.exports = BotLoader;

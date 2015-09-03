@@ -31,7 +31,7 @@ module.exports.handlePullRequest = function handlePullRequest (body) {
            .break()
            .write('Branch: ')
            .link(branchName, pr.links.html.href);
-
+    
     // find the feature in jira from the branch name, otherwise just send the message
     jira.getFeatureFromString(branchName).then(
     function(feature) {
