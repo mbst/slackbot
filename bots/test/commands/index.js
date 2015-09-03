@@ -9,10 +9,12 @@ var compliments = [
   'You\'re the reason I got out of bed today',
   'People behind you at movies think you are the perfect height',
   'Strangers all wanna sit next to you on the bus',
-  'You\'re the meta in MetaBroadcast',
+  'You put the "Meta" in MetaBroadcast',
   'At least two friends are going to name their child and/or goldfish after you',
   'Some cultures celebrate %s day',
-  '<3'  
+  '<3',
+  'Wow, what an amazing human you are',
+  'You\'re my favourite'
 ];
 
 var options = {
