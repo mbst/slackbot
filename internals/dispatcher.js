@@ -44,7 +44,8 @@ Dispatcher.prototype.botname = function (name) {
 Dispatcher.prototype.send = function () {
   var defer = Q.defer();
   var self = this;
-  if (! _.isString(this.chatname) || ! this.message.length) {
+  
+  if (! _.isString(self.chatname) || ! self.message.length) {
     logger.error('chatname and message are both required to send a message');
     defer.reject();
     return defer.promise;

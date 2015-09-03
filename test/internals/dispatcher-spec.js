@@ -113,6 +113,11 @@ describe('Dispatcher', function () {
       dispatcher.interpolate('hello %s %s', 'there', 'slackbot');
       assert.strictEqual('hello there slackbot', dispatcher.message[0]);
     });
+    
+    it('writes when string doesnt include %s tags', function () {
+      dispatcher.interpolate('hello there slackbot');
+      assert.strictEqual('hello there slackbot', dispatcher.message[0]);
+    });
 
     it('should be chainable', function () {
       var check = dispatcher.interpolate('hello %s %s', 'there', 'slackbot');

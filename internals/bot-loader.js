@@ -7,11 +7,18 @@ var bodyParser = require('body-parser');
 var app        = express();
 
 function BotLoader () {
-  // Define this before all routes, or it won't work
-  app.use(bodyParser.json({ limit: '5mb' }));
+  // For making express deal with json and formdata payloads
+  app.use( bodyParser.json({ limit: '5mb' }) );
+  app.use( bodyParser.urlencoded({ extended: true }) );
   
   this.BOTS_DIR = '../bots';
+  
+  // For telling the loader which file to look for first in bot dir
   this.BOOT_FILE = 'boot.js';
+  
+  // For configuring default entrypoints for external services
+  this.WEBHOOK_ENDPOINT = 'webhooks';
+  this.COMMAND_ENDPOINT = 'commands';
 }
 
 BotLoader.prototype.requirePackage = function (packageName) {
@@ -43,7 +50,7 @@ BotLoader.prototype.register = function (name) {
 BotLoader.prototype.registerWebhook = function (name) {
   var loadedBot = this.bot(name);
   if (_.has(loadedBot, 'webhook')) {
-    app.use('/webhooks/' + name, loadedBot.webhook);
+    app.use('/' + this.WEBHOOK_ENDPOINT + '/' + name, loadedBot.webhook);
     logger.console('✔︎ Loaded webhook listener [' + name + ']');
     return true;
   }
@@ -53,7 +60,7 @@ BotLoader.prototype.registerWebhook = function (name) {
 BotLoader.prototype.registerCommand = function (name) {
   var loadedBot = this.bot(name);
   if (_.has(loadedBot, 'command')) {
-    app.use('/commands/' + name, loadedBot.command);
+    app.use('/' + this.COMMAND_ENDPOINT + '/' + name, loadedBot.command);
     logger.console('✔︎ Loaded command listener [' + name + ']');
     return true;
   }
