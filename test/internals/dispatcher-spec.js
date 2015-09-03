@@ -150,6 +150,19 @@ describe('Dispatcher', function () {
       assert.instanceOf(check, Dispatcher);
     });
   });
+  
+  
+  describe('#emoji', function () {
+    it('should update the avatar emoji', function () {
+      dispatcher.emoji(':heart:');
+      assert.strictEqual(':heart:', dispatcher.options.iconEmoji);
+    });
+
+    it('should be chainable', function () {
+      var check = dispatcher.emoji(':heart:');
+      assert.instanceOf(check, Dispatcher);
+    });
+  });
 
 
   describe('#chat', function () {

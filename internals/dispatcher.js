@@ -29,7 +29,8 @@ function Dispatcher (chatname, options) {
     color: '#250053',
     fallback: null,
     username: 'MetaBot',
-    iconUrl: ''
+    iconUrl: '',
+    iconEmoji: ''
   }, options);
 }
 
@@ -65,9 +66,14 @@ Dispatcher.prototype.send = function () {
     // 'as_user': false,
     'channel': this.chatname,
     'username': this.options.username,
-    'icon_url': this.options.iconUrl,
     'attachments': _attachments
   };
+  
+  if (this.options.iconEmoji.length) {
+    messageObject.icon_emoji = this.options.iconEmoji;
+  } else {
+    messageObject.icon_url = this.options.iconUrl;
+  }
 
   if (botUtils.isDev()) {
     logger.log(messageObject);
@@ -102,6 +108,13 @@ Dispatcher.prototype.color = function (cssColor) {
 // Change the icon assigned to the massage
 Dispatcher.prototype.avatar = function (iconUrl) {
   this.options.iconUrl = iconUrl;
+  return this;
+};
+
+
+// Change the icon assigned to the massage to an :emoji:
+Dispatcher.prototype.emoji = function (iconEmoji) {
+  this.options.iconEmoji = iconEmoji;
   return this;
 };
 
