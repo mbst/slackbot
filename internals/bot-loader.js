@@ -1,7 +1,10 @@
 'use strict';
-var _      = require('lodash');
-var path   = require('path');
-var logger = require('./logger').internals;
+var _          = require('lodash');
+var path       = require('path');
+var logger     = require('./logger').internals;
+var express    = require('express');
+var bodyParser = require('body-parser');
+var app        = express();
 
 function BotLoader () {
   this.BOTS_DIR = '../bots';
@@ -28,11 +31,41 @@ BotLoader.prototype.requirePackage = function (packageName) {
   return loadedBot;
 };
 
+BotLoader.prototype.register = function (name) {
+  var hook = this.registerWebhook(name);
+  var command = this.registerCommand(name);
+  return hook && command;
+};
+
+BotLoader.prototype.registerWebhook = function (name) {
+  var loadedBot = this.bot(name);
+  if (_.has(loadedBot, 'webhook')) {
+    app.use('/webhooks/' + name, loadedBot.webhook);
+    logger.console('✔︎ Loaded webhook listener [' + name + ']');
+    return true;
+  }
+  return false;
+};
+
+BotLoader.prototype.registerCommand = function (name) {
+  var loadedBot = this.bot(name);
+  if (_.has(loadedBot, 'command')) {
+    app.use('/commands/' + name, loadedBot.command);
+    logger.console('✔︎ Loaded command listener [' + name + ']');
+    return true;
+  }
+  return false;
+};
+
 BotLoader.prototype.bot = function (botName) {
   var bootableBot = this.requirePackage(botName);
-  // TODO: check bootableBot first before require...
-  logger.console('☺︎ Loaded bot ' + botName);
   return bootableBot;
+};
+
+BotLoader.prototype.boot = function (port) {
+  app.use(bodyParser.json({ limit: '5mb' }));
+  logger.log('Bot ready @ port ' + port);
+  app.listen(port);
 };
 
 module.exports = BotLoader;

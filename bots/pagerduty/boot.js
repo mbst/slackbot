@@ -10,4 +10,4 @@ router.post('/', function(req, res) {
   res.end();
 });
 
-module.exports = router;
+module.exports = { webhook: router };

@@ -1,5 +1,4 @@
 'use strict';
-var _           = require('lodash');
 var express     = require('express');
 var logger      = require('../../internals/logger').githubbot;
 var githubUtils = require('./resources/github-utils');
@@ -29,4 +28,4 @@ router.route('/').post(function(req, res) {
     res.end();
 });
 
-module.exports = router;
+module.exports = { webhook: router };
