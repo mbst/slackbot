@@ -1,6 +1,7 @@
 'use strict';
 var command     = require('express').Router();
 var Dispatcher  = require('../../../internals/dispatcher'); 
+var logger  = require('../../.././internals/logger').test;
 
 var compliments = [
   'You look good today',
@@ -27,7 +28,10 @@ function(req, res) {
   var recipient = body.text; 
   var message = compliments[ Math.floor(Math.random() * compliments.length) ];
   
+  logger.log(body);
+  
   if (! recipient) {
+    logger.warn('Must be a recipient');
     res.end();
     return;
   }
