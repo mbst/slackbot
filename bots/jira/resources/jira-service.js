@@ -159,41 +159,43 @@ JiraProvider.prototype.getChatFromComponent = function (components) {
 JiraProvider.prototype.createTicket = function (summary, projectKey, assignee, estimate) {
   var self = this;
   
-  if (! _.isString(summary) || 
-      ! _.isString(assignee.firstName) || 
-      ! _.isString(estimate)) {
-    logger.warn({message: 'Could not create ticket becasue summary, assignee and estimate should all be valid strings', args: arguments, });
-    return false;
-  }
-  
-  var payload = {
-    fields: {
-      summary: summary,
-      description: '',
-      assignee: { 
-        name: assignee.firstName
-      },
-      project: {
-        key: 'MBST'
-      },
-      issuetype: {
-        name: 'Task'
-      },
-      timetracking: {
-        originalEstimate: estimate
-      }
-    }
-  };
-  
-  if (projectKey) {
-    payload.parent = { 
-      key: projectKey
-    };
-  }
-  
-  var endpoint = '/rest/api/2/issue/';
-  
   return new Promise( function (resolve, reject) {
+      
+    if (! _.isString(summary) || 
+        ! _.isString(assignee.firstName) || 
+        ! _.isString(estimate)) {
+      logger.warn({message: 'Could not create ticket becasue summary, assignee and estimate should all be valid strings', args: arguments, });
+      reject('Invalid arguments');
+      return false;
+    }
+
+    var payload = {
+      fields: {
+        summary: summary,
+        description: '',
+        assignee: { 
+          name: assignee.firstName
+        },
+        project: {
+          key: 'MBST'
+        },
+        issuetype: {
+          name: 'Task'
+        },
+        timetracking: {
+          originalEstimate: estimate
+        }
+      }
+    };
+
+    if (projectKey) {
+      payload.parent = { 
+        key: projectKey
+      };
+    }
+
+    var endpoint = '/rest/api/2/issue/';
+
     self.requestWithAuth(endpoint, 'POST', payload).then(function (res) {
       resolve(res);
     }, reject);

@@ -25,7 +25,15 @@ function(req, res) {
   dispatcher.chat(chatName);
   
   if (command === '/ticket') {
-    jiraUtils.ticketParser(message, userName).then(
+    var ticketParser = jiraUtils.ticketParser(message, userName);
+    
+    if (! ticketParser) {
+      dispatcher.write('Ticket could not be created :(').send();
+      res.end();
+      return;
+    }
+    
+    ticketParser.then(
     function (ticket) {
       jiraService.createTicket(ticket.summary, ticket.projectKey, ticket.assignee, ticket.estimate).then(
       function (res) {

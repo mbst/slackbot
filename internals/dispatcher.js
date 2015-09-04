@@ -72,7 +72,7 @@ Dispatcher.prototype.send = function () {
   if (this.options.iconEmoji.length) {
     messageObject.icon_emoji = this.options.iconEmoji;
   } else {
-    messageObject.icon_url = this.options.iconUrl;
+    messageObject.icon_emoji = this.options.iconUrl;
   }
 
   if (botUtils.isDev()) {
