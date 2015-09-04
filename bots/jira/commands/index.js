@@ -22,6 +22,8 @@ function(req, res) {
   var userName = body.user_name;
   var chatName = body.channel_name;
   
+  logger.log({incomingCommand: body});
+  
   dispatcher.chat(chatName);
   
   if (command === '/ticket') {
