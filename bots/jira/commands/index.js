@@ -31,8 +31,8 @@ function(req, res) {
       function (res) {
         var ticketNumber = res.key;
         dispatcher.write('Your ticket was created!')
-               .link('[Go to ticket]', 'https://jira.metabroadcast.com/browse/' + ticketNumber)
-               .send();
+                  .link('[Go to ticket]', 'https://jira.metabroadcast.com/browse/' + ticketNumber)
+                  .send();
       }, 
       function () {
         dispatcher.write('Oh deer. Your ticket couldn\'t be created :(')

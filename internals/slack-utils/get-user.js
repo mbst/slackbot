@@ -28,7 +28,7 @@ module.exports = function (username) {
       });
       
       if (_.isEmpty(userResult)) {
-        var msg = 'No user could be found';
+        var msg = 'No user could not be found';
         logger.warn(msg);
         reject(msg);
         return;

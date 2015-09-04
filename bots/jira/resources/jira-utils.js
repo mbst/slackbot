@@ -2,6 +2,7 @@
 var _          = require('lodash');
 var logger     = require('../../../internals/logger').jirabot;
 var slackUtils = require('../../../internals/slack-utils'); 
+var Promise    = require('promise');
 
 
 // Used for taking the request body and converting it to output a message string
@@ -102,7 +103,16 @@ module.exports.ticketParser = function (ticketString, username) {
         assignee = username;
       }
       
-      slackUtils.getUser(assignee).then(
+      var getUser = slackUtils.getUser(assignee);
+      
+      if (! getUser) {
+        var err = 'Not able to find user: ' + assignee;
+        logger.error(err);
+        reject(err);
+        return;
+      }
+      
+      getUser.then(
       function (user) {
         output.assignee = {
           firstName: user.profile.first_name,
@@ -111,6 +121,10 @@ module.exports.ticketParser = function (ticketString, username) {
         };
         resolve(output);
       }, reject);
+      
+    } else {
+      reject('Assignee is required');
+      return;
     }
   });
 };
