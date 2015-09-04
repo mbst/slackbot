@@ -6,21 +6,21 @@ var https   = require('https');
 var Q       = require('q');
 
 
-//  Jira Provider
+// Jira Provider
 //
-//  Used as a client for interacting with the Jira api
+// Used as a client for interacting with the Jira api
 //
 function JiraProvider() {
   this.host = common.jira.host;
 }
 
 
-//  Used for making secure http requests to jira
+// Used for making secure http requests to jira
 //
-//  @param path {string}
-//  @param type {string} 'GET' by default
+// @param path {string}
+// @param type {string} 'GET' by default
 //
-JiraProvider.prototype.requestWithAuth = function(path, type) {
+JiraProvider.prototype.requestWithAuth = function(path, type, payload) {
   var defer = Q.defer();
   if (!_.isString(path)) {
     logger.error('path argument must be string');
@@ -31,6 +31,8 @@ JiraProvider.prototype.requestWithAuth = function(path, type) {
   var _type = type || 'GET';
   var _host = this.host;
   var _auth = common.jira.auth.user+':'+common.jira.auth.password;
+  
+  var needsData = (_type === 'POST' || _type === "PUT");
 
   var options = {
     hostname: _host,
@@ -38,8 +40,20 @@ JiraProvider.prototype.requestWithAuth = function(path, type) {
     method: _type,
     auth: _auth
   };
+  
+  var payloadStr;
+  if (payload) {
+    payloadStr = JSON.stringify(payload);
+  }
+  
+  if (needsData && payload) {
+    options.headers = {
+      'Content-Type': 'application/json',
+      'Content-Length': payloadStr.length
+    };
+  }
 
-  https.request(options, function(res) {
+  var request = https.request(options, function(res) {
     var _body = '';
     res.setEncoding('utf8');
     res.on('data', function(chunk) {
@@ -56,18 +70,22 @@ JiraProvider.prototype.requestWithAuth = function(path, type) {
   .on('error', function(err) {
     logger.error(err);
     defer.reject(err);
-  })
-  .end();
+  });
 
+  if (needsData && payload) {
+    request.write(payloadStr);
+  }
+  
+  request.end();
   return defer.promise;
 };
 
 
-//  Used for returning information about a feature from Jira
+// Used for returning information about a feature from Jira
 //
-//  @param featureId {string}
+// @param featureId {string}
 //
-JiraProvider.prototype.getFeature = function(featureId) {
+JiraProvider.prototype.getFeature = function (featureId) {
     var defer = Q.defer();
     if (!_.isString(featureId)) {
       var error = 'featureId argument must be a string';
@@ -77,7 +95,8 @@ JiraProvider.prototype.getFeature = function(featureId) {
     }
 
     var _endpoint = '/rest/api/2/issue/';
-    this.requestWithAuth(_endpoint+featureId).then(function(data) {
+    this.requestWithAuth(_endpoint+featureId).then(
+    function (data) {
       if ('errorMessages' in data) {
         logger.error(data.errorMessages);
         defer.reject(data.errorMessages);
@@ -91,12 +110,12 @@ JiraProvider.prototype.getFeature = function(featureId) {
 };
 
 
-//  Used for taking a string that might or might not contain a Jira feature
-//  ID, and spitting out a result if it does
+// Used for taking a string that might or might not contain a Jira feature
+// ID, and spitting out a result if it does
 //
-//  @param string {string}
+// @param string {string}
 //
-JiraProvider.prototype.getFeatureFromString = function(string) {
+JiraProvider.prototype.getFeatureFromString = function (string) {
   var defer = Q.defer();
   if (!_.isString(string)) {
     var error = 'string must be a ... string';
@@ -115,11 +134,11 @@ JiraProvider.prototype.getFeatureFromString = function(string) {
 };
 
 
-//  Used for figuring out the chat name based on the Jira component
+// Used for figuring out the chat name based on the Jira component
 //
-//  @param components {array} the components array sent from Jira
+// @param components {array} the components array sent from Jira
 //
-JiraProvider.prototype.getChatFromComponent = function(components) {
+JiraProvider.prototype.getChatFromComponent = function (components) {
   if (! _.isArray(components)) {
     return null;
   }
@@ -130,5 +149,56 @@ JiraProvider.prototype.getChatFromComponent = function(components) {
   chatname = '#' + name.toLowerCase().replace(/[\.\s*]/, '-');
   return chatname;
 };
+
+
+// Used for posting to the Jira API, to make a new ticket
+//
+// @param 
+// @param 
+// 
+JiraProvider.prototype.createTicket = function (summary, projectKey, assignee, estimate) {
+  var self = this;
+  
+  if (! _.isString(summary) || 
+      ! _.isString(assignee.firstName) || 
+      ! _.isString(estimate)) {
+    logger.warn({message: 'Could not create ticket becasue summary, assignee and estimate should all be valid strings', args: arguments, });
+    return false;
+  }
+  
+  var payload = {
+    fields: {
+      summary: summary,
+      description: '',
+      assignee: { 
+        name: assignee.firstName
+      },
+      project: {
+        key: 'MBST'
+      },
+      issuetype: {
+        name: 'Task'
+      },
+      timetracking: {
+        originalEstimate: estimate
+      }
+    }
+  };
+  
+  if (projectKey) {
+    payload.parent = { 
+      key: projectKey
+    };
+  }
+  
+  var endpoint = '/rest/api/2/issue/';
+  
+  return new Promise( function (resolve, reject) {
+    self.requestWithAuth(endpoint, 'POST', payload).then(function (res) {
+      resolve(res);
+    }, reject);
+  });
+};
+
 
 module.exports = JiraProvider;

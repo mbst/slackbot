@@ -5,7 +5,7 @@ var bots       = new Loader();
 
 // Load all the bots
 bots.register('test');
-bots.registerWebhook('jira');
+bots.register('jira');
 bots.registerWebhook('github');
 bots.registerWebhook('bitbucket');
 bots.registerWebhook('pagerduty');

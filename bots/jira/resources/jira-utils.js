@@ -1,13 +1,15 @@
 'use strict';
 var _          = require('lodash');
 var logger     = require('../../../internals/logger').jirabot;
+var slackUtils = require('../../../internals/slack-utils'); 
 
-//  Used for taking the request body and converting it to output a message string
+
+// Used for taking the request body and converting it to output a message string
 //
-//  @param taskdata {object}
-//  @param featuredata {object} omitting this causes the data
-//         to be treated as a parent feature, not an issue
-//  @returns {string} slack message or empty string
+// @param taskdata {object}
+// @param featuredata {object} omitting this causes the data
+//        to be treated as a parent feature, not an issue
+// @returns {string} slack message or empty string
 //
 module.exports.formatter = function formatter (taskdata, featuredata) {
   if (!_.isObject(taskdata)) {
@@ -36,4 +38,79 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   }
 
   return output.join(' ');
+};
+
+
+// The ticket parser is for taking a string and returning a standard object based
+// on the contents of the string
+//
+// @param ticketString {String}
+// @param username {String}
+// @returns {Object}
+//    summary: {String},
+//    projectKey: {String},
+//    assignee: {String},
+//    estimate: {String}
+//
+module.exports.ticketParser = function (ticketString, username) {
+  if (! _.isString(ticketString)) {
+    logger.error({message: 'Can\'t parse ticket, as its not a string', ticket: ticketString });
+    return false;
+  }
+  
+  if (! _.isString(username)) {
+    logger.error({message: 'Can\'t parse ticket, as username is not a string', username: username });
+    return false;
+  }
+  
+  // We know that three arguments, at least, are required
+  var parts = ticketString.split(',');
+  if (parts.length < 3 ) {
+    logger.warn('Not enough args given for ticket');
+    return false;
+  }
+  
+  return new Promise(function (resolve, reject) {
+    var output = {
+      summary: '',
+      projectKey: '',
+      assignee: '',
+      estimate: ''
+    };
+    
+    var assignee = '';
+    var summary = ''; 
+    var projectKey = ''; 
+    var estimate = '';
+    
+    assignee = parts[0].trim();
+    summary = parts[1].trim();
+    
+    if (parts.length === 3) {
+      estimate = parts[2].trim();
+    } else {
+      projectKey = parts[2].trim();
+      estimate = parts[3].trim();
+    }
+    
+    output.summary = summary;
+    output.projectKey = projectKey;
+    output.estimate = estimate;
+    
+    if (assignee) {
+      if (assignee === 'me') {
+        assignee = username;
+      }
+      
+      slackUtils.getUser(assignee).then(
+      function (user) {
+        output.assignee = {
+          firstName: user.profile.first_name,
+          lastName: user.profile.last_name,
+          fullName: user.real_name
+        };
+        resolve(output);
+      }, reject);
+    }
+  });
 };
