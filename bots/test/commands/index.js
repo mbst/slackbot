@@ -14,7 +14,17 @@ var compliments = [
   'Some cultures celebrate %s day',
   '<3',
   'Wow, what an amazing human you are',
-  'You\'re my favourite'
+  'You\'re my favourite',
+  ', you fork that code like no one else.',
+  'I\'d switch to emacs for you',
+  ', don\'t make me talk Java to you',
+  ', you double clicked my heart.',
+  ', if you were a triangle, you\'d be acute.',
+  ', you\'re sweeter than 3.14',
+  ', I\'ll hold your hand tighter than my phone on the bath.',
+  'I like your face. We should go to a place at the same time and say things to each other.',
+  ' if you were an ebay auction, I\'d totally Buy It Now.',
+  ', you auto-complete me.'
 ];
 
 var options = {
