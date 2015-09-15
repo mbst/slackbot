@@ -142,7 +142,7 @@ JiraProvider.prototype.getChatFromComponent = function (components) {
   if (! _.isArray(components)) {
     return null;
   }
-  var name = (components.length) ? components[0].name : null;
+  var name = (components.length) ? components[0].name : '';
   var chatname;
   // turn component name into a chat name string
   // eg. Metabroadcast.com -> #metabroadcast-com
