@@ -1,4 +1,5 @@
 'use strict';
+var config         = require('../config/instance-config');
 var Entities       = require('html-entities').AllHtmlEntities;
 var util           = require('util');
 var _              = require('lodash');
@@ -10,8 +11,8 @@ var Slack          = require('slack-node');
 var logger = Log.internals;
 var messagesLogger = Log.messages;
 
-var slack = new Slack();
-slack.setWebhook('https://hooks.slack.com/services/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'); // TODO: moov into config
+var slack = new Slack(config.slack_webhook_url);
+slack.setWebhook(); // TODO: moov into config
 
 
 //  The dispatcher constructor
