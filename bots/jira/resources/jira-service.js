@@ -3,6 +3,7 @@ var common  = require('../../../internals/common');
 var logger  = require('../../../internals/logger').jirabot;
 var _       = require('lodash');
 var https   = require('https');
+var Promise = require('promise');
 var Q       = require('q');
 
 

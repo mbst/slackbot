@@ -1,5 +1,5 @@
 'use strict';
-var https        = require('https');
+var https       = require('https');
 var _           = require('lodash');
 var logger      = require('../../../internals/logger').githubbot;
 var Dispatcher  = require('../../../internals/dispatcher');

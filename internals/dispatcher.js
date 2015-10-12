@@ -7,6 +7,7 @@ var Q              = require('q');
 var botUtils       = require('./utils');
 var Log            = require('./logger');
 var Slack          = require('slack-node');
+var Promise        = require('promise');
 
 var logger = Log.internals;
 var messagesLogger = Log.messages;
@@ -47,7 +48,7 @@ Dispatcher.prototype.send = function () {
   var defer = Q.defer();
   var self = this;
   
-  if (! _.isString(self.chatname) || ! self.message.length) {
+  if (! _.isString(self.chatname) || _.isEmpty(self.message)) {
     logger.error('chatname and message are both required to send a message');
     defer.reject();
     return defer.promise;
@@ -70,7 +71,7 @@ Dispatcher.prototype.send = function () {
     'attachments': _attachments
   };
   
-  if (this.options.iconEmoji.length) {
+  if ( _.isEmpty(this.options.iconEmoji)) {
     messageObject.icon_emoji = this.options.iconEmoji;
   } else {
     messageObject.icon_emoji = this.options.iconUrl;
@@ -136,6 +137,7 @@ Dispatcher.prototype.interpolate = function (/* arguments: first param is messag
     return;
   }
   var msg = arguments[0];
+  // TODO: format understands sequences
   var args = Array.prototype.slice.call(arguments, 1);
   _.forEach(args, function (str) {
     msg = util.format(msg, str);
@@ -163,7 +165,7 @@ Dispatcher.prototype.bold = function (message) {
   if (_.isString(message)) {
     this.message.push('*' + message + '*');
   } else {
-    var msg = this.message.pop() || '';
+    var msg = this.message.pop() || ''; // TODO: what if nothing is ther to pop
     this.message.push('*' + msg + '*');
   }
   return this;
@@ -185,7 +187,7 @@ Dispatcher.prototype.break = function (message) {
 
 Dispatcher.prototype.chat = function (chatName) {
   if (_.isString(chatName)) {
-    this.chatname = (chatName.indexOf('#') > -1) ? chatName : '#' + chatName;
+    this.chatname = (chatName.indexOf('#') === 0) ? chatName : '#' + chatName; // TODO: trim?
   }
   return this;
 };

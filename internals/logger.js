@@ -42,7 +42,7 @@ function Logger(logname, options) {
 //  @param content {string} what you want to be logged
 Logger.prototype.log = function (content) {
   if (botUtils.isDev()) {
-    console.log(content);
+    console.log(content); // TODO: use arguments with .call()
   } else {
     this.logger.info(content);
   }

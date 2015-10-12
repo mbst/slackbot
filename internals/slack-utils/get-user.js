@@ -1,6 +1,6 @@
-var _ = require('lodash');
-var Promise = require('promise');
+var _          = require('lodash');
 var logger     = require('../logger').internals;
+var Promise    = require('promise');
 
 module.exports = function (username) {
   var self = this;
@@ -18,11 +18,11 @@ module.exports = function (username) {
         return;
       }
       
-      var userResult = _.find(res.members, function (it) {
-        if (it.profile.first_name === username) {
+      var userResult = _.find(res.members, function (member) {
+        if (member.profile.first_name === username) {
           return true;
         }
-        if (it.name === username) {
+        if (member.name === username) {
           return true;
         }
       });

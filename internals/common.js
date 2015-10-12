@@ -16,4 +16,4 @@ module.exports =  {
       password: instance_config.jira_auth_password
     }
   }
-}
+};
