@@ -12,10 +12,8 @@ var Promise        = require('promise');
 var logger = Log.internals;
 var messagesLogger = Log.messages;
 
-console.log('HOOK', config.slack_webhook_url);
-
-var slack = new Slack(config.slack_webhook_url);
-slack.setWebhook();
+var slack = new Slack();
+slack.setWebhook(config.slack_webhook_url);
 
 
 //  The dispatcher constructor
