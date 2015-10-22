@@ -15,5 +15,13 @@ module.exports =  {
       user: instance_config.jira_auth_user,
       password: instance_config.jira_auth_password
     }
+  },
+
+  jenkins: {
+    host: instance_config.jenkins_host,
+    auth: {
+      user: instance_config.jenkins_auth_user,
+      password: instance_config.jenkins_auth_password
+    }
   }
 };

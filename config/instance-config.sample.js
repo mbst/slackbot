@@ -5,5 +5,8 @@ module.exports = {
     slack_api_token: '',
     jira_host: '',
     jira_auth_user: '',
-    jira_auth_password: ''
+    jira_auth_password: '',
+    jenkins_host: '',
+    jenkins_auth_user: '',
+    jenkins_auth_password: ''
 };
