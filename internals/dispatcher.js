@@ -71,11 +71,7 @@ Dispatcher.prototype.send = function () {
     'attachments': _attachments
   };
   
-  if ( _.isEmpty(this.options.iconEmoji)) {
-    messageObject.icon_emoji = this.options.iconEmoji;
-  } else {
-    messageObject.icon_emoji = this.options.iconUrl;
-  }
+  messageObject.icon_emoji = this.options.iconUrl;
 
   if (botUtils.isDev()) {
     logger.log(messageObject);

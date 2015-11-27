@@ -21,7 +21,7 @@ router.route('/').post( function(req, res) {
 
   var message_options = {
     username: 'Jira',
-    color: '#053663'
+    color: '#0077c3'
   };
   var message = new Dispatcher('#mb-feeds', message_options);
   message.avatar('http://i.imgur.com/nB41VgE.png');
