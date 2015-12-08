@@ -15,7 +15,6 @@ var messagesLogger = Log.messages;
 var slack = new Slack();
 slack.setWebhook(config.slack_webhook_url);
 
-
 //  The dispatcher constructor
 //
 //  Provides a way to write messages and send them to slack

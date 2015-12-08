@@ -90,6 +90,7 @@ Logger.prototype.error = function (content) {
 
 
 Logger.prototype.loggers = {
+  abed: new Logger('abed'),
   test: new Logger('test'),
   messages: new Logger('messages'),
   internals: new Logger('internals'),
