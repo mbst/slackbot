@@ -15,7 +15,6 @@ var messagesLogger = Log.messages;
 var slack = new Slack();
 slack.setWebhook(config.slack_webhook_url);
 
-
 //  The dispatcher constructor
 //
 //  Provides a way to write messages and send them to slack
@@ -71,11 +70,7 @@ Dispatcher.prototype.send = function () {
     'attachments': _attachments
   };
   
-  if ( _.isEmpty(this.options.iconEmoji)) {
-    messageObject.icon_emoji = this.options.iconEmoji;
-  } else {
-    messageObject.icon_emoji = this.options.iconUrl;
-  }
+  messageObject.icon_emoji = this.options.iconUrl;
 
   if (botUtils.isDev()) {
     logger.log(messageObject);
