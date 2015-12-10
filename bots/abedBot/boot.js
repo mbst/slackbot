@@ -9,18 +9,22 @@ var message_options = {
   color: '#ff0e0e'
 };
 
-router.route('/').get(function(req, res) {
+router.route('/').post(function(req, res) {
   
+  var body = req.body;
+  var chatName = body.channel_name;
+
+  if (chatName !== 'anything-else') return;
+
   var msg = new Dispatcher('#anything-else', message_options);
   var quote = quotes.getQuote();
   
-  msg.write(quote);
+  msg
+  	.chat(chatName)
+  	.write(quote)
+  	.avatar('http://fanaru.com/community/image/18689-community-abed-nadir-avatar.jpg')
+		.send();
 
-  msg.avatar('http://fanaru.com/community/image/18689-community-abed-nadir-avatar.jpg');
-  
-  msg.send();
-
-  res.send({'numbers': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]})
   res.end();
 });
 
