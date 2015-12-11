@@ -6,7 +6,7 @@ module.exports = {
 		'Come with me if you don\'t want paint on your clothes.',
 		'I remember when this show was about a community college.',
 		'As far back as I can remember, I always wanted to be in a Mafia movie.',
-		'We\re like Goonies, except our story tracks logically.',
+		'We\'re like Goonies, except our story tracks logically.',
 		'We\'re really filling in some plot holes here.',
 		'That man saved my life...in a video game.',
 		'This is amazing, and possible in real time!',

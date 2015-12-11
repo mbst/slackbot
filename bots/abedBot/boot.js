@@ -10,6 +10,8 @@ var message_options = {
 };
 
 router.route('/').post(function(req, res) {
+
+  logger.log(req);
   
   var body = req.body;
   var chatName = body.channel_name;
