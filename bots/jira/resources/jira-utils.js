@@ -25,10 +25,12 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
 
   // construct the response string
 
+  var action;
+
   if (taskdata.webhookEvent === 'jira:issue_updated') {
-    var action = 'updated';
+    action = 'updated';
   } else {
-    var action = 'closed';
+    action = 'closed';
   }
 
   if (_.has(taskdata, 'user')) {
