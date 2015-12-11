@@ -13,21 +13,11 @@ router.route('/').post(function(req, res) {
   
   var body = req.body;
   var chatName = body.channel_name;
-  var abedBotToken = 'EXHT0ZiHmOCsXeARN0G2iwAs';
 
-  if (chatName !== 'anything-else') {
-    logger.warn('Must be a recipient');
-    res.end();
-    return;
-  }
-
-  var quote = quotes.getQuote();
-
-  if (body.token !== abedBotToken) {
-    quote = 'invalid';
-  }
+  if (chatName !== 'anything-else') return;
 
   var msg = new Dispatcher('#anything-else', message_options);
+  var quote = quotes.getQuote();
   
   msg
   	.chat(chatName)
