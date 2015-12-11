@@ -24,11 +24,20 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   var browseURL   = 'http://jira.metabroadcast.com/browse/';
 
   // construct the response string
+
+  var action;
+
+  if (taskdata.webhookEvent === 'jira:issue_updated') {
+    action = 'updated';
+  } else {
+    action = 'closed';
+  }
+
   if (_.has(taskdata, 'user')) {
     output.push(taskdata.user.displayName);
-    output.push('closed issue');
+    output.push(action +' issue');
   } else {
-    output.push('Issue closed');
+    output.push('Issue ' + action);
   }
 
   output.push('<' + _.escape(browseURL+issue.key) + '|' + _.escape(issue.fields.summary) + '>');

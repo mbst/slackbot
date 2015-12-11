@@ -8,6 +8,7 @@ var botUtils       = require('./utils');
 var Log            = require('./logger');
 var Slack          = require('slack-node');
 var Promise        = require('promise');
+var whitelist      = require('./channel-whitelist');
 
 var logger = Log.internals;
 var messagesLogger = Log.messages;
@@ -52,6 +53,12 @@ Dispatcher.prototype.send = function () {
     defer.reject();
     return defer.promise;
   }
+
+  if (!whitelist(this.chatname)) {
+    logger.error('that channel is not on the list of allowed channels');
+    defer.reject();
+    return defer.promise;
+  }
   
   var _message = this.message.join(' ');
   var _attachments = [{
@@ -69,7 +76,7 @@ Dispatcher.prototype.send = function () {
     'username': this.options.username,
     'attachments': _attachments
   };
-  
+
   messageObject.icon_emoji = this.options.iconUrl;
 
   if (botUtils.isDev()) {
@@ -97,31 +104,52 @@ Dispatcher.prototype.send = function () {
 
 // Change the color of the output
 Dispatcher.prototype.color = function (cssColor) {
-  this.options.color = cssColor;
+
+  var isColor = function(color) {
+    if (color.charAt(0) !== '#') {
+      color = '#' + color;
+    }
+    return /^#[0-9a-fA-F]{6}$/i.test(color);
+  }
+
+  if (_.isString(cssColor) && isColor(cssColor)) {
+    this.options.color = cssColor;
+  }
+
   return this;
 };
 
 
 // Change the icon assigned to the massage
 Dispatcher.prototype.avatar = function (iconUrl) {
-  this.options.iconUrl = iconUrl;
+
+  var isImg = function(uri) {
+    return uri.match(/\.(jpeg|jpg|gif|png)$/) != null;  
+  }
+
+  if (_.isString(iconUrl) && isImg(iconUrl)) {
+    this.options.iconUrl = iconUrl;
+  }
   return this;
 };
 
 
 // Change the icon assigned to the massage to an :emoji:
 Dispatcher.prototype.emoji = function (iconEmoji) {
-  this.options.iconEmoji = iconEmoji;
+  if (_.isString(iconEmoji)) {
+    this.options.iconEmoji = iconEmoji;
+  }
   return this;
 };
 
 
 // Starts the message with @recipient name
 Dispatcher.prototype.recipient = function (username) {
-  this.message.unshift('@' + username);
+  if (_.isString(username)) {
+    this.message.unshift('@' + username);
+  }
   return this;
 };
-
 
 // For interpolating a string, printf style, then adding with this.write. Give
 // the function a string with %s flags, and it will replace them with the strings
@@ -135,7 +163,9 @@ Dispatcher.prototype.interpolate = function (/* arguments: first param is messag
   // TODO: format understands sequences
   var args = Array.prototype.slice.call(arguments, 1);
   _.forEach(args, function (str) {
-    msg = util.format(msg, str);
+    if (_.isString(str)) {
+      msg = util.format(msg, str);
+    }
   });
   this.write(msg);
   return this;
@@ -159,8 +189,8 @@ Dispatcher.prototype.bold = function (message) {
   }
   if (_.isString(message)) {
     this.message.push('*' + message + '*');
-  } else {
-    var msg = this.message.pop() || ''; // TODO: what if nothing is ther to pop
+  } else if (this.message.length > 0) {
+    var msg = this.message.pop() || '';
     this.message.push('*' + msg + '*');
   }
   return this;
@@ -182,7 +212,11 @@ Dispatcher.prototype.break = function (message) {
 
 Dispatcher.prototype.chat = function (chatName) {
   if (_.isString(chatName)) {
-    this.chatname = (chatName.indexOf('#') === 0) ? chatName : '#' + chatName; // TODO: trim?
+    if (chatName.indexOf('#') === 0) {
+      this.chatname = chatName.trim();
+    } else {
+      this.chatname = '#' + chatName.trim();
+    }
   }
   return this;
 };
