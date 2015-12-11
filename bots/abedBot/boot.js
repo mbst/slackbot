@@ -13,7 +13,7 @@ router.route('/').post(function(req, res) {
   
   var body = req.body;
   var chatName = body.channel_name;
-  const abedBotToken = 'EXHT0ZiHmOCsXeARN0G2iwAs';
+  var abedBotToken = 'EXHT0ZiHmOCsXeARN0G2iwAs';
 
   if (chatName !== 'anything-else') {
     logger.warn('Must be a recipient');
