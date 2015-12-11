@@ -11,7 +11,7 @@ var message_options = {
 
 router.route('/').post(function(req, res) {
 
-  logger.log(req);
+  logger.log(req.body);
   
   var body = req.body;
   var chatName = body.channel_name;
