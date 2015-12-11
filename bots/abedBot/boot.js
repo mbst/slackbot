@@ -13,7 +13,7 @@ router.route('/').post(function(req, res) {
   
   var body = req.body;
   var chatName = body.channel_name;
-  var abedBotToken = 'EXHT0ZiHmOCsXeARN0G2iwAs';
+  var abedBotToken = 'rUnlSEN8imMqpTcOilAheFsB';
 
   if (chatName !== 'anything-else') {
     logger.warn('Must be a recipient');
@@ -24,7 +24,9 @@ router.route('/').post(function(req, res) {
   var quote = quotes.getQuote();
 
   if (body.token !== abedBotToken) {
-    quote = 'invalid';
+    logger.warn('Invalid access token supplied.');
+    res.end();
+    return;
   }
 
   var msg = new Dispatcher('#anything-else', message_options);
