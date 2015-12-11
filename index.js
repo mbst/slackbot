@@ -11,4 +11,6 @@ bots.registerWebhook('github');
 bots.registerWebhook('bitbucket');
 bots.registerWebhook('pagerduty');
 
+bots.register('abedBot');
+
 bots.boot(common.port);
