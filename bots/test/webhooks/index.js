@@ -1,7 +1,7 @@
 'use strict';
 var webhook     = require('express').Router();
 var Dispatcher  = require('../../../internals/dispatcher');
-var hat = require('hat');
+// var hat = require('hat');
 
 var options = {
   username: 'Bot'
@@ -18,9 +18,9 @@ function(req, res) {
   res.end();
 });
 
-webhook.route('/').post(function(req, res) {
-	var id = hat();
-	console.log(id);
-	res.end();
-})
+// webhook.route('/').post(function(req, res) {
+	// var id = hat();
+	// console.log(id);
+// 	res.end();
+// })
 module.exports = webhook;
