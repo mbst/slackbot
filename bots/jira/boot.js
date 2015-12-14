@@ -11,7 +11,17 @@ var router     = express.Router();
 
 // TODO: refactor this into a single route listener, with :type attribute
 
-router.route('/').post( function(req, res) {
+var jiraToken = '2284aadb429768ab53a57660b883ff5e';
+
+router.route('/:token').post( function(req, res) {
+
+  var suppliedToken = req.params.token;
+  if (suppliedToken !== jiraToken) {
+    logger.warn('Incorrect access token provided.');
+    res.end();
+    return;
+  }
+
   var taskdata = req.body || null;
   if (_.isEmpty(taskdata)) {
     logger.warn('Taskdata object empty. Body:', req.body);
@@ -95,9 +105,17 @@ router.route('/').post( function(req, res) {
   }
 });
 
-
+var jiraSuppToken = '05ce82aaaa4a0d137b57dcb947fbab24';
 // Listen for incoming hooks from jira support
-router.route('/support').post( function(req, res) {
+router.route('/support/:token').post( function(req, res) {
+
+  var suppliedToken = req.params.token;
+  if (suppliedToken !== jiraSuppToken) {
+    logger.warn('Incorrect access token provided.');
+    res.end();
+    return;
+  }
+
   var supportdata = req.body || null;
   if (_.isEmpty(supportdata)) {
     res.end();
