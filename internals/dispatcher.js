@@ -80,9 +80,10 @@ Dispatcher.prototype.send = function () {
   messageObject.icon_emoji = this.options.iconUrl;
 
   if (botUtils.isDev()) {
-    logger.log(messageObject);
-    defer.resolve( messageObject );
-    return defer.promise;
+    messageObject['channel'] = '#testing-bots';
+    // logger.log(messageObject);
+    // defer.resolve( messageObject );
+    // return defer.promise;
   }
   
   messagesLogger.log({ 'message_body': messageObject });

@@ -16,12 +16,10 @@ router.route('/').post(function(req, res) {
   var abedBotToken = 'rUnlSEN8imMqpTcOilAheFsB';
 
   if (chatName !== 'anything-else') {
-    logger.warn('Must be a recipient');
+    logger.warn('AbedBot can only be invoked in #anything-else');
     res.end();
     return;
   }
-
-  var quote = quotes.getQuote();
 
   if (body.token !== abedBotToken) {
     logger.warn('Invalid access token supplied.');
@@ -29,6 +27,7 @@ router.route('/').post(function(req, res) {
     return;
   }
 
+  var quote = quotes.getQuote();
   var msg = new Dispatcher('#anything-else', message_options);
   
   msg

@@ -38,9 +38,16 @@ function(req, res) {
   var chatName = body.channel_name;
   var recipient = body.text; 
   var message = compliments[ Math.floor(Math.random() * compliments.length) ];
+  var loveBotToken = 'kIClkvkLTOgs06HV5Ha2Pnfi';
   
   if (! recipient) {
     logger.warn('Must be a recipient');
+    res.end();
+    return;
+  }
+
+  if (body.token !== loveBotToken) {
+    logger.warn('Invalid access token supplied.');
     res.end();
     return;
   }

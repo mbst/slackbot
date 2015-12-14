@@ -12,6 +12,7 @@ var allowedList = [
 	'#pull-requests',
 	'#support',
 	'#team-tools',
+	'#testing-bots',
 	'#user-tools',
 	'#ux',
 	'#voila',
