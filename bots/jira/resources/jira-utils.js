@@ -24,9 +24,9 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   var browseURL   = 'http://jira.metabroadcast.com/browse/';
 
   // construct the response string
-
+  
   var action = taskdata.webhookEvent.split('_');
-  if (action[1]) }
+  if (action[1]) {
     action = action[1];
   } else {
     action = 'modified';
