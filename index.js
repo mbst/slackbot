@@ -1,16 +1,16 @@
-'use strict';
-var common     = require('./internals/common');
-var Loader     = require('./internals/bot-loader');
-var bots       = new Loader();
+var forever = require('forever-monitor');
+var MAX_RETRIES = 10;
 
-// Load all the bots
-bots.register('test');
-bots.register('jira');
-bots.register('jenkins');
-bots.registerWebhook('github');
-bots.registerWebhook('bitbucket');
-bots.registerWebhook('pagerduty');
+var node = new(forever.Monitor)('app.js', {
+  // 32 bit int max
+  max: MAX_RETRIES,
+  minUpTime: 10000,
+  spinSleepTime: 10000,
+  killTree: true
+});
 
-bots.register('abedBot');
+node.on('exit', function() {
+  console.log('API server died after ' + MAX_RETRIES + ' restarts');
+});
 
-bots.boot(common.port);
+node.start();
