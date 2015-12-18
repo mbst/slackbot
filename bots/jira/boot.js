@@ -69,10 +69,12 @@ router.route('/:token').post( function(req, res) {
       }
       
       var chatname = jira.getChatFromComponent(featuredata.fields.components);
+
       message.chat(chatname)
-             .write(response)
-             .send();
-      res.end();
+        .write(response)
+        .send();
+      res.end(); 
+      
     }, 
     function(err) {
       if (err) {
@@ -89,7 +91,12 @@ router.route('/:token').post( function(req, res) {
     } else {
       var components = taskdata.issue.fields.components ? taskdata.issue.fields.components : null;
       var chatname = jira.getChatFromComponent(components);
-      message.chat( chatname );
+
+      if (taskdata.issue.key == 'MBST-13547') {
+        message.chat( '#testing-bots' );
+      } else {
+        message.chat( chatname );
+      }
     }
     
     var response = jiraUtils.formatter(taskdata);
