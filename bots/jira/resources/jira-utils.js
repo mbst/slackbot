@@ -31,13 +31,13 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   } else {
     action = 'modified';
   }
-  
+
   try {
     if (action === 'updated' && taskdata.changelog.items[0].toString === 'Resolved') {
       action = 'resolved';
     }
   } catch(e) {
-
+    logger.log(' could not find toString ');
   }
 
   if (_.has(taskdata, 'user')) {
