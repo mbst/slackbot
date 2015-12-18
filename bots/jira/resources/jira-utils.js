@@ -33,9 +33,10 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   }
 
   try {
-    if (action === 'updated' && taskdata.changelog.items[0].toString === 'Resolved') {
+    if (action === 'updated' && taskdata.changelog.items[0]['toString'] === 'Resolved') {
       action = 'resolved';
     }
+    logger.log(taskdata.changelog.items[0]['toString'])
   } catch(e) {
     logger.log(' could not find toString ');
   }
