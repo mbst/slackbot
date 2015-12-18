@@ -33,12 +33,11 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   }
 
   try {
-    // if (action === 'updated' && taskdata.changelog.items[0]['toString'] === 'Resolved') {
-    //   action = 'resolved';
-    // }
-    action += ' ' + taskdata.changelog.items[0]['toString'];
+    if (action === 'updated' && taskdata.changelog.items[0]['toString'] === 'Resolved') {
+      action = 'resolved';
+    }
   } catch(e) {
-    action = 'caught error - testing'
+
   }
 
   if (_.has(taskdata, 'user')) {
