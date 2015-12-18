@@ -32,14 +32,14 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
     action = 'modified';
   }
 
-  try {
-    // if (action === 'updated' && taskdata.changelog.items[0]['toString'] === 'Resolved') {
-    //   action = 'resolved';
-    // }
-    action = taskdata.changelog.items[0]['toString'];
-  } catch(e) {
-    // action = 'error';
-  }
+  // try {
+  //   // if (action === 'updated' && taskdata.changelog.items[0]['toString'] === 'Resolved') {
+  //   //   action = 'resolved';
+  //   // }
+  //   action = taskdata.changelog.items[0]['toString'];
+  // } catch(e) {
+  //   action = 'error';
+  // }
 
   if (_.has(taskdata, 'user')) {
     output.push(taskdata.user.displayName);
