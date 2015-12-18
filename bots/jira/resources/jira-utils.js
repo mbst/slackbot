@@ -33,12 +33,12 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
   }
 
   try {
-    if (action === 'updated' && taskdata.changelog.items[0]['toString'] === 'Resolved') {
-      action = 'resolved';
-    }
-    logger.log(taskdata.changelog.items[0]['toString'])
+    // if (action === 'updated' && taskdata.changelog.items[0]['toString'] === 'Resolved') {
+    //   action = 'resolved';
+    // }
+    action += ' ' + taskdata.changelog.items[0]['toString'];
   } catch(e) {
-    logger.log(' could not find toString ');
+    action = 'caught error - testing'
   }
 
   if (_.has(taskdata, 'user')) {
