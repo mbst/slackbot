@@ -34,11 +34,15 @@ module.exports.formatter = function formatter (taskdata, featuredata) {
 
   try {
     if (action === 'updated') {
-      var toString = taskdata.changelog.items[0]['toString'];
-      if (toString === 'Resolved') {
-        action = 'resolved';
-      } else if (toString === 'Closed') {
-        action = 'closed';
+      for (var i = 0; i < taskdata.changelog.items.length; i++) {
+        // search for the correct change log item to get accurate action text
+        if (taskdata.changelog.items[i].field === 'status') {
+          var actionString = taskdata.changelog.items[i]['toString'];
+          if (actionString === 'Resolved' || actionString === 'Closed') {
+            action = actionString.toLowerCase();
+          }
+          break;
+        }
       }
     }
   } catch(e) {

@@ -6,7 +6,7 @@ var Dispatcher = require('../../internals/dispatcher');
 var Jira       = require('./resources/jira-service');
 var jiraUtils  = require('./resources/jira-utils');
 var commands   = require('./commands');
-var util       = require('util');
+// var util       = require('util'); // for debug
 
 var router     = express.Router();
 
@@ -30,7 +30,7 @@ router.route('/:token').post( function(req, res) {
     return;
   }
 
-  console.log(util.inspect(taskdata, false, null));
+  // console.log(util.inspect(taskdata, false, null)); // for debug
 
   var message_options = {
     username: 'Jira',
