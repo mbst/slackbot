@@ -11,6 +11,21 @@ var message_options = {
 
 var channel = '#testing-bots';
 
+router.route('/:token').get(function(req, res) {
+  var healthbotToken = 'gK7hDUrWSNzMyCQXVpmnZSDS';
+  var suppliedToken = req.params.token;
+  if (suppliedToken !== healthbotToken) {
+    logger.warn('Incorrect access token provided.');
+    res.end();
+    return;
+  }
+
+  res.send({
+    'status': 'Good'
+  });
+
+});
+
 router.route('/').post(function(req, res) {
 
   var body = req.body;
