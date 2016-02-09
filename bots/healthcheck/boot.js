@@ -1,6 +1,7 @@
 'use strict';
 var router = require('express').Router();
 var Dispatcher = require('../../internals/dispatcher');
+var logger  = require('../.././internals/logger').healthcheck;
 var moment = require('moment');
 
 var message_options = {
@@ -13,7 +14,7 @@ var channel = '#testing-bots';
 router.route('/').post(function(req, res) {
 
   var body = req.body;
-  var healthbotToken = 'eV03fse45Zw6YUjijHFgcD1p';
+  var healthbotToken = 'IZXIWDTrQBldpQFzJbJccDPM';
 
   if (body.token !== healthbotToken) {
     logger.warn('Invalid access token supplied.');
@@ -27,11 +28,10 @@ router.route('/').post(function(req, res) {
   msg
     .chat(channel)
     .write('(' + time + ') - Slackbot is OK!')
-    .a()
     .avatar('http://4.bp.blogspot.com/-rrTvc825Oe0/Tw1rc1VTrcI/AAAAAAAAAEM/VV6uDl4LJR8/s200/Plus_Sign_Green.jpg')
     .send();
 
   res.end();
 });
 
-module.exports = { webhook: router };
+module.exports = { command: router };
