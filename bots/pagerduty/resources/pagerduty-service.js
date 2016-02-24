@@ -47,8 +47,12 @@ module.exports.sendMessage = function sendMessage (message_obj) {
 
     var _type               = message_obj.type;
     var _incident           = message_obj.data.incident;
-    var _incident_name      = _incident.trigger_summary_data.description;
+    var _incident_name      = _incident.trigger_summary_data.description || 'incident';
     var _incident_number    = _incident.incident_number || '';
+  
+    if (!_incident_name) {
+      logger.log(_incident);
+    }
 
     // determine which type of message to send
     // TODO: more explicit in every action whether true / false
