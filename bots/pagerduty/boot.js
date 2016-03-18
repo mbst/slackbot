@@ -9,8 +9,6 @@ var token = 'c5879b78018f944ed3abfecf9bec88bc';
 
 router.post('/:token', function(req, res) {
 
-  logger.log(req.body);
-
 	var suppliedToken = req.params.token;
 	if (suppliedToken !== token) {
     logger.warn('Incorrect access token provided.');
