@@ -1,8 +1,36 @@
 'use strict';
+
+var request    = require('request');
 var _          = require('lodash');
 var Dispatcher = require('../../../internals/dispatcher');
 var logger     = require('../../../internals/logger').pagerdutybot;
+var pdApiKey   = require('../../../config/instance-config.js').pagerduty_api_key;
+var Promise    = require('promise');
 
+
+var getDetails = function (url) {
+
+  return new Promise(function (resolve, reject) {
+    var id = url.substr(url.lastIndexOf('/') + 1);
+    var options = {
+      url: 'https://mbst.pagerduty.com/api/v1/log_entries/' + id + '?include[]=channel',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Token token='+ pdApiKey
+      }
+    };
+
+    request(options, function (error, response, body) {
+      if(!error){
+        var data = JSON.parse(body);
+        var url = data.log_entry.channel.details.match(/(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
+        resolve(url);
+      } else {
+        reject();
+      }
+    });
+  });
+};
 
 //  Used for parsing the incoming request
 //
@@ -48,41 +76,57 @@ module.exports.sendMessage = function sendMessage (message_obj) {
     var _type               = message_obj.type;
     var _incident           = message_obj.data.incident;
     var _incident_name      = _incident.trigger_summary_data.description || 'incident';
+    var _incident_details   = _incident.trigger_summary_data.details || 'deets';
     var _incident_number    = _incident.incident_number || '';
-  
+
     if (!_incident_name) {
       logger.log(_incident);
     }
 
-    // determine which type of message to send
-    // TODO: more explicit in every action whether true / false
-    if (_type.match(/\.trigger/i)) {
-      message.bold('Triggered:')
-             .link(_incident_name, _incident.html_url)
-             .write('#'+_incident_number)
-             .color(colors.triggered);
-    } else if (_type.match(/\.acknowledge/i)) {
-      message.bold('Acknowledged:')
-             .link(_incident_name, _incident.html_url)
-             .write('#'+_incident_number)
-             .color(colors.acknowledged);
-    } else if (_type.match(/\.resolve/i)) {
-      message.bold('Resolved:')
-             .link(_incident_name, _incident.html_url)
-             .write('#'+_incident_number);
-     } else {
-       logger.log({'not_sent': JSON.stringify(message_obj)});
-       return;
-     }
+    getDetails(_incident.trigger_details_html_url).then(function(details) {
+      var _incident_docs_link = details;
 
-     var userName;
-    if (_.has(_incident, 'resolved_by_user')) {
-      userName = _.has(_incident.resolved_by_user, 'name') ? _incident.resolved_by_user.name : '';
-      message.interpolate('resolved by: %s', userName);
-    } else if (_.has(_incident, 'assigned_to_user')) {
-      userName = _.has(_incident.assigned_to_user, 'name') ? _incident.assigned_to_user.name : '';
-      message.interpolate('assigned to: %s', userName);
-    }
+      logger.log(_incident_docs_link);
 
-    message.send();
+      // determine which type of message to send
+      // TODO: more explicit in every action whether true / false
+      if (_type.match(/\.trigger/i)) {
+        message.bold('Triggered:')
+               .link(_incident_name, _incident.html_url)
+               .break()
+               .write('#'+_incident_number)
+               .break()
+               .link('View Confluence Docs', _incident_docs_link)
+               .break()
+               .color(colors.triggered);
+      } else if (_type.match(/\.acknowledge/i)) {
+        message.bold('Acknowledged:')
+               .link(_incident_name, _incident.html_url)
+               .break()
+               .bold('Incident number:')
+               .write('#'+_incident_number)
+               .break()
+               .link('View Confluence Docs', _incident_docs_link)
+               .break()
+               .color(colors.acknowledged);
+      } else if (_type.match(/\.resolve/i)) {
+        message.bold('Resolved:')
+               .link(_incident_name, _incident.html_url)
+               .write('#'+_incident_number);
+      } else {
+        logger.log({'not_sent': JSON.stringify(message_obj)});
+        return;
+      }
+
+      var userName;
+      if (_.has(_incident, 'resolved_by_user')) {
+        userName = _.has(_incident.resolved_by_user, 'name') ? _incident.resolved_by_user.name : '';
+        message.interpolate('*Resolved by:* %s', userName);
+      } else if (_.has(_incident, 'assigned_to_user')) {
+        userName = _.has(_incident.assigned_to_user, 'name') ? _incident.assigned_to_user.name : '';
+        message.interpolate('*Assigned to:* %s', userName);
+      }
+
+      message.send();
+    });
 };
