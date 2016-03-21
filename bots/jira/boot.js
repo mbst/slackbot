@@ -12,7 +12,7 @@ var router     = express.Router();
 
 // TODO: refactor this into a single route listener, with :type attribute
 
-var jiraToken = '2284aadb429768ab53a57660b883ff5e';
+var jiraToken = require('../../config/instance-config.js').tokens.jira;
 
 router.route('/:token').post( function(req, res) {
 
@@ -108,7 +108,7 @@ router.route('/:token').post( function(req, res) {
   }
 });
 
-var jiraSuppToken = '05ce82aaaa4a0d137b57dcb947fbab24';
+var jiraSuppToken = require('../../config/instance-config.js').tokens.jiraSupport;
 // Listen for incoming hooks from jira support
 router.route('/support/:token').post( function(req, res) {
 

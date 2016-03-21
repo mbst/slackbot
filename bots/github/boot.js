@@ -5,7 +5,7 @@ var githubUtils = require('./resources/github-utils');
 
 var router = express.Router();
 
-var token = 'a767697b9087bfa67dfc0fcb4d60ead7';
+var token = require('../../config/instance-config.js').tokens.github;
 
 router.route('/:token').post(function(req, res) {
 
