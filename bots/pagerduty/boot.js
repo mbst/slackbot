@@ -5,7 +5,7 @@ var logger     = require('../../internals/logger').pagerdutybot;
 
 var router     = express.Router();
 
-var token = 'c5879b78018f944ed3abfecf9bec88bc';
+var token = require('../../config/instance-config.js').tokens.pagerduty;
 
 router.post('/:token', function(req, res) {
 

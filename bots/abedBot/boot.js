@@ -13,7 +13,7 @@ router.route('/').post(function(req, res) {
   
   var body = req.body;
   var chatName = body.channel_name;
-  var abedBotToken = 'rUnlSEN8imMqpTcOilAheFsB';
+  var token = require('../../config/instance-config.js').tokens.abed;
 
   if (chatName !== 'anything-else') {
     logger.warn('AbedBot can only be invoked in #anything-else');
@@ -21,7 +21,7 @@ router.route('/').post(function(req, res) {
     return;
   }
 
-  if (body.token !== abedBotToken) {
+  if (body.token !== token) {
     logger.warn('Invalid access token supplied.');
     res.end();
     return;
