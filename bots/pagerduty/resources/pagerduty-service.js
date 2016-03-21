@@ -23,7 +23,7 @@ var getDetails = function (url) {
     request(options, function (error, response, body) {
       if(!error){
         var data = JSON.parse(body);
-        var url = data.log_entry.channel.details.match(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
+        var url = data.log_entry.channel.details.match(/(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
         resolve(url);
       } else {
         reject();
