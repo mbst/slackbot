@@ -32,7 +32,7 @@ var options = {
 };
 
 // a test endpoint, just because its fun ;)
-command.route('/').post(
+command.route('/:token').post(
 function(req, res) {  
   var body = req.body || {};
   var chatName = body.channel_name;
@@ -46,7 +46,7 @@ function(req, res) {
     return;
   }
 
-  if (body.token !== token) {
+  if (req.params.token !== token) {
     logger.warn('Invalid access token supplied.');
     res.end();
     return;
