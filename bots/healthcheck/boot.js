@@ -26,12 +26,12 @@ router.route('/:token').get(function(req, res) {
 
 });
 
-router.route('/').post(function(req, res) {
+router.route('/:token').post(function(req, res) {
 
   var body = req.body;
   var token = require('../../config/instance-config.js').tokens.healthcheck;
 
-  if (body.token !== token) {
+  if (req.params.token !== token) {
     logger.warn('Invalid access token supplied.');
     res.end();
     return;
