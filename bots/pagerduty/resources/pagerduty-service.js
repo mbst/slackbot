@@ -86,7 +86,7 @@ module.exports.sendMessage = function sendMessage (message_obj) {
     getDetails(_incident.trigger_details_html_url).then(function(details) {
       var _incident_docs_link = details;
 
-      logger.log(_incident_docs_link);
+      _incident_name = _incident_name.replace(/(\r\n|\n|\r)/gm,"");
 
       // determine which type of message to send
       // TODO: more explicit in every action whether true / false
