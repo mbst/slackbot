@@ -86,7 +86,7 @@ module.exports.sendMessage = function sendMessage (message_obj) {
     getDetails(_incident.trigger_details_html_url).then(function(details) {
       var _incident_docs_link = details;
 
-      logger.log(_incident_docs_link);
+      _incident_name = _incident_name.replace(/(\r\n|\n|\r)/gm,"");
 
       // determine which type of message to send
       // TODO: more explicit in every action whether true / false
@@ -94,6 +94,7 @@ module.exports.sendMessage = function sendMessage (message_obj) {
         message.bold('Triggered:')
                .link(_incident_name, _incident.html_url)
                .break()
+               .bold('Incident number:')
                .write('#'+_incident_number)
                .break()
                .link('View Confluence Docs', _incident_docs_link)
@@ -112,7 +113,10 @@ module.exports.sendMessage = function sendMessage (message_obj) {
       } else if (_type.match(/\.resolve/i)) {
         message.bold('Resolved:')
                .link(_incident_name, _incident.html_url)
-               .write('#'+_incident_number);
+               .break()
+               .bold('Incident number:')
+               .write('#'+_incident_number)
+               .break();
       } else {
         logger.log({'not_sent': JSON.stringify(message_obj)});
         return;
