@@ -10,8 +10,11 @@ var Promise    = require('promise');
 
 var getDetails = function (url) {
 
+
+
   return new Promise(function (resolve, reject) {
     var id = url.substr(url.lastIndexOf('/') + 1);
+
     var options = {
       url: 'https://mbst.pagerduty.com/api/v1/log_entries/' + id + '?include[]=channel',
       headers: {
@@ -23,12 +26,19 @@ var getDetails = function (url) {
     request(options, function (error, response, body) {
       if(!error){
         var data = JSON.parse(body);
-        var url = data.log_entry.channel.details.match(/(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
-        resolve(url);
+
+        if(data.error){
+          resolve(null);
+        } else {
+          var url = data.log_entry.channel.details.match(/(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
+          resolve(url);
+        }
+
       } else {
         reject();
       }
     });
+
   });
 };
 
@@ -91,15 +101,19 @@ module.exports.sendMessage = function sendMessage (message_obj) {
       // determine which type of message to send
       // TODO: more explicit in every action whether true / false
       if (_type.match(/\.trigger/i)) {
-        message.bold('Triggered:')
+
+          message.bold('Triggered:')
                .link(_incident_name, _incident.html_url)
                .break()
                .bold('Incident number:')
                .write('#'+_incident_number)
                .break()
-               .link('View Confluence Docs', _incident_docs_link)
-               .break()
                .color(colors.triggered);
+
+          if(_incident_docs_link){
+            message.link('View Confluence Docs', _incident_docs_link).break();
+          }
+
       } else if (_type.match(/\.acknowledge/i)) {
         message.bold('Acknowledged:')
                .link(_incident_name, _incident.html_url)
@@ -107,9 +121,12 @@ module.exports.sendMessage = function sendMessage (message_obj) {
                .bold('Incident number:')
                .write('#'+_incident_number)
                .break()
-               .link('View Confluence Docs', _incident_docs_link)
-               .break()
                .color(colors.acknowledged);
+
+          if(_incident_docs_link){
+              message.link('View Confluence Docs', _incident_docs_link).break();
+          }
+
       } else if (_type.match(/\.resolve/i)) {
         message.bold('Resolved:')
                .link(_incident_name, _incident.html_url)
