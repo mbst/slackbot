@@ -10,8 +10,6 @@ var Promise    = require('promise');
 
 var getDetails = function (url) {
 
-
-
   return new Promise(function (resolve, reject) {
     var id = url.substr(url.lastIndexOf('/') + 1);
 
