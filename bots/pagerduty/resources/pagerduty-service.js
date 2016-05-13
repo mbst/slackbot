@@ -28,8 +28,15 @@ var getDetails = function (url) {
         if(data.error){
           resolve(null);
         } else {
-          var url = data.log_entry.channel.details.match(/(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
-          resolve(url);
+          try {
+            var url = data.log_entry.channel.details.match(/(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
+            resolve(url);
+          } catch (e) {
+            // not a recovery option - this is to debug the error being caused on this line
+            console.warn(data.log_entry.channel.details);
+            console.warn(e);
+            throw e;
+          }
         }
 
       } else {
