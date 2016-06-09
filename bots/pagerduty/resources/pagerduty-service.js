@@ -22,21 +22,26 @@ var getDetails = function (url) {
     };
 
     request(options, function (error, response, body) {
+
       if(!error){
         var data = JSON.parse(body);
 
-        if(data.error){
+        if (data.error) {
+
           resolve(null);
+
         } else {
-          try {
+
+          if (_.isString(data.log_entry.channel.details)) {
             var url = data.log_entry.channel.details.match(/(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig);
             resolve(url);
-          } catch (e) {
-            // not a recovery option - this is to debug the error being caused on this line
-            console.warn(data.log_entry.channel.details);
-            console.warn(e);
-            throw e;
+            return;
           }
+
+          logger.log({
+            'expected_string': data.log_entry.channel.details
+          });
+          resolve(null);
         }
 
       } else {
