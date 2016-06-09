@@ -38,6 +38,9 @@ var getDetails = function (url) {
             return;
           }
 
+          logger.log({
+            'expected_string': data.log_entry.channel.details
+          });
           resolve(null);
         }
 
