@@ -36,12 +36,15 @@ function Logger(logname, options) {
   self.logger = log;
 }
 
+var argv = require('minimist')(process.argv.slice(2));
 
 //  for writing normally to the log. uses bunyan info
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.log = function (content) {
   if (botUtils.isDev()) {
+    console.log(content); // TODO: use arguments with .call()
+  } else if (argv.logger === 'console') {
     console.log(content); // TODO: use arguments with .call()
   } else {
     this.logger.info(content);
