@@ -45,7 +45,7 @@ Logger.prototype.log = function (content) {
   if (botUtils.isDev()) {
     console.log(content); // TODO: use arguments with .call()
   } else if (argv.logger === 'console') {
-    console.log(content); // TODO: use arguments with .call()
+    console.log(content);
   } else {
     this.logger.info(content);
   }
@@ -74,6 +74,8 @@ Logger.prototype.console = function (content) {
 Logger.prototype.warn = function (content) {
   if (botUtils.isDev()) {
     console.warn(content);
+  } else if (argv.logger === 'console') {
+    console.log(content);
   } else {
     this.logger.warn(content);
   }
@@ -86,6 +88,8 @@ Logger.prototype.warn = function (content) {
 Logger.prototype.error = function (content) {
   if (botUtils.isDev()) {
     console.error(content);
+  } else if (argv.logger === 'console') {
+    console.log(content);
   } else {
     this.logger.error(content);
   }
