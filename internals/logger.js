@@ -18,6 +18,9 @@ var LOGS_PATH = __dirname + '/../logs/';
 //  bunyan to do most of the hard work
 //
 //  @param logname {string} name of the log file that will be saved in /logs
+
+var argv = require('minimist')(process.argv.slice(2));
+
 function Logger(logname, options) {
   options = _.isObject(options) ? options : {};
   var self = this;
@@ -33,15 +36,16 @@ function Logger(logname, options) {
   }, options);
 
   var log = bunyan.createLogger( logConfig );
+
+  self.useConsole = (botUtils.isDev() || argv.logger === 'console');
   self.logger = log;
 }
-
 
 //  for writing normally to the log. uses bunyan info
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.log = function (content) {
-  if (botUtils.isDev()) {
+  if (this.useConsole) {
     console.log(content); // TODO: use arguments with .call()
   } else {
     this.logger.info(content);
@@ -53,7 +57,7 @@ Logger.prototype.log = function (content) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.dev = function (content) {
-  if (! botUtils.isDev()) {
+  if (!this.useConsole) {
     return;
   }
   this.console(content);
@@ -69,7 +73,7 @@ Logger.prototype.console = function (content) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.warn = function (content) {
-  if (botUtils.isDev()) {
+  if (this.useConsole) {
     console.warn(content);
   } else {
     this.logger.warn(content);
@@ -81,7 +85,7 @@ Logger.prototype.warn = function (content) {
 //
 //  @param content {string} what you want to be logged
 Logger.prototype.error = function (content) {
-  if (botUtils.isDev()) {
+  if (this.useConsole) {
     console.error(content);
   } else {
     this.logger.error(content);
