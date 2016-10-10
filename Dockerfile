@@ -1,5 +1,9 @@
 FROM node:latest
 
+RUN groupadd -g 1000 nonrootuser \
+  && useradd -d "/home/nonrootuser" -u 1000 -g 1000 -m -s /bin/bash nonrootuser
+USER nonrootuser
+
 ADD . /usr/local/node
 
 WORKDIR /usr/local/node
